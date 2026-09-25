@@ -4,11 +4,9 @@
 
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
-<!-- Add the render to docs/img/ and uncomment:
-![Ionos SDR mini v0.4 — ESP32-S3 DevKitC, 2.4" TFT, 0.96" OLED, six buttons and an EFR32FG23 radio board on the mezzanine socket](docs/img/mini_v04_top.png)
+![Ionos SDR mini v0.4 render: ESP32-S3 DevKitC, 2.4 inch TFT, 0.96 inch OLED, six buttons and an EFR32FG23 radio board on the mezzanine socket](docs/img/fg23_big_screen.png)
 
-*Render of the v0.4 layout: DevKitC on headers, optional ER-TFTM024-3 TFT, optional SSD1306 OLED, cursor keys with BACK/OK, and the EFR32FG23 radio board (BRD4265B) on the right.*
--->
+*Design study of the v0.4 layout: DevKitC on headers, optional ER-TFTM024-3 TFT, optional SSD1306 OLED, cursor keys with BACK/OK, and the EFR32FG23 radio board (BRD4265B) on the right.*
 
 **Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
 
