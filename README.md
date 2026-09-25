@@ -1,5 +1,7 @@
 # Ionos SDR mini
 
+![Ionos SDR mini](docs/img/banner.png)
+
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
 <!-- Add the render to docs/img/ and uncomment:
