@@ -66,4 +66,4 @@ Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr):
 
 Hardware under CERN-OHL-P-2.0, documentation under CC-BY-4.0. Not affiliated with IONOS SE or Silicon Laboratories; EFR32, Simplicity Studio and the WSTK radio board interface are Silicon Labs property, used here for interoperability only.
 
-Zoltan Doczi, HA7DCD — Budapest. RTL-SDR Blog V3 co-designer, KrakenSDR co-creator, TAPR QRPi designer.
+Designed by Zoltán Dóczi and Zoltán Papp at [Z2 Labs](https://www.z2labs.io/), Budapest.
