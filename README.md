@@ -20,7 +20,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ## Architecture
 
-![System architecture: Silicon Labs radio board on a mezzanine socket, ESP32-S3 DevKitC carrier with LDO, buttons, optional TFT and OLED, USB or WiFi to the host](docs/img/architecture.svg)
+![System architecture: Silicon Labs radio board on a mezzanine socket, ESP32-S3 DevKitC carrier with LDO, buttons, optional TFT and OLED, USB or WiFi to the host](docs/img/architecture-diagram.svg)
 
 - **RX**: FG23 I/Q capture and server-side FFT lines over SPI2 (IO_MUX) to the ESP32-S3, then to the host or to the on-board display.
 - **Control**: RDY handshake and a UART command link; SWD is bit-banged by the ESP32 so a blank panel can be programmed with nothing but this board.
