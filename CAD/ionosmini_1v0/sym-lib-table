@@ -1,0 +1,4 @@
+(sym_lib_table
+    (version 7)
+    (lib (name "ionosSDR_mini") (type "KiCad") (uri "${KIPRJMOD}/ionosSDR_mini.kicad_sym") (options "") (descr ""))
+)
