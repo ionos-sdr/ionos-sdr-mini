@@ -16546,6 +16546,102 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "rpw_lib:3V3"
+			(power global)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#SUPPLY"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "3V3"
+				(at -0.127 3.048 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.778 1.5113)
+					)
+					(justify bottom)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "SUPPLY SYMBOL  3.3 Volt (3V3) Bar"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "3V3_1_0"
+				(polyline
+					(pts
+						(xy 1.905 2.54) (xy -1.905 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin power_in line
+					(at 0 0 90)
+					(length 2.54)
+					(name "3V3"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "rpw_lib:GND"
 			(power global)
 			(exclude_from_sim no)
@@ -16866,28 +16962,594 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at -1.778 2.286 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.778 1.5113)
+					)
+				)
+			)
+			(property "Value" "0R"
+				(at 0 -2.032 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "rpw_lib:RESC1005X40_0402"
+				(at 0 -4.572 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+				(at 0 -10.922 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+				(at -0.762 -12.954 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER1" "Mouser"
+				(at 0.508 -25.4 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+				(at -0.508 -23.876 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN" "CRCW04020000Z0EDC"
+				(at -0.508 -17.018 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN2" "RC0402FR-070RL"
+				(at -0.254 -14.986 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN3" "RC0402JR-070RL"
+				(at -0.254 -6.858 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN4" "WR04X000PTL"
+				(at -1.778 -21.59 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN5" "CR10-000-ZK"
+				(at -0.254 -9.144 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SPECS" "0R/0402/1%"
+				(at -1.778 -19.558 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER2" "LCSC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER_PART_NUMBER2" "C844710"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0R_JUMPER_0402(1005-METRIC)_1_0"
+				(polyline
+					(pts
+						(xy -2.54 -0.889) (xy -2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -0.889) (xy 2.54 -0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0.889) (xy -2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -0.889) (xy 2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rpw_resistors:R_4.7K_5%_0402(1005-METRIC)"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.778 1.5113)
+					)
+				)
+			)
+			(property "Value" "4.7k"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.778 1.5113)
+					)
+				)
+			)
+			(property "Footprint" "rpw_lib:RESC1005X40_0402"
+				(at 0 -7.874 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://eu.mouser.com/datasheet/2/54/cr_a_as-1858644.pdf"
+				(at -1.016 -17.526 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor Fixed - Generic"
+				(at -0.508 -9.906 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER1" "Mouser"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER_PART_NUMBER1" "652-CR0402AJW-472GAS"
+				(at -0.508 -13.716 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN" "CR0402AJW-472GAS"
+				(at 0 -11.938 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN2" "CR0402-JW-472GLF"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER3" "LCSC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SUPPLIER_PART_NUMBER3" "C3017492"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "MPN3" "SCR0402J4K7"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SPECS" "4.7k/5%/0402"
+				(at 0 -15.748 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_4.7K_5%_0402(1005-METRIC)_1_0"
+				(polyline
+					(pts
+						(xy -2.54 -0.889) (xy -2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -0.889) (xy 2.54 -0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0.889) (xy -2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -0.889) (xy 2.54 0.889)
+					)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(junction
-		(at 68.58 93.98)
+		(at 142.24 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2e4b6070-5ad6-4dce-8970-1011878b3e16")
+	)
+	(junction
+		(at 87.63 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3cf889be-0c82-4e29-b0fc-e27df627f93a")
 	)
 	(junction
-		(at 68.58 88.9)
+		(at 139.7 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6dede91c-ccff-469c-ac4f-d59a0eea1a69")
+	)
+	(junction
+		(at 87.63 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7980acfe-6920-4811-bd4a-3da985e4c6f6")
 	)
 	(junction
-		(at 68.58 91.44)
+		(at 111.76 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d99430c0-a619-477e-a5ae-a26a6287daea")
+	)
+	(junction
+		(at 87.63 78.74)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ea0af33a-6335-4bc7-a5bd-6ec3a9b40800")
 	)
+	(junction
+		(at 193.04 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f97ab7b5-f47d-4c06-8634-b6177f963a08")
+	)
 	(wire
 		(pts
-			(xy 66.04 88.9) (xy 68.58 88.9)
+			(xy 33.02 66.04) (xy 33.02 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0042ee17-e7ec-44d8-b5a2-d2f5ccfe73a1")
+	)
+	(wire
+		(pts
+			(xy 41.91 76.2) (xy 44.45 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0149b5e5-8f4a-4a76-9c9e-2c5a8fbf81f8")
+	)
+	(wire
+		(pts
+			(xy 85.09 48.26) (xy 87.63 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "016fcdd9-edb3-49ef-88e2-245256ffc0dc")
+	)
+	(wire
+		(pts
+			(xy 33.02 63.5) (xy 33.02 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06e901a4-28ce-4ea8-9a85-7cd45538a4bb")
+	)
+	(wire
+		(pts
+			(xy 181.61 53.34) (xy 195.58 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "073115be-8205-4df2-8b5f-24bb6c478c97")
+	)
+	(wire
+		(pts
+			(xy 85.09 76.2) (xy 87.63 76.2)
 		)
 		(stroke
 			(width 0)
@@ -16897,7 +17559,137 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 86.36) (xy 68.58 86.36)
+			(xy 111.76 83.82) (xy 109.22 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b6232cd-3a39-4c5d-ac40-7770bf273bf7")
+	)
+	(wire
+		(pts
+			(xy 114.3 86.36) (xy 111.76 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ba58743-338f-411c-bc38-b6941e9a23f7")
+	)
+	(wire
+		(pts
+			(xy 184.15 50.8) (xy 184.15 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0cc518bc-ce56-4dd5-9b1f-ede21ef070a7")
+	)
+	(wire
+		(pts
+			(xy 144.78 68.58) (xy 144.78 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1014867c-5650-477e-b1a3-d59304d14c49")
+	)
+	(wire
+		(pts
+			(xy 193.04 38.1) (xy 193.04 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "112df6f2-d9df-4520-b640-98f793d04828")
+	)
+	(wire
+		(pts
+			(xy 85.09 66.04) (xy 87.63 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12c7360a-a3b1-452d-ab13-4a1b2838105b")
+	)
+	(wire
+		(pts
+			(xy 184.15 50.8) (xy 195.58 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "13ae5930-9b76-46fe-aec8-b9451447c3ef")
+	)
+	(wire
+		(pts
+			(xy 33.02 64.77) (xy 30.48 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2182a7d0-f184-44d1-afd6-19dd6e33a4e1")
+	)
+	(wire
+		(pts
+			(xy 186.69 48.26) (xy 195.58 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22ae072d-664f-44fa-bc0e-96589fdf3194")
+	)
+	(wire
+		(pts
+			(xy 85.09 45.72) (xy 87.63 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2713ff3e-8643-4b74-88d8-3c57940a4648")
+	)
+	(wire
+		(pts
+			(xy 153.67 38.1) (xy 153.67 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29b5d751-8f7e-408c-ae43-d8060ffc1d18")
+	)
+	(wire
+		(pts
+			(xy 139.7 88.9) (xy 153.67 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a2d0069-ba95-4ea9-8416-b029696f0b63")
+	)
+	(wire
+		(pts
+			(xy 218.44 38.1) (xy 223.52 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ce7bfef-72ba-44a0-91e5-b142c6d4f12a")
+	)
+	(wire
+		(pts
+			(xy 85.09 73.66) (xy 87.63 73.66)
 		)
 		(stroke
 			(width 0)
@@ -16907,7 +17699,267 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 93.98) (xy 68.58 101.6)
+			(xy 137.16 38.1) (xy 153.67 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fb2f6c7-941a-4205-8792-e0e751f54bf4")
+	)
+	(wire
+		(pts
+			(xy 179.07 55.88) (xy 195.58 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ffdb530-2369-427c-86fb-b0dd88ebdf5f")
+	)
+	(wire
+		(pts
+			(xy 85.09 55.88) (xy 87.63 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "308957ed-8331-4dbd-8273-4f92f49e0fc8")
+	)
+	(wire
+		(pts
+			(xy 41.91 45.72) (xy 44.45 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31946c67-c711-49bb-be66-22092b2ed20d")
+	)
+	(wire
+		(pts
+			(xy 41.91 71.12) (xy 44.45 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38d1448b-b126-4b8e-8aee-5d1e97ea419c")
+	)
+	(wire
+		(pts
+			(xy 144.78 81.28) (xy 144.78 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44aa711f-bf6d-4191-9a6a-dcbc2d66cb68")
+	)
+	(wire
+		(pts
+			(xy 139.7 83.82) (xy 139.7 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44f3e4c7-b16f-4009-992d-625ad31a91e4")
+	)
+	(wire
+		(pts
+			(xy 41.91 50.8) (xy 44.45 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4933d9d1-5111-4e70-ac31-72d402a244ac")
+	)
+	(wire
+		(pts
+			(xy 181.61 45.72) (xy 184.15 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a817b79-f9b7-4ee4-8b60-b956e1403b39")
+	)
+	(wire
+		(pts
+			(xy 41.91 40.64) (xy 44.45 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c3ef1bd-9001-4f18-b5e3-1b9eb5d6a3f6")
+	)
+	(wire
+		(pts
+			(xy 189.23 60.96) (xy 195.58 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c44c2f9-7653-4f1c-a8aa-c847e9b8c4b6")
+	)
+	(wire
+		(pts
+			(xy 33.02 66.04) (xy 44.45 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53dc9738-f953-443a-a5d5-12ebae261788")
+	)
+	(wire
+		(pts
+			(xy 41.91 48.26) (xy 44.45 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a1aa88f-f159-4b67-833b-173c454e857e")
+	)
+	(wire
+		(pts
+			(xy 109.22 68.58) (xy 109.22 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5aeddd59-a537-4edf-aa54-e1fe4e9f77fe")
+	)
+	(wire
+		(pts
+			(xy 186.69 43.18) (xy 186.69 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "620dcf9d-28a8-4168-8393-969bf9a4c93d")
+	)
+	(wire
+		(pts
+			(xy 231.14 48.26) (xy 233.68 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64046496-5eed-4237-920a-6038cbf69dce")
+	)
+	(wire
+		(pts
+			(xy 111.76 86.36) (xy 109.22 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64698505-c60f-4967-bf7b-d41e0460d729")
+	)
+	(wire
+		(pts
+			(xy 137.16 86.36) (xy 142.24 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c8fd537-b49b-41f0-9c8b-7d1daec8f18b")
+	)
+	(wire
+		(pts
+			(xy 41.91 78.74) (xy 44.45 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d6ddd2c-fd17-4875-9d91-f2ed6334fddf")
+	)
+	(wire
+		(pts
+			(xy 41.91 73.66) (xy 44.45 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "78121213-55cf-4f2d-93f6-d4533b7174f3")
+	)
+	(wire
+		(pts
+			(xy 41.91 55.88) (xy 44.45 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e8f85bb-fc3c-4f1c-b5a5-99fb0a99cdac")
+	)
+	(wire
+		(pts
+			(xy 85.09 68.58) (xy 87.63 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f353f87-79ff-45d3-9132-904c84053bf7")
+	)
+	(wire
+		(pts
+			(xy 41.91 68.58) (xy 44.45 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8555a4e1-90ad-444a-b255-b66ba921c030")
+	)
+	(wire
+		(pts
+			(xy 181.61 53.34) (xy 181.61 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86585e2f-b6d3-437e-ab79-74a30b2a1986")
+	)
+	(wire
+		(pts
+			(xy 142.24 83.82) (xy 144.78 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8828aa70-ea92-43ef-a4de-881f3f7fd3b9")
+	)
+	(wire
+		(pts
+			(xy 33.02 63.5) (xy 44.45 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9205c1c6-3ad5-4b57-8fa5-8948fea5062e")
+	)
+	(wire
+		(pts
+			(xy 87.63 81.28) (xy 87.63 88.9)
 		)
 		(stroke
 			(width 0)
@@ -16917,7 +17969,47 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 86.36) (xy 68.58 88.9)
+			(xy 189.23 66.04) (xy 195.58 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9403928a-b562-4509-a566-b994d77f9ebe")
+	)
+	(wire
+		(pts
+			(xy 193.04 86.36) (xy 193.04 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "976554fb-851c-4e1c-bf37-7057ac20a9b9")
+	)
+	(wire
+		(pts
+			(xy 85.09 53.34) (xy 87.63 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99ec3377-a79a-48ab-99c2-59e09f879e8a")
+	)
+	(wire
+		(pts
+			(xy 17.78 71.12) (xy 20.32 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cdc3f8e-79dc-42c7-9042-7dac5526c961")
+	)
+	(wire
+		(pts
+			(xy 87.63 73.66) (xy 87.63 76.2)
 		)
 		(stroke
 			(width 0)
@@ -16927,7 +18019,217 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 91.44) (xy 68.58 93.98)
+			(xy 111.76 86.36) (xy 111.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b01f7cd7-d61c-44bc-bc9b-e372e8995ae4")
+	)
+	(wire
+		(pts
+			(xy 137.16 83.82) (xy 139.7 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b09e40b0-2f92-4c5d-a910-c4ac7d817a7a")
+	)
+	(wire
+		(pts
+			(xy 41.91 58.42) (xy 44.45 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b297b312-a6ae-412e-8f0f-3348721c21d8")
+	)
+	(wire
+		(pts
+			(xy 142.24 86.36) (xy 144.78 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b853f838-a6eb-4de7-ae03-f6d379116f07")
+	)
+	(wire
+		(pts
+			(xy 41.91 43.18) (xy 44.45 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b96a7085-54c1-40ea-9c97-4e81aaf4a878")
+	)
+	(wire
+		(pts
+			(xy 85.09 38.1) (xy 87.63 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba40e98a-675c-4490-a3b0-d4acb13d1395")
+	)
+	(wire
+		(pts
+			(xy 142.24 86.36) (xy 142.24 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c038e57c-d55d-4d69-ae50-de991599d971")
+	)
+	(wire
+		(pts
+			(xy 166.37 49.53) (xy 168.91 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c17894ea-7c7f-4ec9-9996-008e0e7c5fe9")
+	)
+	(wire
+		(pts
+			(xy 218.44 48.26) (xy 220.98 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c672a37e-d108-4234-a702-f16df2b0010f")
+	)
+	(wire
+		(pts
+			(xy 193.04 86.36) (xy 195.58 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c81b2d97-93b6-45ad-848d-99d5c001c976")
+	)
+	(wire
+		(pts
+			(xy 41.91 60.96) (xy 44.45 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8d56792-ae5a-46a4-bdb6-782623e6ba17")
+	)
+	(wire
+		(pts
+			(xy 17.78 64.77) (xy 20.32 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cae311f5-114c-4eb0-9588-63d71dd11a03")
+	)
+	(wire
+		(pts
+			(xy 85.09 58.42) (xy 87.63 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "caf07ce5-c359-49ba-992c-eee2f8a7f5c4")
+	)
+	(wire
+		(pts
+			(xy 181.61 40.64) (xy 189.23 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb831130-01a1-4f2e-af63-79595cd70d88")
+	)
+	(wire
+		(pts
+			(xy 41.91 53.34) (xy 44.45 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce5e23d9-1a7a-48d4-9cb0-ee5cdc3088ab")
+	)
+	(wire
+		(pts
+			(xy 189.23 63.5) (xy 195.58 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2fb21d8-06ed-44a9-bf03-f6fd2f9f90eb")
+	)
+	(wire
+		(pts
+			(xy 139.7 88.9) (xy 139.7 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d473279f-1a6e-4d94-bdcb-1fb359c85132")
+	)
+	(wire
+		(pts
+			(xy 181.61 43.18) (xy 186.69 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7bd32d3-04a6-4f88-a9c7-866765da3bad")
+	)
+	(wire
+		(pts
+			(xy 85.09 50.8) (xy 87.63 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9b5e16f-99c4-4e54-96a1-2ad835118538")
+	)
+	(wire
+		(pts
+			(xy 195.58 38.1) (xy 193.04 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da8d2e51-6ebc-4481-a608-b56f99d65f55")
+	)
+	(wire
+		(pts
+			(xy 189.23 58.42) (xy 195.58 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e68f94c4-a770-4569-9997-8454b6f66e94")
+	)
+	(wire
+		(pts
+			(xy 87.63 78.74) (xy 87.63 81.28)
 		)
 		(stroke
 			(width 0)
@@ -16937,7 +18239,17 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 93.98) (xy 68.58 93.98)
+			(xy 189.23 45.72) (xy 195.58 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eab56617-f2c2-43bd-8690-4b2ef620686f")
+	)
+	(wire
+		(pts
+			(xy 85.09 81.28) (xy 87.63 81.28)
 		)
 		(stroke
 			(width 0)
@@ -16947,7 +18259,17 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 88.9) (xy 68.58 91.44)
+			(xy 179.07 49.53) (xy 181.61 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f43e93ea-47f1-4d8f-b891-6978b2a0bf1e")
+	)
+	(wire
+		(pts
+			(xy 87.63 76.2) (xy 87.63 78.74)
 		)
 		(stroke
 			(width 0)
@@ -16957,7 +18279,37 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 91.44) (xy 68.58 91.44)
+			(xy 111.76 38.1) (xy 114.3 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f79082c7-e4f6-4f2e-851a-480aae9614cf")
+	)
+	(wire
+		(pts
+			(xy 189.23 40.64) (xy 189.23 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fac0445d-681b-4c51-8ff2-94b0a8fa07f4")
+	)
+	(wire
+		(pts
+			(xy 109.22 81.28) (xy 109.22 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fac60513-8142-4df7-9e5d-31231c54497e")
+	)
+	(wire
+		(pts
+			(xy 85.09 78.74) (xy 87.63 78.74)
 		)
 		(stroke
 			(width 0)
@@ -16965,9 +18317,965 @@
 		)
 		(uuid "fb324f42-ad99-4caf-9f04-2faea656c30e")
 	)
+	(wire
+		(pts
+			(xy 166.37 55.88) (xy 168.91 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fecfaae5-5688-4107-a288-59220b91d05b")
+	)
+	(wire
+		(pts
+			(xy 33.02 71.12) (xy 30.48 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffb636e5-272d-4fd1-98df-12bb03bed630")
+	)
+	(global_label "I2C_SCL"
+		(shape bidirectional)
+		(at 87.63 58.42 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "07ff0a20-81c3-4142-a775-da5fe6832133")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 97.8635 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "TFT_CS"
+		(shape bidirectional)
+		(at 41.91 48.26 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "0c3d24b2-c0a6-4922-b004-efe76f08dd52")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 34.513 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_SCLK"
+		(shape bidirectional)
+		(at 166.37 55.88 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "15e53c81-673d-43c5-be1c-54c768137a56")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 156.1365 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_SCK"
+		(shape bidirectional)
+		(at 41.91 40.64 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "2dc391fb-9a2a-4d05-b886-c54a3849cf79")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape bidirectional)
+		(at 144.78 86.36 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "2de84d2f-77dc-49cc-8cf3-7547d8d75e8d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 152.9814 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape bidirectional)
+		(at 87.63 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "2fe7f188-90e1-4fbf-a858-555e7237c77f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 97.8635 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "FG23_CS"
+		(shape bidirectional)
+		(at 166.37 49.53 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "3d84cdeb-5896-4e3a-89e2-148321d67b3c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 157.7452 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_RST"
+		(shape bidirectional)
+		(at 41.91 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "41fbdacd-9920-4afc-8851-3e3596ebda14")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_MOSI"
+		(shape bidirectional)
+		(at 41.91 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "48c71483-4730-4481-ad4d-b3be1d17f5f8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.8036 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_DC"
+		(shape bidirectional)
+		(at 41.91 68.58 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "4ae0ea1b-03c0-4dea-8de9-24948da8d515")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_MOSI"
+		(shape bidirectional)
+		(at 41.91 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "5fa65169-4451-4719-a761-11dcbb1c78f7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_TE"
+		(shape bidirectional)
+		(at 41.91 76.2 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "728930bb-7ea6-40d6-ab8c-2d3c5f479c87")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "SWO"
+		(shape bidirectional)
+		(at 87.63 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "77972a66-2035-4167-9256-e3ed85f373be")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.2914 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "TCH_A"
+		(shape bidirectional)
+		(at 41.91 50.8 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "7ae824b1-2879-45f1-b9d0-79e03da8eec4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "WS2812"
+		(shape bidirectional)
+		(at 87.63 45.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "830076c7-a575-4519-b4ca-6e33a3779187")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 95.7469 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "FG23_CMD"
+		(shape bidirectional)
+		(at 17.78 64.77 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "845cda43-1d11-45a4-9306-44e805dd437a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 8.0969 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_RDY"
+		(shape bidirectional)
+		(at 17.78 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "88816542-27e6-4586-95a5-c7c7ea2e2c0d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 8.3509 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_RDY"
+		(shape bidirectional)
+		(at 181.61 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "8c85d8dc-a177-4e67-b3ab-90d2f08eae70")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.3765 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TFT_MISO"
+		(shape bidirectional)
+		(at 41.91 45.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "8cd0b4a7-d6d6-4d4b-a55b-04da7d041fdf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "SWDIO"
+		(shape bidirectional)
+		(at 189.23 63.5 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "8ea4bb29-9272-4fc8-a6a2-fce8465c01ef")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 178.9965 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_CS"
+		(shape bidirectional)
+		(at 41.91 55.88 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "92fc10b3-46ca-419e-8635-76b9e785ff30")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 33.2852 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_CMD"
+		(shape bidirectional)
+		(at 181.61 45.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "93e15b8c-36c0-4d0d-ae0b-6866a86dab7f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.9269 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "RESETn"
+		(shape bidirectional)
+		(at 87.63 53.34 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "9ebf45af-e646-453f-b934-b5c52451c797")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 95.3233 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "FG23_SCLK"
+		(shape bidirectional)
+		(at 41.91 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "a8776d52-1d91-4649-ad85-3094b79ef2d4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "USB_D-"
+		(shape bidirectional)
+		(at 87.63 66.04 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "a90ecd0f-7d6d-48bf-995b-dbcfeb55a5ff")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 95.8314 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "I2C_SCL"
+		(shape bidirectional)
+		(at 109.22 86.36 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "a92a18c7-2a36-4bc0-b268-b61c992c3cb0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.0609 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "SWDIO"
+		(shape bidirectional)
+		(at 87.63 38.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "b940e460-81e5-4487-acf2-60f0e28a03b1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 94.6037 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "SWCLK"
+		(shape bidirectional)
+		(at 87.63 50.8 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "bdb318b1-188a-4199-8d81-a3190e07cc98")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 94.8578 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "SWCLK"
+		(shape bidirectional)
+		(at 189.23 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "c0bce6cc-383d-4b0e-b65d-ec11aee04d27")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 178.9965 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "3V3_RADIO"
+		(shape bidirectional)
+		(at 111.76 38.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "cb27de59-dfb7-4030-a919-6f96a8c52f69")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.5265 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TCH_B"
+		(shape bidirectional)
+		(at 41.91 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "d5d6964d-e5e6-4426-bc6b-c17ac433b4d9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_MOSI"
+		(shape bidirectional)
+		(at 233.68 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "d7666497-cc68-472b-ba23-6bc1ecf7a979")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 243.7864 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "USB_D+"
+		(shape bidirectional)
+		(at 87.63 68.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "d96b2128-19f1-4235-b05d-8fbc622bb75d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 97.8635 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "TFT_BL"
+		(shape bidirectional)
+		(at 41.91 73.66 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "eacd8bd3-b60f-427b-a10c-11bbd5561e0f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "RESETn"
+		(shape bidirectional)
+		(at 189.23 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "f4017927-17d2-48d7-81ae-eb16bcb7f47a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 178.9965 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "FG23_SPARE"
+		(shape bidirectional)
+		(at 181.61 40.64 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "f4e4e0e5-d535-43bf-adf9-c469abc708d3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.3765 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "SWO"
+		(shape bidirectional)
+		(at 189.23 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "fbffe2ea-f877-459f-9944-89364ff42767")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 178.9965 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "TCH_INT"
+		(shape bidirectional)
+		(at 41.91 53.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify right)
+		)
+		(uuid "fe05bae6-0791-4678-8aa9-fa4e3816c925")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 31.6765 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "VMCU_IN"
+		(shape bidirectional)
+		(at 223.52 38.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.889 0.889)
+			)
+			(justify left)
+		)
+		(uuid "fecda20b-0db8-4359-8bc9-ca27080d8e16")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 232.0176 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(symbol
 		(lib_id "rpw_lib:PTS647SK38SMTR2LFS")
-		(at 88.9 63.5 0)
+		(at 50.8 127 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16978,7 +19286,7 @@
 		(fields_autoplaced yes)
 		(uuid "05aa45f3-8dce-4ab0-9262-c370e6a1c9b0")
 		(property "Reference" "SW1"
-			(at 99.06 55.88 0)
+			(at 60.96 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16988,7 +19296,7 @@
 			)
 		)
 		(property "Value" "PTS647SK38SMTR2 LFS"
-			(at 99.06 58.42 0)
+			(at 60.96 121.92 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16998,7 +19306,7 @@
 			)
 		)
 		(property "Footprint" "rpw_lib:PTS647SK38SMTR2LFS"
-			(at 100.584 74.168 0)
+			(at 62.484 137.668 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17009,7 +19317,7 @@
 			)
 		)
 		(property "Datasheet" "https://hu.mouser.com/datasheet/2/240/pts647-3051119.pdf"
-			(at 99.568 71.882 0)
+			(at 61.468 135.382 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17020,7 +19328,7 @@
 			)
 		)
 		(property "Description" "Tactile Switches 50mA 12VDC, 2.5N 3.8mm H, G leads"
-			(at 99.568 69.85 0)
+			(at 61.468 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17031,7 +19339,7 @@
 			)
 		)
 		(property "MPN" "PTS647SK38SMTR2 LFS"
-			(at 99.06 67.818 0)
+			(at 60.96 131.318 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17042,7 +19350,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 99.314 65.786 0)
+			(at 61.214 129.286 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17053,7 +19361,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "611-PTS647SK38SMTR2L"
-			(at 100.076 82.296 0)
+			(at 61.976 145.796 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17064,7 +19372,7 @@
 			)
 		)
 		(property "MPN2" "BX-TS-26-454538T"
-			(at 100.076 75.946 0)
+			(at 61.976 139.446 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17075,7 +19383,7 @@
 			)
 		)
 		(property "SUPPLIER2" "LCSC"
-			(at 100.076 80.01 0)
+			(at 61.976 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17086,7 +19394,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER2" "C18077671"
-			(at 100.076 77.978 0)
+			(at 61.976 141.478 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17112,8 +19420,197 @@
 		)
 	)
 	(symbol
+		(lib_id "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)")
+		(at 25.4 71.12 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "06614f3e-f56c-4aa8-875a-47750346c3f1")
+		(property "Reference" "R5"
+			(at 25.4 73.406 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 25.4 69.342 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 25.4 75.692 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+			(at 25.4 82.042 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+			(at 24.638 84.074 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 25.908 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+			(at 24.892 94.996 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0EDC"
+			(at 24.892 88.138 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "RC0402FR-070RL"
+			(at 25.146 86.106 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "RC0402JR-070RL"
+			(at 25.146 77.978 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN4" "WR04X000PTL"
+			(at 23.622 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN5" "CR10-000-ZK"
+			(at 25.146 80.264 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "0R/0402/1%"
+			(at 23.622 90.678 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER2" "LCSC"
+			(at 25.4 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER2" "C844710"
+			(at 25.4 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "c134f0ca-556d-45d7-80ee-4994ac1f7087")
+		)
+		(pin "1"
+			(uuid "135c0b20-e534-4d81-a668-ca5e616a828f")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "rpw_lib:GND")
-		(at 68.58 104.14 0)
+		(at 193.04 93.98 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17122,9 +19619,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3c83c2d2-41ac-4b54-98e6-d8dffc1247f5")
-		(property "Reference" "#SUPPLY01"
-			(at 68.58 112.014 0)
+		(uuid "1bdd903d-a130-47a0-b31e-b1f0fa9bddaa")
+		(property "Reference" "#SUPPLY05"
+			(at 193.04 101.854 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17135,7 +19632,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 68.58 106.68 0)
+			(at 193.04 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17145,7 +19642,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 104.14 0)
+			(at 193.04 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17156,7 +19653,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 68.58 104.14 0)
+			(at 193.04 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17167,7 +19664,822 @@
 			)
 		)
 		(property "Description" "SUPPLY SYMBOL - Ground (GND) Bar"
-			(at 68.58 112.014 0)
+			(at 193.04 101.854 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0b811656-854c-4d8e-b999-b55b738b408f")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "#SUPPLY05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)")
+		(at 226.06 48.26 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1d33db8e-f09d-4041-810e-59870fec9210")
+		(property "Reference" "R1"
+			(at 226.06 50.546 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 226.06 46.482 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 226.06 52.832 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+			(at 226.06 59.182 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+			(at 225.298 61.214 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 226.568 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+			(at 225.552 72.136 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0EDC"
+			(at 225.552 65.278 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "RC0402FR-070RL"
+			(at 225.806 63.246 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "RC0402JR-070RL"
+			(at 225.806 55.118 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN4" "WR04X000PTL"
+			(at 224.282 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN5" "CR10-000-ZK"
+			(at 225.806 57.404 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "0R/0402/1%"
+			(at 224.282 67.818 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER2" "LCSC"
+			(at 226.06 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER2" "C844710"
+			(at 226.06 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "c2cce03a-b538-4a48-aeaa-ba55df8feb03")
+		)
+		(pin "1"
+			(uuid "b0e8e577-32ca-472c-829b-9ec33799e014")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)")
+		(at 173.99 55.88 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1e93e9fb-e2c3-469d-a331-3084e7cf5592")
+		(property "Reference" "R2"
+			(at 173.99 58.166 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 173.99 54.102 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 173.99 60.452 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+			(at 173.99 66.802 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+			(at 173.228 68.834 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 174.498 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+			(at 173.482 79.756 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0EDC"
+			(at 173.482 72.898 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "RC0402FR-070RL"
+			(at 173.736 70.866 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "RC0402JR-070RL"
+			(at 173.736 62.738 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN4" "WR04X000PTL"
+			(at 172.212 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN5" "CR10-000-ZK"
+			(at 173.736 65.024 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "0R/0402/1%"
+			(at 172.212 75.438 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER2" "LCSC"
+			(at 173.99 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER2" "C844710"
+			(at 173.99 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "32337244-a632-4d6c-aed7-21ff509af321")
+		)
+		(pin "1"
+			(uuid "3ed58805-8e64-41d3-bbba-b1a38eb2d5a2")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)")
+		(at 173.99 49.53 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2ce614d0-4c77-4a41-ba5d-3ab6f9ae6f7c")
+		(property "Reference" "R3"
+			(at 173.99 51.816 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 173.99 47.752 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 173.99 54.102 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+			(at 173.99 60.452 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+			(at 173.228 62.484 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 174.498 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+			(at 173.482 73.406 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0EDC"
+			(at 173.482 66.548 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "RC0402FR-070RL"
+			(at 173.736 64.516 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "RC0402JR-070RL"
+			(at 173.736 56.388 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN4" "WR04X000PTL"
+			(at 172.212 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN5" "CR10-000-ZK"
+			(at 173.736 58.674 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "0R/0402/1%"
+			(at 172.212 69.088 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER2" "LCSC"
+			(at 173.99 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER2" "C844710"
+			(at 173.99 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d1b1f53f-4c25-489f-afdc-31cc27d0d1b5")
+		)
+		(pin "1"
+			(uuid "b0a016aa-f43d-4b63-aa63-e5b45e704ad8")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_resistors:R_4.7K_5%_0402(1005-METRIC)")
+		(at 109.22 76.2 270)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2e00875a-3c29-42eb-9c57-ac4eb7486e0f")
+		(property "Reference" "R7"
+			(at 111.506 74.422 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 106.68 73.406 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 101.346 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://eu.mouser.com/datasheet/2/54/cr_a_as-1858644.pdf"
+			(at 91.694 77.216 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor Fixed - Generic"
+			(at 99.314 76.708 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 102.87 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "652-CR0402AJW-472GAS"
+			(at 95.504 76.708 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CR0402AJW-472GAS"
+			(at 97.282 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "CR0402-JW-472GLF"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER3" "LCSC"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER3" "C3017492"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "SCR0402J4K7"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "4.7k/5%/0402"
+			(at 93.472 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2bccb035-921d-4ef9-b32f-d9965d69031b")
+		)
+		(pin "2"
+			(uuid "bc0fe3a5-25f7-4bbf-ab50-301a85c1cc40")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_lib:GND")
+		(at 87.63 91.44 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3c83c2d2-41ac-4b54-98e6-d8dffc1247f5")
+		(property "Reference" "#SUPPLY01"
+			(at 87.63 99.314 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 87.63 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 87.63 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "SUPPLY SYMBOL - Ground (GND) Bar"
+			(at 87.63 99.314 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17190,8 +20502,177 @@
 		)
 	)
 	(symbol
-		(lib_id "ionosSDR_mini:TFC-120-02-F-D-A-K-TR")
-		(at 165.1 38.1 0)
+		(lib_id "rpw_resistors:R_4.7K_5%_0402(1005-METRIC)")
+		(at 144.78 76.2 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "50400b0b-4085-40a7-a141-85b4f2813f86")
+		(property "Reference" "R6"
+			(at 142.494 74.422 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 147.32 73.406 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 152.654 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://eu.mouser.com/datasheet/2/54/cr_a_as-1858644.pdf"
+			(at 162.306 77.216 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor Fixed - Generic"
+			(at 154.686 76.708 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 151.13 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "652-CR0402AJW-472GAS"
+			(at 158.496 76.708 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CR0402AJW-472GAS"
+			(at 156.718 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "CR0402-JW-472GLF"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER3" "LCSC"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER3" "C3017492"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "SCR0402J4K7"
+			(at 144.78 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "4.7k/5%/0402"
+			(at 160.528 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b09228bd-3fcf-414a-95a9-6c902ea8fdc3")
+		)
+		(pin "2"
+			(uuid "88c5b343-4b8d-4061-84e0-fea97d06ec87")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_lib:3V3")
+		(at 144.78 68.58 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17200,9 +20681,86 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
+		(uuid "564b9c02-aa2a-4ae8-bb46-e7989b899a58")
+		(property "Reference" "#SUPPLY02"
+			(at 144.78 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "3V3"
+			(at 144.78 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "SUPPLY SYMBOL  3.3 Volt (3V3) Bar"
+			(at 144.78 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ea917239-80dc-499f-a8e3-e5de364593f6")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "#SUPPLY02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ionosSDR_mini:TFC-120-02-F-D-A-K-TR")
+		(at 195.58 38.1 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
 		(uuid "5998b897-fd1f-4a31-bcb8-f94b1ea12434")
 		(property "Reference" "CON2"
-			(at 176.53 30.48 0)
+			(at 207.01 31.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17212,7 +20770,7 @@
 			)
 		)
 		(property "Value" "TFC-120-02-F-D-A-K-TR"
-			(at 176.53 33.02 0)
+			(at 207.01 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17222,7 +20780,7 @@
 			)
 		)
 		(property "Footprint" "ionosSDR_mini:TFC-120-02-XX-D-A-K-TR"
-			(at 153.162 101.346 0)
+			(at 183.642 101.346 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17234,7 +20792,7 @@
 			)
 		)
 		(property "Datasheet" "http://suddendocs.samtec.com/prints/tfc-1xx-xx-xx-d-xx-mkt.pdf"
-			(at 184.15 233.02 0)
+			(at 214.63 233.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17246,7 +20804,7 @@
 			)
 		)
 		(property "Description" "Headers & Wire Housings Tiger Eye Cost-Effective Terminal Strip"
-			(at 177.038 104.394 0)
+			(at 207.518 104.394 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17257,7 +20815,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 177.8 94.488 0)
+			(at 208.28 94.488 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17268,7 +20826,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "200-TFC12002FDAKTR"
-			(at 178.054 97.028 0)
+			(at 208.534 97.028 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17279,7 +20837,7 @@
 			)
 		)
 		(property "MPN" "TFC-120-02-F-D-A-K-TR"
-			(at 178.054 99.822 0)
+			(at 208.534 99.822 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17420,7 +20978,7 @@
 	)
 	(symbol
 		(lib_id "ionosSDR_mini:SSD1306")
-		(at 88.9 38.1 0)
+		(at 50.8 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17431,7 +20989,7 @@
 		(fields_autoplaced yes)
 		(uuid "8a35be45-ff5f-4b87-af94-051161b07f46")
 		(property "Reference" "DISP1"
-			(at 105.41 40.6399 0)
+			(at 67.31 104.1399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17442,7 +21000,7 @@
 			)
 		)
 		(property "Value" "SSD1306"
-			(at 105.41 43.1799 0)
+			(at 67.31 106.6799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17453,7 +21011,7 @@
 			)
 		)
 		(property "Footprint" "ionosSDR_mini:128x64OLED"
-			(at 97.282 57.15 0)
+			(at 59.182 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17464,7 +21022,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.aliexpress.com/item/1005007475013244.html?spm=a2g0o.order_list.order_list_main.29.32fe1802vqI0R1"
-			(at 94.996 59.182 0)
+			(at 56.896 122.682 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17475,7 +21033,7 @@
 			)
 		)
 		(property "Description" "0.96\" Inch OLED Display Screen Module I2C IIC 128x64 SS - D - 1306 3.3V-5V Blue/blue Yellow/White for Arduino ESP32 ESP8266"
-			(at 98.044 51.054 0)
+			(at 59.944 114.554 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17486,7 +21044,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Aliexpress"
-			(at 97.282 55.118 0)
+			(at 59.182 118.618 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17497,7 +21055,7 @@
 			)
 		)
 		(property "MPN" "OLED 4pin BLUE"
-			(at 96.774 53.086 0)
+			(at 58.674 116.586 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17530,7 +21088,7 @@
 	)
 	(symbol
 		(lib_id "rpw_lib:PTS647SK38SMTR2LFS")
-		(at 88.9 76.2 0)
+		(at 50.8 139.7 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17541,7 +21099,7 @@
 		(fields_autoplaced yes)
 		(uuid "9f461630-8bbc-43ad-be29-aac51217bb93")
 		(property "Reference" "SW2"
-			(at 99.06 68.58 0)
+			(at 60.96 132.08 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17551,7 +21109,7 @@
 			)
 		)
 		(property "Value" "PTS647SK38SMTR2 LFS"
-			(at 99.06 71.12 0)
+			(at 60.96 134.62 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17561,7 +21119,7 @@
 			)
 		)
 		(property "Footprint" "rpw_lib:PTS647SK38SMTR2LFS"
-			(at 100.584 86.868 0)
+			(at 62.484 150.368 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17572,7 +21130,7 @@
 			)
 		)
 		(property "Datasheet" "https://hu.mouser.com/datasheet/2/240/pts647-3051119.pdf"
-			(at 99.568 84.582 0)
+			(at 61.468 148.082 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17583,7 +21141,7 @@
 			)
 		)
 		(property "Description" "Tactile Switches 50mA 12VDC, 2.5N 3.8mm H, G leads"
-			(at 99.568 82.55 0)
+			(at 61.468 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17594,7 +21152,7 @@
 			)
 		)
 		(property "MPN" "PTS647SK38SMTR2 LFS"
-			(at 99.06 80.518 0)
+			(at 60.96 144.018 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17605,7 +21163,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 99.314 78.486 0)
+			(at 61.214 141.986 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17616,7 +21174,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "611-PTS647SK38SMTR2L"
-			(at 100.076 94.996 0)
+			(at 61.976 158.496 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17627,7 +21185,7 @@
 			)
 		)
 		(property "MPN2" "BX-TS-26-454538T"
-			(at 100.076 88.646 0)
+			(at 61.976 152.146 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17638,7 +21196,7 @@
 			)
 		)
 		(property "SUPPLIER2" "LCSC"
-			(at 100.076 92.71 0)
+			(at 61.976 156.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17649,7 +21207,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER2" "C18077671"
-			(at 100.076 90.678 0)
+			(at 61.976 154.178 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17675,8 +21233,8 @@
 		)
 	)
 	(symbol
-		(lib_id "ionosSDR_mini:TFC-120-02-F-D-A-K-TR")
-		(at 127 38.1 0)
+		(lib_id "rpw_lib:GND")
+		(at 139.7 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17685,9 +21243,86 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
+		(uuid "a5ba943a-92cd-4425-9753-b0f25b9ff29a")
+		(property "Reference" "#SUPPLY04"
+			(at 139.7 103.124 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 139.7 97.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 139.7 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 139.7 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "SUPPLY SYMBOL - Ground (GND) Bar"
+			(at 139.7 103.124 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "aa1d6e17-13f8-4d95-8dcb-73b6d34e79aa")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "#SUPPLY04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ionosSDR_mini:TFC-120-02-F-D-A-K-TR")
+		(at 114.3 38.1 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
 		(uuid "a664f797-0e19-479e-9f08-5d4e8404830c")
 		(property "Reference" "CON1"
-			(at 138.43 30.48 0)
+			(at 125.73 31.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17697,7 +21332,7 @@
 			)
 		)
 		(property "Value" "TFC-120-02-F-D-A-K-TR"
-			(at 138.43 33.02 0)
+			(at 125.73 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17707,7 +21342,7 @@
 			)
 		)
 		(property "Footprint" "ionosSDR_mini:TFC-120-02-XX-D-A-K-TR"
-			(at 115.062 101.346 0)
+			(at 102.362 101.346 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17719,7 +21354,7 @@
 			)
 		)
 		(property "Datasheet" "http://suddendocs.samtec.com/prints/tfc-1xx-xx-xx-d-xx-mkt.pdf"
-			(at 146.05 233.02 0)
+			(at 133.35 233.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17731,7 +21366,7 @@
 			)
 		)
 		(property "Description" "Headers & Wire Housings Tiger Eye Cost-Effective Terminal Strip"
-			(at 138.938 104.394 0)
+			(at 126.238 104.394 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17742,7 +21377,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 139.7 94.488 0)
+			(at 127 94.488 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17753,7 +21388,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "200-TFC12002FDAKTR"
-			(at 139.954 97.028 0)
+			(at 127.254 97.028 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17764,7 +21399,7 @@
 			)
 		)
 		(property "MPN" "TFC-120-02-F-D-A-K-TR"
-			(at 139.954 99.822 0)
+			(at 127.254 99.822 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17904,8 +21539,86 @@
 		)
 	)
 	(symbol
+		(lib_id "rpw_lib:3V3")
+		(at 109.22 68.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bdb8db98-b961-4ce1-ba00-7a0bd27cee0a")
+		(property "Reference" "#SUPPLY03"
+			(at 109.22 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "3V3"
+			(at 109.22 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "SUPPLY SYMBOL  3.3 Volt (3V3) Bar"
+			(at 109.22 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7e6413a7-e366-48b2-966f-d978a896523f")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "#SUPPLY03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "rpw_lib:PTS647SK38SMTR2LFS")
-		(at 88.9 88.9 0)
+		(at 50.8 152.4 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17916,7 +21629,7 @@
 		(fields_autoplaced yes)
 		(uuid "c2005f4a-def3-4002-8a85-45d4c6ee0207")
 		(property "Reference" "SW3"
-			(at 99.06 81.28 0)
+			(at 60.96 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17926,7 +21639,7 @@
 			)
 		)
 		(property "Value" "PTS647SK38SMTR2 LFS"
-			(at 99.06 83.82 0)
+			(at 60.96 147.32 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17936,7 +21649,7 @@
 			)
 		)
 		(property "Footprint" "rpw_lib:PTS647SK38SMTR2LFS"
-			(at 100.584 99.568 0)
+			(at 62.484 163.068 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17947,7 +21660,7 @@
 			)
 		)
 		(property "Datasheet" "https://hu.mouser.com/datasheet/2/240/pts647-3051119.pdf"
-			(at 99.568 97.282 0)
+			(at 61.468 160.782 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17958,7 +21671,7 @@
 			)
 		)
 		(property "Description" "Tactile Switches 50mA 12VDC, 2.5N 3.8mm H, G leads"
-			(at 99.568 95.25 0)
+			(at 61.468 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17969,7 +21682,7 @@
 			)
 		)
 		(property "MPN" "PTS647SK38SMTR2 LFS"
-			(at 99.06 93.218 0)
+			(at 60.96 156.718 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17980,7 +21693,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 99.314 91.186 0)
+			(at 61.214 154.686 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17991,7 +21704,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "611-PTS647SK38SMTR2L"
-			(at 100.076 107.696 0)
+			(at 61.976 171.196 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18002,7 +21715,7 @@
 			)
 		)
 		(property "MPN2" "BX-TS-26-454538T"
-			(at 100.076 101.346 0)
+			(at 61.976 164.846 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18013,7 +21726,7 @@
 			)
 		)
 		(property "SUPPLIER2" "LCSC"
-			(at 100.076 105.41 0)
+			(at 61.976 168.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18024,7 +21737,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER2" "C18077671"
-			(at 100.076 103.378 0)
+			(at 61.976 166.878 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18051,7 +21764,7 @@
 	)
 	(symbol
 		(lib_id "rpw_lib:PTS647SK38SMTR2LFS")
-		(at 88.9 101.6 0)
+		(at 50.8 165.1 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18062,7 +21775,7 @@
 		(fields_autoplaced yes)
 		(uuid "dcfb1f67-cc17-46c2-b749-522eafb9b80d")
 		(property "Reference" "SW4"
-			(at 99.06 93.98 0)
+			(at 60.96 157.48 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18072,7 +21785,7 @@
 			)
 		)
 		(property "Value" "PTS647SK38SMTR2 LFS"
-			(at 99.06 96.52 0)
+			(at 60.96 160.02 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18082,7 +21795,7 @@
 			)
 		)
 		(property "Footprint" "rpw_lib:PTS647SK38SMTR2LFS"
-			(at 100.584 112.268 0)
+			(at 62.484 175.768 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18093,7 +21806,7 @@
 			)
 		)
 		(property "Datasheet" "https://hu.mouser.com/datasheet/2/240/pts647-3051119.pdf"
-			(at 99.568 109.982 0)
+			(at 61.468 173.482 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18104,7 +21817,7 @@
 			)
 		)
 		(property "Description" "Tactile Switches 50mA 12VDC, 2.5N 3.8mm H, G leads"
-			(at 99.568 107.95 0)
+			(at 61.468 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18115,7 +21828,7 @@
 			)
 		)
 		(property "MPN" "PTS647SK38SMTR2 LFS"
-			(at 99.06 105.918 0)
+			(at 60.96 169.418 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18126,7 +21839,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Mouser"
-			(at 99.314 103.886 0)
+			(at 61.214 167.386 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18137,7 +21850,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER1" "611-PTS647SK38SMTR2L"
-			(at 100.076 120.396 0)
+			(at 61.976 183.896 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18148,7 +21861,7 @@
 			)
 		)
 		(property "MPN2" "BX-TS-26-454538T"
-			(at 100.076 114.046 0)
+			(at 61.976 177.546 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18159,7 +21872,7 @@
 			)
 		)
 		(property "SUPPLIER2" "LCSC"
-			(at 100.076 118.11 0)
+			(at 61.976 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18170,7 +21883,7 @@
 			)
 		)
 		(property "SUPPLIER_PART_NUMBER2" "C18077671"
-			(at 100.076 116.078 0)
+			(at 61.976 179.578 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18197,7 +21910,7 @@
 	)
 	(symbol
 		(lib_id "ionosSDR_mini:ESP32-S3-DEVKITC-1-N8R2")
-		(at 25.4 38.1 0)
+		(at 44.45 25.4 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18205,10 +21918,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "ea9eb78f-4221-485b-99a1-93a7eda2efe5")
 		(property "Reference" "IC1"
-			(at 45.72 25.4 0)
+			(at 64.77 13.716 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18218,7 +21930,7 @@
 			)
 		)
 		(property "Value" "ESP32-S3-DEVKITC-1-N8R2"
-			(at 45.72 27.94 0)
+			(at 64.77 15.748 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18228,7 +21940,7 @@
 			)
 		)
 		(property "Footprint" "ionosSDR_mini:XCVR_ESP32-S3-DEVKITC-1-N8R2"
-			(at 49.022 110.236 0)
+			(at 68.072 97.536 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18240,7 +21952,7 @@
 			)
 		)
 		(property "Datasheet" "kicad-embed://esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf"
-			(at 49.276 117.094 0)
+			(at 68.326 104.394 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18251,7 +21963,7 @@
 			)
 		)
 		(property "Description" "WiFi Development Tools - 802.11 ESP32-S3 general-purpose development board, embeds ESP32-S3-WROOM-1-N8R2, with pin header"
-			(at 49.022 112.776 0)
+			(at 68.072 100.076 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18263,7 +21975,7 @@
 			)
 		)
 		(property "SUPPLIER1" "Aliexpress"
-			(at 47.752 106.68 0)
+			(at 66.802 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18274,7 +21986,7 @@
 			)
 		)
 		(property "MPN" "ESP32-S3-DEVKITC-1-N8R2"
-			(at 48.768 114.808 0)
+			(at 67.818 102.108 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18420,6 +22132,195 @@
 			(project "ionosSDR_mini"
 				(path "/15d29fd5-3ab7-4308-b695-054541352165"
 					(reference "IC1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rpw_resistors:R_0R_JUMPER_0402(1005-METRIC)")
+		(at 25.4 64.77 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ebc88ac3-eb1e-4bbb-949e-657d7e7f1c77")
+		(property "Reference" "R4"
+			(at 25.4 67.056 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.778 1.5113)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 25.4 62.992 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rpw_lib:RESC1005X40_0402"
+			(at 25.4 69.342 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://hu.mouser.com/datasheet/2/447/YAGEO_PYu_RC_Group_51_RoHS_L_12-3313492.pdf"
+			(at 25.4 75.692 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Thick Film Resistors - SMD 0 Ohms 62.5mW 0402 1%"
+			(at 24.638 77.724 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER1" "Mouser"
+			(at 25.908 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER1" "71-CRCW04020000Z0EDC"
+			(at 24.892 88.646 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CRCW04020000Z0EDC"
+			(at 24.892 81.788 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN2" "RC0402FR-070RL"
+			(at 25.146 79.756 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN3" "RC0402JR-070RL"
+			(at 25.146 71.628 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN4" "WR04X000PTL"
+			(at 23.622 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN5" "CR10-000-ZK"
+			(at 25.146 73.914 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SPECS" "0R/0402/1%"
+			(at 23.622 84.328 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER2" "LCSC"
+			(at 25.4 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SUPPLIER_PART_NUMBER2" "C844710"
+			(at 25.4 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "49b7b638-8244-429f-a38d-4236cc6d629f")
+		)
+		(pin "1"
+			(uuid "f68b4dd3-9f01-48e9-8220-89d860bb694d")
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "R4")
 					(unit 1)
 				)
 			)
