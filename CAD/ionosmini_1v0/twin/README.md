@@ -475,3 +475,123 @@ rétegrend, és akkor a `spec_analog.STACKUP`-ot frissíteni.
 A driverek egyszerű Thévenin-modellek (45 Ω / 40 Ω forrásellenállás, 2 ns
 él), nem IBIS. A cél itt is az arány, nem az abszolút pontosság: 0 Ω vs 22 Ω
 különbsége robusztus, a 12,6 % harmadik tizedesjegye nem.
+
+
+---
+
+# 5. réteg - 3D modellek (`twin_3d.py`)
+
+Az 1-3. réteg a netlistát és a rezet olvassa, a 4. a geometriát. Ez a réteg a
+**3D modelleket** - azt az egyetlen állományt, amit addig semmi nem nézett.
+
+## Miért kellett
+
+2026-10-05. A mezzanine csatlakozók a `TFC-120-02-F-D-A.stp` modellt hordozták
+az alapértelmezett `(rotate -90 0 0)` transzformációval. Két dolog volt rossz:
+
+1. a modell **nem az a variáns**, amit veszünk - a footprint
+   `TFC-120-02-XX-D-A-K-TR` (`-K` = kódolt), a modellen nincs `-K`;
+2. 180 fokkal el volt forgatva Z körül, így a kódolóblokkja a 40-es pin végére
+   került, miközben a WSTK foglalat bemarása az 1-es pinnél van.
+
+Egyiket sem vette észre semmi. Az ERC és a DRC nem néz 3D modellt; a
+pozicionáló tüskék szimmetrikusak a középvonalra (+-13,655 mm), tehát egy
+180 fokos fordítás nem mozdítja el őket; a padok pedig jók voltak. Emberi szem
+kellett hozzá.
+
+## Mit vizsgál
+
+**Szöveges rész (mindig fut):**
+
+| csoport | kérdés |
+|---|---|
+| `present` | van-e egyáltalán modell |
+| `variant` | a modell cikkszáma hordozza-e a megvett alkatrész minden alak-tokenjét |
+| `resolve` | létezik-e a fájl, és mi van benne |
+| `transform` | scale 1, offset 0, forgatás 90 fokos lépésben, és egyezik-e az igazolttal |
+
+A `variant` az, ami a `-F-` vs `-K` esetet elkapja. A `SHAPE_TOKENS` listában
+szándékosan **nincs** benne a `-TR` és a `-LF`: azok csomagolás és bevonat, nem
+alak. Egy verifikátor, ami ártalmatlan eltérésekre is kiabál, megtanítja az
+embert figyelmen kívül hagyni.
+
+A `resolve` a KiCad saját útvonalváltozóit a `kicad_common.json`-ból olvassa.
+Enélkül minden `${RPW_LIB}` alatti modell hiányzónak látszik, és a réteg
+negyven hamis hibát jelent - ami rosszabb, mint ha nem ellenőrizne.
+
+Ha a STEP **összeállítás** (van benne `NEXT_ASSEMBLY_USAGE_OCCURRENCE` vagy
+`ITEM_DEFINED_TRANSFORMATION`), a befoglaló mérete geometriai kernel nélkül nem
+számolható - ilyenkor ezt kimondja, ahelyett hogy magabiztos rossz számot írna
+ki. A `TFC-120-02-F-D-A` sík pontfelhőből vett bbox-a értelmetlen: három
+item-transzformációja van, és a hosszegysége INCH.
+
+**Render-rész (`--render`):**
+
+Ez **regressziós teszt, nem abszolút ítélet**, és ezt ki is mondja. Gép nem
+tudja megmondani, melyik végén *kell* legyen a kulcs - ez a fizikai WSTK-ról
+jött. Amit a gép tud: utána tartani a vonalat, hogy egy későbbi szerkesztés ne
+tudja csendben visszafordítani.
+
+Minden `spec_3d.ASYM_END`-ben felsorolt alkatrészt fix zoom-mal és pivottal
+renderel, és pixelre összeveti a `twin/ref3d/<REF>.png` referenciával. Ha nincs
+még referencia, elmenti az aktuálisat és **figyelmeztet, hogy nézd meg** -
+onnantól már csak azt ellenőrzi, hogy nem mozdult.
+
+## Két elvetett tervváltozat
+
+Mindkettő azért repült, mert lemértük őket, nem feltettük:
+
+- **"melyik vége világosabb"** - a render megvilágítási gradiense elnyomja a
+  kulcsot. A helyes és a 180 fokkal rossz modell közt a mérőszám 4,8-ból
+  0,45-öt mozdult. Zajon belül.
+- **ugyanez teljes paneles renderen** - 5 px/mm-nél a 2 mm-es kulcsblokk tíz
+  pixel, egyszerűen nincs ott.
+
+A kalibráció maga is hibás volt elsőre: a próbapanelt a projektmappán kívülre
+írtam, így a `${KIPRJMOD}` nem oldódott fel, egyetlen 3D modell sem töltődött
+be, és a két eset azonos lett - ami pont úgy néz ki, mint egy átmenő teszt.
+Ezért van a kódban külön megjegyzés, hogy a munkapéldány **a projektmappában**
+kell legyen.
+
+## A kalibrált számok
+
+```
+ugyanaz a jelenet kétszer renderelve   a pixelek 0,05 %-a tér el 25 szintnél jobban
+a modell 180 fokkal elfordítva         0,40 %
+kapu                                   0,15 %
+```
+
+Nyolcszoros szeparáció. A számok a `spec_3d.py`-ban vannak, a mérés dátumával.
+
+## Önteszt
+
+```
+twin_3d.py --selftest
+```
+
+Egy ideiglenes másolaton 180 fokkal elfordítja a modelleket, és megköveteli,
+hogy a réteg elkapja. Mindkét csatlakozót elkapja, 0,39 %-on a 0,15 %-os kapu
+ellen. Ugyanaz a szabály, mint a 2. rétegnél: **egy verifikációs eszköz, amit
+még soha senki nem látott megbukni, nem megbízható.** Itt ez nem elméleti
+óvatosság volt - két tervváltozat derűsen átengedett egy bizonyítottan rossz
+panelt.
+
+## Verziókövetés
+
+- `twin/ref3d/*.png` - **verziókövetendő**, ez a referencia
+- `twin/mech/orient_*.png`, `selftest_*.png` - kimenet, nem
+
+## Állapot (2026-10-07, rev-B)
+
+```
+5. réteg   14 pass, 4 warn, 3 FAIL   (önteszt 2/2)
+```
+
+A három FAIL valódi, mind nyitott pont:
+
+- `CON1`, `CON2`: a modell nem a `-K` (kódolt) változat. Samtec STEP kell, vagy
+  tudomásul kell venni, hogy a kulcs helye igazolatlan.
+- `DISP2`: `ER-TFTM024-3.step` hivatkozva van, de nincs a repóban.
+
+Plusz egy figyelmeztetés: 19 footprintnek (jumperek, furatok, mérőpontok)
+egyáltalán nincs modellje. Ez rendben van, csak legyen kimondva.
