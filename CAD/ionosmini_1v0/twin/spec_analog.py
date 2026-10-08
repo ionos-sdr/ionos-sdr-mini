@@ -24,9 +24,11 @@ STACKUP_ASSUMED = False
 STACKUP = {
     "er": 4.4,                 # 7628 prepreg, the dielectric next to every signal layer
     "er_core": 4.6,
-    "h_f_in1_mm": 0.2104,      # F.Cu -> In1.Cu (GND plane): microstrip
-    "h_in2_b_mm": 0.2104,      # In2.Cu -> B.Cu (GND pour): the NEAR reference of In2
-    "core_mm": 1.065,          # In1 <-> In2: the FAR reference of In2
+    # rev-B3 roles: F.Cu GND copper | In1 signal | In2 GND + power | B.Cu signal.
+    # The stack is mirror-symmetric, so the same three numbers describe both line types:
+    "h_f_in1_mm": 0.2104,      # outer microstrip height (B.Cu over In2; F.Cu over In1 in rev-B2)
+    "h_in2_b_mm": 0.2104,      # NEAR reference of the inner signal layer (In1 -> F.Cu GND copper)
+    "core_mm": 1.065,          # FAR reference of the inner signal layer (In1 <-> In2)
     "t_cu_mm": 0.035,          # outer
     "t_cu_inner_mm": 0.0152,   # inner, 0.5 oz
     "total_mm": 1.60,
@@ -118,7 +120,9 @@ def layer_line_params(layer, w=None):
     import math
     w = TRACK_W_MM if w is None else w
     s = STACKUP
-    if layer in ("In2.Cu", "SIG", "In1.Cu", "GND"):
+    # IPC-2141A is ~3-5 % low here: the 2-D Laplace solver of the openEMS twin gives
+    # 50.7-51.8 ohm for 0.25 mm on this geometry (er 4.6 / 4.4 bounds), IPC 49.3 ohm.
+    if layer in ("In2.Cu", "SIG", "In1.Cu", "GND", "GND_PWR"):
         z0, _ = stripline_asym_z0(w, s["h_in2_b_mm"], s["core_mm"],
                                   s["t_cu_inner_mm"], s["er"])
         er_eff = (s["er"] * s["h_in2_b_mm"] + s["er_core"] * s["core_mm"]) / \

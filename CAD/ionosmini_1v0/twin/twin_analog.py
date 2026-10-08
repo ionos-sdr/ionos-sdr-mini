@@ -141,8 +141,9 @@ def deck_ldo(cout_f, step_a, esr):
 
 # ------------------------------------------------------------- the checks
 def check_spi(sp, board, tl):
-    for lay, what in (("F.Cu", "microstrip over In1"),
-                      ("In2.Cu", "asymmetric stripline, near plane B.Cu")):
+    # rev-B3 layer roles: F.Cu GND copper, In1 signal, In2 GND+power, B.Cu signal
+    for lay, what in (("In1.Cu", "asymmetric stripline, near plane F.Cu GND copper"),
+                      ("B.Cu", "microstrip over In2 GND/power")):
         z, d_ = A.layer_line_params(lay)
         say(PASS, "line", "0.25 mm on %-6s (%s): Z0 = %.1f ohm, %.2f ps/mm  [%s]"
             % (lay, what, z, d_, A.STACKUP.get("source", "ASSUMED")))
