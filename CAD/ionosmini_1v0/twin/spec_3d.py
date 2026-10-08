@@ -73,19 +73,31 @@ ASYM_END = {
 
 # The orientation check is a REGRESSION test against a human-verified render,
 # not an absolute judgement - see the long note in twin_3d.check_orientation.
-# These numbers are measurements, not guesses.  Calibrated 2026-10-07 by
-# rendering CON1 and CON2 twice, once with the verified rotation and once with
-# the default that was wrong, at the settings in RENDER below:
+# These numbers are measurements, not guesses.
 #
-#     same scene rendered twice   mean|d| 0.23   0.05 % of pixels over 25 levels
-#     model spun 180 deg about Z  mean|d| 0.64   0.40 % of pixels over 25 levels
+# Only the part's own courtyard (+ROI_MARGIN_MM) is compared, not the whole
+# frame: in rev-B2 the D-pad moved 3 mm and SW1 entered CON2's render frame,
+# which a whole-frame compare would have reported as a changed connector.
 #
-# so the gate sits between, nearer the noise floor.
+# Calibrated 2026-10-08 on CON1/CON2, rendered with the verified rotation and
+# with the default that was wrong, ROI only:
+#
+#     same scene rendered twice   0.04 % of ROI pixels differ by over 40 levels
+#     model spun 180 deg about Z  1.35 %
+#
+# 34x separation; the gate sits at 0.30 %.  (At 25 levels it was 0.24 % vs
+# 1.81 %, only 7.5x - hence 40.)
+#
+# RENDER_PX_PER_MM was measured from the 1.27 mm pin pitch by autocorrelation,
+# 20.13 px/mm on three renders.  It depends on the board outline (the render
+# fits the board to the frame) - re-measure if the outline changes.
 RENDER = {"zoom": 5, "width": 1000, "height": 700}
-PIXEL_DELTA = 25             # a pixel "differs" past this many grey levels
-NOISE_FRACTION = 0.0005      # measured render-to-render noise
-FLIP_FRACTION = 0.0040       # measured for a 180 deg spin
-PIXEL_FRACTION_MAX = 0.0015  # fail above this
+RENDER_PX_PER_MM = 20.13
+ROI_MARGIN_MM = 1.0
+PIXEL_DELTA = 40             # a pixel "differs" past this many grey levels
+NOISE_FRACTION = 0.0004      # measured render-to-render noise, ROI
+FLIP_FRACTION = 0.0135       # measured for a 180 deg spin, ROI
+PIXEL_FRACTION_MAX = 0.0030  # fail above this
 
 # --------------------------------------------------------------------------
 # 3.  Transform sanity.  Anything outside this is an import accident until

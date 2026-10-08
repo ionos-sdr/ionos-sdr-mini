@@ -242,6 +242,23 @@ def render_part(pcb_path, board, ref, png, zoom, width, height):
     return png
 
 
+def part_roi(board, ref, shape):
+    """Pixel window of the part's own courtyard (+margin) in a centred render."""
+    fp = {f.GetReference(): f for f in board.GetFootprints()}[ref]
+    pos = fp.GetPosition()
+    cy = fp.GetCourtyard(pcbnew.F_CrtYd).BBox()
+    k, m = S.RENDER_PX_PER_MM, S.ROI_MARGIN_MM
+    h, w = shape[0], shape[1]
+    x0 = MM(cy.GetX() - pos.x) - m
+    x1 = MM(cy.GetRight() - pos.x) + m
+    y0 = MM(cy.GetY() - pos.y) - m
+    y1 = MM(cy.GetBottom() - pos.y) + m
+    box = (int(w / 2 + x0 * k), int(w / 2 + x1 * k), int(h / 2 + y0 * k), int(h / 2 + y1 * k))
+    if box[0] < 0 or box[2] < 0 or box[1] > w or box[3] > h:
+        return None
+    return box
+
+
 def check_orientation(board, pcb_path):
     """Has the 3D appearance of a polarised part changed since it was verified?
 
@@ -302,7 +319,12 @@ def check_orientation(board, pcb_path):
             say(WARN, "orient", "%s: reference is %s, this render is %s - "
                 "re-capture the reference" % (ref, a.shape, b.shape))
             continue
-        d = abs(a - b)
+        roi = part_roi(board, ref, a.shape)
+        if roi is None:
+            say(WARN, "orient", "%s: courtyard does not fit the render frame" % ref)
+            continue
+        x0, x1, y0, y1 = roi
+        d = abs(a - b)[y0:y1, x0:x1]
         frac = float((d > S.PIXEL_DELTA).mean())
         if frac > S.PIXEL_FRACTION_MAX:
             say(FAIL, "orient",
@@ -359,7 +381,8 @@ def selftest(pcb_path):
                         S.RENDER["zoom"], S.RENDER["width"], S.RENDER["height"])
             a = np.asarray(Image.open(refimg).convert("L")).astype(float)
             b = np.asarray(Image.open(png).convert("L")).astype(float)
-            frac = float((abs(a - b) > S.PIXEL_DELTA).mean())
+            x0, x1, y0, y1 = part_roi(wb, ref, a.shape)
+            frac = float((abs(a - b)[y0:y1, x0:x1] > S.PIXEL_DELTA).mean())
             ok = frac > S.PIXEL_FRACTION_MAX
             print("  %s: %.3f%% of pixels differ, gate %.3f%% -> %s"
                   % (ref, 100 * frac, 100 * S.PIXEL_FRACTION_MAX,
