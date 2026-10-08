@@ -113,6 +113,9 @@ OFFSET_EXCEPTIONS = {              # ref -> (x, y, z) that is known-good
     # NOTE the STEP draws a 2x21 header (42 pins, half a pitch off our 2x20 grid); the
     # datasheet and the footprint say 2x20 - holes and outline match exactly, so the
     # placement is right and the pin row is the vendor model's error.
+    # PHYSICAL CHECK 2026-10-08 (photos of the drawer panel, Ver 2.0): male 2x20 header on
+    # the back, silk "1"/"2" at one end and "39"/"40" at the other, pin 2 on the row away
+    # from the edge - seen from the top that is pin 1 left, pin 2 inward, as the footprint.
     "DISP2": (26.92, -32.19, 9.31),
 }
 ROTATION_STEP_DEG = 90.0           # rotations must be multiples of this
