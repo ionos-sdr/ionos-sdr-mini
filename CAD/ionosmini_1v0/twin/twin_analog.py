@@ -47,12 +47,14 @@ def track_lengths(board):
     out = {}
     for t in board.GetTracks():
         n = t.GetNetname()
-        d = out.setdefault(n, {"mm": 0.0, "vias": 0, "layers": set()})
+        d = out.setdefault(n, {"mm": 0.0, "vias": 0, "layers": set(), "per_layer": {}})
         if t.Type() == pcbnew.PCB_VIA_T:
             d["vias"] += 1
         else:
             d["mm"] += MM(t.GetLength())
-            d["layers"].add(board.GetLayerName(t.GetLayer()))
+            ln = board.GetLayerName(t.GetLayer())
+            d["layers"].add(ln)
+            d["per_layer"][ln] = d["per_layer"].get(ln, 0.0) + MM(t.GetLength())
     return out
 
 
@@ -139,19 +141,27 @@ def deck_ldo(cout_f, step_a, esr):
 
 # ------------------------------------------------------------- the checks
 def check_spi(sp, board, tl):
-    z0, tpd = A.line_params(A.STACKUP["h_f_in1_mm"])
-    say(PASS, "line", "0.25 mm track over %.4f mm prepreg: Z0 = %.1f ohm, "
-        "%.1f ps/mm%s" % (A.STACKUP["h_f_in1_mm"], z0, tpd,
-                          " (stackup ASSUMED)" if A.STACKUP_ASSUMED else ""))
+    for lay, what in (("F.Cu", "microstrip over In1"),
+                      ("In2.Cu", "asymmetric stripline, near plane B.Cu")):
+        z, d_ = A.layer_line_params(lay)
+        say(PASS, "line", "0.25 mm on %-6s (%s): Z0 = %.1f ohm, %.2f ps/mm  [%s]"
+            % (lay, what, z, d_, A.STACKUP.get("source", "ASSUMED")))
     worst = {}
     for net in ("FG23_SCLK", "FG23_MOSI", "FG23_CS", "FG23_CMD", "FG23_RDY"):
         mm, vias = net_length(tl, net, net + "_RB")
         if mm <= 0:
             say(WARN, "spi", "%s has no routed copper" % net)
             continue
+        per = {}
+        for nn in (net, net + "_RB"):
+            for ln, v in tl.get(nn, {}).get("per_layer", {}).items():
+                per[ln] = per.get(ln, 0.0) + v
+        main = max(per, key=per.get) if per else "F.Cu"
+        z0, tpd = A.layer_line_params(main)
         td = mm * tpd
-        say(PASS, "spi", "%-10s %6.1f mm, %d vias, one-way delay %.0f ps"
-            % (net, mm, vias, td))
+        say(PASS, "spi", "%-10s %6.1f mm, %d vias, %.0f%% on %s (Z0 %.1f ohm), "
+            "one-way delay %.0f ps"
+            % (net, mm, vias, 100.0 * per.get(main, 0) / max(mm, 1e-9), main, z0, td))
         for f in (A.SPI_HZ_NOW, A.SPI_HZ_TARGET):
             best = None
             table = []

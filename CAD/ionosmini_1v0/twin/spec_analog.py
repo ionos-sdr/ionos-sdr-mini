@@ -16,14 +16,21 @@ SOURCES
 """
 
 # ------------------------------------------------------------- [STACK]
-STACKUP_ASSUMED = True
+# JLCPCB JLC04161H-7628, https://jlcpcb.com/impedance (read 2026-10-08),
+# also written into the .kicad_pcb setup/stackup block:
+#   F.Cu 35 um | 7628 PP 0.2104 mm er 4.4 | In1 15.2 um | core 1.065 mm er 4.6
+#   | In2 15.2 um | 7628 PP 0.2104 mm er 4.4 | B.Cu 35 um      total ~1.6 mm
+STACKUP_ASSUMED = False
 STACKUP = {
-    "er": 4.3,
-    "h_f_in1_mm": 0.2104,      # F.Cu -> In1.Cu (GND plane) prepreg
-    "h_in2_b_mm": 0.2104,      # In2.Cu -> B.Cu (GND plane) prepreg
-    "core_mm": 1.065,
-    "t_cu_mm": 0.035,
+    "er": 4.4,                 # 7628 prepreg, the dielectric next to every signal layer
+    "er_core": 4.6,
+    "h_f_in1_mm": 0.2104,      # F.Cu -> In1.Cu (GND plane): microstrip
+    "h_in2_b_mm": 0.2104,      # In2.Cu -> B.Cu (GND pour): the NEAR reference of In2
+    "core_mm": 1.065,          # In1 <-> In2: the FAR reference of In2
+    "t_cu_mm": 0.035,          # outer
+    "t_cu_inner_mm": 0.0152,   # inner, 0.5 oz
     "total_mm": 1.60,
+    "source": "JLCPCB JLC04161H-7628",
 }
 TRACK_W_MM = 0.25              # [PCB] every signal track on this board
 
@@ -95,3 +102,27 @@ LDO = {
 # ------------------------------------------------------------- ADC
 ADC_FS = 3.1              # [ESP] 12 dB attenuation
 ADC_SAMPLE_US = 10.0      # how long after the key press we sample
+
+
+def stripline_asym_z0(w, h_near, h_far, t, er):
+    """IPC-2141A asymmetric stripline: trace at h_near from one plane and
+    h_far from the other (both measured to the trace's nearer face)."""
+    import math
+    z_sym = 60.0 / math.sqrt(er) * math.log(1.9 * (2 * h_near + t) / (0.8 * w + t))
+    return 80.0 / math.sqrt(er) * math.log(1.9 * (2 * h_near + t) / (0.8 * w + t)) * \
+        (1.0 - h_near / (4.0 * (h_near + h_far + t))), z_sym
+
+
+def layer_line_params(layer, w=None):
+    """(Z0 ohm, delay ps/mm) for a track of width w on the named copper layer."""
+    import math
+    w = TRACK_W_MM if w is None else w
+    s = STACKUP
+    if layer in ("In2.Cu", "SIG", "In1.Cu", "GND"):
+        z0, _ = stripline_asym_z0(w, s["h_in2_b_mm"], s["core_mm"],
+                                  s["t_cu_inner_mm"], s["er"])
+        er_eff = (s["er"] * s["h_in2_b_mm"] + s["er_core"] * s["core_mm"]) / \
+            (s["h_in2_b_mm"] + s["core_mm"])          # buried: no air at all
+        return z0, math.sqrt(er_eff) / 299.792458 * 1000.0
+    z0, ee = microstrip_z0(w, s["h_f_in1_mm"], s["t_cu_mm"], s["er"])
+    return z0, math.sqrt(ee) / 299.792458 * 1000.0
