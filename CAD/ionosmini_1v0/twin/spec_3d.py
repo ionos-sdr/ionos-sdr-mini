@@ -105,7 +105,16 @@ PIXEL_FRACTION_MAX = 0.0030  # fail above this
 # --------------------------------------------------------------------------
 ALLOWED_SCALE = (1.0, 1.0, 1.0)
 ALLOWED_OFFSET_MM = 0.001          # must be zero unless declared below
-OFFSET_EXCEPTIONS = {}             # ref -> (x, y, z) that is known-good
+OFFSET_EXCEPTIONS = {              # ref -> (x, y, z) that is known-good
+    # buydisplay ER-TFTM024-3.STEP (SolidWorks 2023, 2024-06-07), measured with an OCC kernel:
+    # its four 2.8 mm mounting holes at X -28.79 / 23.21, Y 23.45 / -35.05 (52.0 x 58.5 mm)
+    # land on the footprint holes (-1.87, 8.74) ... (50.13, 67.24) rel. pin 1 with X +26.92,
+    # Y -32.19; module PCB bottom (z -0.81) on an 8.5 mm female socket -> Z +9.31.
+    # NOTE the STEP draws a 2x21 header (42 pins, half a pitch off our 2x20 grid); the
+    # datasheet and the footprint say 2x20 - holes and outline match exactly, so the
+    # placement is right and the pin row is the vendor model's error.
+    "DISP2": (26.92, -32.19, 9.31),
+}
 ROTATION_STEP_DEG = 90.0           # rotations must be multiples of this
 
 # Declared transforms we have verified by eye in the 3D view and by render

@@ -203,6 +203,13 @@ def check_models(board, pcb_path):
             if allowed is None and max(abs(v) for v in off) > S.ALLOWED_OFFSET_MM:
                 say(WARN, "transform", "%s: model offset is %s mm and nothing declares why"
                     % (ref, tuple(round(v, 3) for v in off)))
+            elif allowed is not None:
+                # a declared offset is a measured fact: hold the model to it
+                if max(abs(a - w) for a, w in zip(off, allowed)) > S.ALLOWED_OFFSET_MM:
+                    say(FAIL, "transform", "%s: model offset %s mm, declared %s"
+                        % (ref, tuple(round(v, 3) for v in off), allowed))
+                else:
+                    say(PASS, "transform", "%s: offset %s mm, as declared" % (ref, allowed))
             rot = tuple(round(v, 3) for v in (m.m_Rotation.x, m.m_Rotation.y, m.m_Rotation.z))
             if any(abs(v % S.ROTATION_STEP_DEG) > 1e-6 for v in rot):
                 say(WARN, "transform", "%s: model rotation %s is not a multiple of %g deg"

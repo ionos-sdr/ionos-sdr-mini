@@ -618,7 +618,7 @@
 	)
 	(model "${KIPRJMOD}/ionosSDR_mini_3d_models/ER-TFTM024-3.step"
 		(offset
-			(xyz 0 0 0)
+			(xyz 26.92 -32.19 9.31)
 		)
 		(scale
 			(xyz 1 1 1)
