@@ -4,15 +4,15 @@
 
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
-![Ionos SDR mini v0.4 render: ESP32-S3 DevKitC, 2.4 inch TFT, 0.96 inch OLED, six buttons and an EFR32FG23 radio board on the mezzanine socket](docs/img/fg23_big_screen.png)
+![Ionos SDR mini rev-B3 3D render: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the mezzanine sockets for the radio board](docs/img/ionos-sdr-mini_revB3_3d.png)
 
-*Design study of the v0.4 layout: DevKitC on headers, optional ER-TFTM024-3 TFT, optional SSD1306 OLED, cursor keys with BACK/OK, and the EFR32FG23 radio board (BRD4265B) on the right.*
+*rev-B3 (KiCad 3D render): DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board sockets on the right. Top layer is GND copper only, signals run on In1 and B.Cu.*
 
 **Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 2-layer, four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link.
