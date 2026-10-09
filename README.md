@@ -6,13 +6,13 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ![Ionos SDR mini rev-B3 3D render: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the mezzanine sockets for the radio board](docs/img/ionos-sdr-mini_revB3_3d.png)
 
-*rev-B3 (KiCad 3D render): DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board sockets on the right. Top layer is GND copper only, signals run on In1 and B.Cu.*
+*rev-B3 (KiCad 3D render): DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board sockets on the right. Shown: the 4-layer variant, where the top layer is GND copper only and signals run on In1 and B.Cu.*
 
 **Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, four M3 nylon standoffs. Two variants: 4-layer (`layout/rev-b3`, JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal) and this 2-layer one (`layout/rev-b3-2l`, 1.6 mm FR-4, GND pour and tracks on both layers; fit R1–R5 = 68 Ω here). No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, four M3 nylon standoffs. Two variants: 4-layer (`layout/rev-b3`, JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal) and this 2-layer one (`layout/rev-b3-2l`, 1.6 mm FR-4, GND pour and tracks on both layers; fit R1–R5 = 82 Ω here (twin_analog on the v2 routing; 22 Ω on the 4-layer board)). No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link.
@@ -34,10 +34,10 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 | Radio | Silicon Labs radio board | 2x 2x20, 1.27 mm mezzanine, 24 mm apart; BRD4265B validated first |
 | Display (optional) | EastRising ER-TFTM024-3, 2.4", ILI9341 | 240x320, TE pin wired for tear-free hardware scroll; resistive or capacitive touch |
 | Display (optional) | SSD1306 0.96" OLED, I2C | Status line when the large display is not fitted |
-| Buttons | 6x tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, on two resistor ladders |
+| Buttons | 6+1 tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, a seventh SPARE footprint (key optional); two resistor ladders |
 | Radio supply | LP5907-3.3 or TPS7A2033 | ~6.5 uVrms, fed from the DevKit 5 V rail, ferrite + 10 uF at the connector |
 
-Six buttons cost two pins, not six: each ladder is a 10 k pull-up with the buttons pulling down through 0 R / 2.2 k / 6.8 k / 22 k, read on ADC1 with a 1 k + 100 nF filter at the pin. The freed GPIOs carry the SWD lines.
+Seven keys cost two pins, not seven: both ladders use the same 10 k pull-up and the same 0 R / 2.2 k / 6.8 k / 22 k set to GND (UP/DOWN/LEFT/RIGHT on GPIO2, BACK/OK/SPARE on GPIO1, the 22 k level of that ladder left free), read on ADC1 with a 1 k + 100 nF filter at the pin. One threshold table serves both: 0.30 / 0.97 / 1.80 / 2.79 V. Only the 0 R keys (UP, BACK) can wake the chip from deep sleep. The freed GPIOs carry the SWD lines.
 
 ## Pin mapping (BRD4265B)
 
@@ -59,7 +59,23 @@ The EXP header numbers come from the Silicon Labs radio board documentation; the
 | 3V3 | - | - | 3V3 | P200-1 |
 | GND | - | - | GND | P200-2, 38; P201-1, 39 |
 
-The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel.
+The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel; P201-40 (VRF_IN) only runs to test point TP8, and P200-37 (5 V) has a not-fitted 0 R (R33) from the DevKit 5 V for panels that need it.
+
+## Display and touch
+
+The ER-TFTM024-3 sits on SPI3 (SCK 4, MOSI 5, MISO 6, CS 7, D/C 15, RST 16, BL 17, TE 18). Its resistive touch controller (XPT2046) and the module's optional SD/font/flash chips share a second header bus (pins 32/33/34), which is tied to the TFT bus on the carrier; the touch transactions run at their own ~2 MHz clock. 10 k pull-ups hold the module's SD/FONT/FLASH chip selects (header 35/36/37) inactive so nothing else drives MISO.
+
+| Pin | Resistive (XPT2046) | Capacitive (I2C CTP) |
+| --- | --- | --- |
+| TCH_A, GPIO8, header 30 | SPI CS | I2C SCL |
+| TCH_B, GPIO21, header 31 | PENIRQ | I2C SDA |
+| TCH_INT, GPIO9, header 39 | unused | CTP INT |
+
+Both 4.7 k pull-ups (TCH_A, TCH_B) are fitted in every build, so one BOM serves both panel types; firmware picks the mode. **Before the first power-up**, measure the panel's MISO/TE high level with VDD = 5 V: if it follows 5 V, run the panel from 3V3 or add level shifting.
+
+## DevKit: clone or official
+
+The carrier is laid out for the AliExpress ESP32-S3 DevKit clone, whose RGB LED is on GPIO47. On official Espressif ESP32-S3-DevKitC-1 boards the WS2812 sits on GPIO38 (v1.1) or GPIO48 (v1.0), which are SWDIO and SWO here: with an official board the LED flickers during SWD and loads the line, so remove the LED or its series resistor, or use the clone.
 
 ## Repository
 
