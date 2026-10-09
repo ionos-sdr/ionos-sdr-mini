@@ -34,10 +34,10 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 | Radio | Silicon Labs radio board | 2x 2x20, 1.27 mm mezzanine, 24 mm apart; BRD4265B validated first |
 | Display (optional) | EastRising ER-TFTM024-3, 2.4", ILI9341 | 240x320, TE pin wired for tear-free hardware scroll; resistive or capacitive touch |
 | Display (optional) | SSD1306 0.96" OLED, I2C | Status line when the large display is not fitted |
-| Buttons | 6x tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, on two resistor ladders |
+| Buttons | 6+1 tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, a seventh SPARE footprint (key optional); two resistor ladders |
 | Radio supply | LP5907-3.3 or TPS7A2033 | ~6.5 uVrms, fed from the DevKit 5 V rail, ferrite + 10 uF at the connector |
 
-Six buttons cost two pins, not six: each ladder is a 10 k pull-up with the buttons pulling down through 0 R / 2.2 k / 6.8 k / 22 k, read on ADC1 with a 1 k + 100 nF filter at the pin. The freed GPIOs carry the SWD lines.
+Seven keys cost two pins, not seven: both ladders use the same 10 k pull-up and the same 0 R / 2.2 k / 6.8 k / 22 k set to GND (UP/DOWN/LEFT/RIGHT on GPIO2, BACK/OK/SPARE on GPIO1, the 22 k level of that ladder left free), read on ADC1 with a 1 k + 100 nF filter at the pin. One threshold table serves both: 0.30 / 0.97 / 1.80 / 2.79 V. Only the 0 R keys (UP, BACK) can wake the chip from deep sleep. The freed GPIOs carry the SWD lines.
 
 ## Pin mapping (BRD4265B)
 
@@ -59,7 +59,23 @@ The EXP header numbers come from the Silicon Labs radio board documentation; the
 | 3V3 | - | - | 3V3 | P200-1 |
 | GND | - | - | GND | P200-2, 38; P201-1, 39 |
 
-The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel.
+The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel; P201-40 (VRF_IN) only runs to test point TP8, and P200-37 (5 V) has a not-fitted 0 R (R33) from the DevKit 5 V for panels that need it.
+
+## Display and touch
+
+The ER-TFTM024-3 sits on SPI3 (SCK 4, MOSI 5, MISO 6, CS 7, D/C 15, RST 16, BL 17, TE 18). Its resistive touch controller (XPT2046) and the module's optional SD/font/flash chips share a second header bus (pins 32/33/34), which is tied to the TFT bus on the carrier; the touch transactions run at their own ~2 MHz clock. 10 k pull-ups hold the module's SD/FONT/FLASH chip selects (header 35/36/37) inactive so nothing else drives MISO.
+
+| Pin | Resistive (XPT2046) | Capacitive (I2C CTP) |
+| --- | --- | --- |
+| TCH_A, GPIO8, header 30 | SPI CS | I2C SCL |
+| TCH_B, GPIO21, header 31 | PENIRQ | I2C SDA |
+| TCH_INT, GPIO9, header 39 | unused | CTP INT |
+
+Both 4.7 k pull-ups (TCH_A, TCH_B) are fitted in every build, so one BOM serves both panel types; firmware picks the mode. **Before the first power-up**, measure the panel's MISO/TE high level with VDD = 5 V: if it follows 5 V, run the panel from 3V3 or add level shifting.
+
+## DevKit: clone or official
+
+The carrier is laid out for the AliExpress ESP32-S3 DevKit clone, whose RGB LED is on GPIO47. On official Espressif ESP32-S3-DevKitC-1 boards the WS2812 sits on GPIO38 (v1.1) or GPIO48 (v1.0), which are SWDIO and SWO here: with an official board the LED flickers during SWD and loads the line, so remove the LED or its series resistor, or use the clone.
 
 ## Repository
 

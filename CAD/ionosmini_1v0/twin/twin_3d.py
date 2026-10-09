@@ -36,6 +36,7 @@ import os, re, sys, math, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import spec_3d as S
+from steppins import step_pins
 
 import pcbnew
 
@@ -224,6 +225,78 @@ def check_models(board, pcb_path):
                         "%s: rotation is %s but %s was verified by render on 2026-10-05; "
                         "if this is deliberate, re-verify and update spec_3d"
                         % (ref, rot, want))
+
+
+# ---------------------------------------------------- pin registration -----
+def check_registration(board, pcb_path):
+    """Do the model's pins land in the footprint's holes?
+
+    Added 2026-10-09: the OLED header sat 1.23 mm off its holes in the 3D
+    view and every other check passed, because none of them compared the
+    model's geometry with the pads.  This one does, for every through-hole
+    footprint whose STEP has round pins it can read.
+    """
+    for fp in sorted(board.GetFootprints(), key=lambda f: f.GetReference()):
+        ref = fp.GetReference()
+        tht = [p for p in fp.Pads() if p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH]
+        models = list(fp.Models())
+        if not tht or not models:
+            continue
+        m = models[0]
+        path = expand(m.m_Filename, pcb_path)
+        pins = step_pins(path, *S.PIN_RADIUS_MM) if os.path.exists(path) else None
+        if not pins:
+            say(WARN, "register", "%s: no readable round pins in %s - registration not measured"
+                % (ref, os.path.basename(path)))
+            continue
+        if abs(m.m_Rotation.x) > 1e-6 or abs(m.m_Rotation.y) > 1e-6:
+            say(WARN, "register", "%s: model tilted (%g, %g deg) - registration not measured"
+                % (ref, m.m_Rotation.x, m.m_Rotation.y))
+            continue
+        rz = math.radians(m.m_Rotation.z)
+        fr = math.radians(fp.GetOrientationDegrees())
+        pos = fp.GetPosition()
+        flip = fp.IsFlipped()
+        world = []
+        for x, y, r in pins:
+            x, y = x * m.m_Scale.x, y * m.m_Scale.y
+            x, y = x * math.cos(rz) - y * math.sin(rz), x * math.sin(rz) + y * math.cos(rz)
+            x, y = x + m.m_Offset.x, y + m.m_Offset.y
+            y = -y                                   # model Y up -> board Y down
+            if flip:
+                x = -x
+            # footprint rotation is counter-clockwise on screen
+            wx = x * math.cos(fr) + y * math.sin(fr)
+            wy = -x * math.sin(fr) + y * math.cos(fr)
+            world.append((MM(pos.x) + wx, MM(pos.y) + wy))
+        # A cylinder is only a candidate; a model also has screw bosses, LEDs, crystal
+        # cans.  So first find the model's PIN PATTERN: the translation that puts a
+        # candidate over (nearly) every hole.  Only if that pattern exists is the
+        # model's pin row identified, and the translation IS the registration error.
+        pads = [(MM(p.GetPosition().x), MM(p.GetPosition().y)) for p in tht]
+        tol = S.PIN_PATTERN_TOL_MM
+        best = (0, None)
+        for wx, wy in world:
+            for px, py in pads[:4]:
+                tx, ty = wx - px, wy - py
+                hit = sum(1 for qx, qy in pads
+                          if min(abs(qx + tx - ax) + abs(qy + ty - ay) for ax, ay in world) < tol)
+                if hit > best[0] or (hit == best[0] and best[1] and
+                                     math.hypot(tx, ty) < math.hypot(*best[1])):
+                    best = (hit, (tx, ty))
+        hit, t = best
+        if hit < S.PIN_PATTERN_MIN * len(pads):
+            say(WARN, "register", "%s: the model's pin row cannot be identified (best pattern "
+                "covers %d of %d holes) - registration not measured" % (ref, hit, len(pads)))
+            continue
+        err = math.hypot(*t)
+        if err > S.PIN_REGISTER_MM:
+            say(FAIL, "register", "%s: the model's pins sit %.2f mm off the holes (dx %+.2f, "
+                "dy %+.2f on the board, %d of %d pins matched) - the 3D model does not sit "
+                "on its footprint" % (ref, err, t[0], t[1], hit, len(pads)))
+        else:
+            say(PASS, "register", "%s: %d of %d holes carry a model pin, registration %.2f mm"
+                % (ref, hit, len(pads), err))
 
 
 # ------------------------------------------------------------- tier B ------
@@ -419,6 +492,7 @@ def main():
     board = pcbnew.LoadBoard(pcb_path)
 
     check_models(board, pcb_path)
+    check_registration(board, pcb_path)
     if "--render" in sys.argv:
         check_orientation(board, pcb_path)
     else:
@@ -433,6 +507,7 @@ def main():
               ("variant", "is it the part we are buying"),
               ("resolve", "does the file exist, and what is in it"),
               ("transform", "offset, scale and rotation"),
+              ("register", "do the model's pins land in the holes"),
               ("orient", "has the 3D appearance changed since it was verified")]
     verbose = "-q" not in sys.argv
     for grp, title in titles:

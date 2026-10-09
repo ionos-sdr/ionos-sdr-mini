@@ -117,7 +117,18 @@ OFFSET_EXCEPTIONS = {              # ref -> (x, y, z) that is known-good
     # the back, silk "1"/"2" at one end and "39"/"40" at the other, pin 2 on the row away
     # from the edge - seen from the top that is pin 1 left, pin 2 inward, as the footprint.
     "DISP2": (26.92, -32.19, 9.31),
+    # SSD1306_OLED_Display(128x64).step: header pins at X -3.81..3.81, Y +11.83 (model, read by
+    # steppins.py); footprint 128x64OLED holes at X -3.62..4.00, Y -10.60 -> X +0.19, Y -1.23.
+    # Module PCB z 0..1.5, header plastic z -2.5..0: plastic on our board top -> Z +2.5.
+    # Found 2026-10-09 by eye in the 3D view (header 1.2 mm off its holes); the 'register'
+    # check below now measures it.
+    "DISP1": (0.19, -1.23, 2.5),
 }
+# Pin registration: every through-hole pad must have a round model pin over it.
+PIN_RADIUS_MM = (0.25, 0.8)        # header / lead radii the STEP reader accepts as pins
+PIN_REGISTER_MM = 0.25             # max pad-to-pin distance
+PIN_PATTERN_TOL_MM = 0.15          # a candidate "is over a hole" in the pattern search
+PIN_PATTERN_MIN = 0.9              # share of holes the pin pattern must cover to count
 ROTATION_STEP_DEG = 90.0           # rotations must be multiples of this
 
 # Declared transforms we have verified by eye in the 3D view and by render

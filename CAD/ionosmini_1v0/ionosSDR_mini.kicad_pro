@@ -679,11 +679,11 @@
       },
       {
         "netclass": "SPI",
-        "pattern": "Net-(IC1-GPIO13)"
+        "pattern": "Net-(IC1B-GPIO13)"
       },
       {
         "netclass": "SPI",
-        "pattern": "Net-(IC1-GPIO14)"
+        "pattern": "Net-(IC1B-GPIO14)"
       },
       {
         "netclass": "I2C",
@@ -696,6 +696,22 @@
       {
         "netclass": "Slow",
         "pattern": "TCH_*"
+      },
+      {
+        "netclass": "Power_HC",
+        "pattern": "5V_RADIO"
+      },
+      {
+        "netclass": "Slow",
+        "pattern": "SD_CS"
+      },
+      {
+        "netclass": "Slow",
+        "pattern": "FONT_CS"
+      },
+      {
+        "netclass": "Slow",
+        "pattern": "FLASH_CS"
       }
     ]
   },
