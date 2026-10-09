@@ -12,7 +12,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, four M3 nylon standoffs. Two variants: 4-layer (`layout/rev-b3`, JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal) and this 2-layer one (`layout/rev-b3-2l`, 1.6 mm FR-4, GND pour and tracks on both layers; fit R1–R5 = 68 Ω here). No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link.

@@ -16,24 +16,26 @@ SOURCES
 """
 
 # ------------------------------------------------------------- [STACK]
-# JLCPCB JLC04161H-7628, https://jlcpcb.com/impedance (read 2026-10-08),
-# also written into the .kicad_pcb setup/stackup block:
-#   F.Cu 35 um | 7628 PP 0.2104 mm er 4.4 | In1 15.2 um | core 1.065 mm er 4.6
-#   | In2 15.2 um | 7628 PP 0.2104 mm er 4.4 | B.Cu 35 um      total ~1.6 mm
-STACKUP_ASSUMED = False
+# rev-B3-2L: JLCPCB 2-layer FR-4 1.6 mm, also written into the .kicad_pcb stackup block:
+#   F.Cu 35 um | FR-4 core 1.53 mm | B.Cu 35 um                   total ~1.6 mm
+# No plane: every track is a microstrip over the GND pour on the OTHER layer, 1.53 mm away.
+# er 4.5 is an ASSUMPTION - JLC publishes no er for its 2-layer FR-4 (its impedance
+# calculator starts at 4 layers). Treat the Z0 below as +-5 %, not as a measured fact.
+STACKUP_ASSUMED = True
 STACKUP = {
-    "er": 4.4,                 # 7628 prepreg, the dielectric next to every signal layer
-    "er_core": 4.6,
-    # rev-B3 roles: F.Cu GND copper | In1 signal | In2 GND + power | B.Cu signal.
-    # The stack is mirror-symmetric, so the same three numbers describe both line types:
-    "h_f_in1_mm": 0.2104,      # outer microstrip height (B.Cu over In2; F.Cu over In1 in rev-B2)
-    "h_in2_b_mm": 0.2104,      # NEAR reference of the inner signal layer (In1 -> F.Cu GND copper)
-    "core_mm": 1.065,          # FAR reference of the inner signal layer (In1 <-> In2)
-    "t_cu_mm": 0.035,          # outer
-    "t_cu_inner_mm": 0.0152,   # inner, 0.5 oz
+    "er": 4.5,                 # FR-4 core, assumed
+    "er_core": 4.5,
+    "h_f_in1_mm": 1.53,        # microstrip height: F.Cu over the B.Cu GND pour (and B.Cu over F.Cu)
+    "h_in2_b_mm": 1.53,        # (no inner layer on this board)
+    "core_mm": 1.53,
+    "t_cu_mm": 0.035,
+    "t_cu_inner_mm": 0.035,
     "total_mm": 1.60,
-    "source": "JLCPCB JLC04161H-7628",
+    "source": "JLCPCB 2-layer FR-4 1.6 mm (er assumed 4.5)",
 }
+# the line types the board really has, for the line report (twin_analog)
+LINE_LAYERS = (("F.Cu", "microstrip over the B.Cu GND pour"),
+               ("B.Cu", "microstrip over the F.Cu GND pour"))
 TRACK_W_MM = 0.25              # [PCB] every signal track on this board
 
 
@@ -79,7 +81,7 @@ CONN_C_PF = 1.0           # one mezzanine contact
 # ------------------------------------------------------------- the link
 SPI_HZ_NOW = 4.0e6        # [LINK] what runs today
 SPI_HZ_TARGET = 30.0e6    # [LINK] 700 ksps x 32 bit = 22.4 Mbit/s
-SERIES_CANDIDATES = [0.0, 22.0, 33.0, 47.0]
+SERIES_CANDIDATES = [0.0, 22.0, 33.0, 47.0, 68.0, 82.0]   # 2L: Z0 ~128 ohm, the match sits near Z0 - Rdrv ~ 83 ohm
 OVERSHOOT_LIMIT = 0.30    # fraction of VDD we are willing to see at the pin
 SETTLE_FRACTION = 0.10    # settled = within 10 % of final
 

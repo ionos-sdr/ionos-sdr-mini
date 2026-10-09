@@ -595,3 +595,41 @@ A három FAIL valódi, mind nyitott pont:
 
 Plusz egy figyelmeztetés: 19 footprintnek (jumperek, furatok, mérőpontok)
 egyáltalán nincs modellje. Ez rendben van, csak legyen kimondva.
+
+
+## 2 rétegű változat (`layout/rev-b3-2l`, 2026-10-09)
+
+Ugyanaz az elhelyezés, mint a rev-B3-ban, de két rézréteggel: JLC 2 rétegű FR-4, 1,6 mm
+(F.Cu 35 µm | mag 1,53 mm | B.Cu 35 µm). Sík nincs, mindkét rétegen GND-öntés és vezeték.
+
+**Mit kellett a twinben átírni (csak a spec, a kód általános maradt):**
+
+- `spec_analog.py` → `STACKUP` a 2 rétegű értékekkel, `STACKUP_ASSUMED = True`: a JLC nem ad
+  εr-t a 2 rétegű FR-4-hez, a 4,5 feltételezés. A riport ezt a forrás mellé ki is írja.
+- `spec_analog.py` → `LINE_LAYERS`: a vonaltípusok listája (itt F.Cu és B.Cu, mindkettő
+  microstrip a másik réteg GND-öntése fölött). A `twin_analog.py` ebből dolgozik; ha a spec
+  nem adja meg, a 4 rétegű alapértéket használja.
+- `spec_analog.py` → `SERIES_CANDIDATES` kiegészítve 68 és 82 Ω-mal: 2 rétegen Z0 ≈ 128 Ω,
+  az illesztés a Z0 − R_meghajtó ≈ 83 Ω körül van, a régi lista (max. 47 Ω) nem érte el.
+
+**Független keresztellenőrzés:** az openEMS-twin 2D Laplace-megoldója 0,25 mm-re, 1,53 mm-en,
+εr 4,5-tel, lakkal 128,1 Ω-ot ad; a twin képlete 127,8 Ω (0,2 % eltérés). εr 4,2…4,8 között
+a Laplace 131,8…124,6 Ω – ez a feltételezés tényleges bizonytalansága.
+
+**Eredmény (rev-B3-2L):**
+
+```
+1. réteg   66 pass, 6 warn, 0 FAIL
+2. réteg   70 pass, 1 warn, 0 FAIL   (önteszt lefutott)
+3. réteg   28 pass, 3 warn, 0 FAIL
+4. réteg   15 pass, 3 warn, 0 FAIL
+5. réteg   15 pass, 4 warn, 2 FAIL   (önteszt 2/2; a 2 FAIL a nem kulcsolt csatlakozó-STEP)
+```
+
+A 3. réteg itt fontosabb, mint 4 rétegen: R1–R5 = 0 Ω-mal az FG23-busz túllövése 30–41 % VDD
+(4 rétegen 2–4 % volt). 47 Ω-mal 6–11 %, 68 Ω-mal 0,4–2,7 %, 82 Ω-mal nincs túllövés.
+**2 rétegen az R1–R5 ellenállást be kell ültetni, 68 Ω-ot javaslok.** Az I2C felfutás 158–160 ns
+(kisebb a kapacitás, mint 4 rétegen), az IR-esés 25,8 mV.
+
+A CON1/CON2 orientációs referenciát újra kellett venni: a különbségkép a felső rétegen futó új
+vezetékeket, a viákat és a TFT-modul szélét mutatta, a csatlakozótest változatlan.
