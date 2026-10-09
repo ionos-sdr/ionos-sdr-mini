@@ -326,6 +326,13 @@ def check_under_the_board(stack):
         if not used:
             continue
         if node is None:
+            others = [q for q in stack.nets[net] if tuple(q) != (con, pin)]
+            if others and all(str(q[0]).startswith("TP") for q in others):
+                # pin map v2: VRF_IN (P201-40) runs to a test point only - harmless on an open pin
+                say(WARN, "socket", "%s pin %-2s carries %s to test point %s only; the radio "
+                    "board leaves that pin open (%s)" % (con, pin, net,
+                    ", ".join(str(q[0]) for q in others), note))
+                continue
             say(FAIL, "socket", "%s pin %-2s carries %s, but the radio board "
                 "leaves that pin open (%s)" % (con, pin, net, note))
             continue

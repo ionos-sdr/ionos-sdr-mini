@@ -293,6 +293,71 @@ def check_ladders(nets):
                   % (node, S.VDD_LADDER, S.ADC_FS))
 
 
+def ohms(v):
+    """'2.2k/1%' -> 2200, '0R' -> 0, 'NA(...)' -> None (not fitted)."""
+    v = (v or "").strip()
+    if v.upper().startswith("NA("):
+        return None
+    m = re.match(r"([0-9.]+)\s*([kKmMR]?)", v.split("/")[0])
+    if not m:
+        return None
+    x = float(m.group(1))
+    return x * {"k": 1e3, "K": 1e3, "M": 1e6, "m": 1e6}.get(m.group(2), 1.0)
+
+
+def check_pinmap_v2(nets, parts):
+    """Pin map v2 (2026-10-09): every decided change, read back from the netlist."""
+    for net, pin in sorted(S.TOUCH_GPIO.items()):
+        got = net_of(nets, "IC1", pin)
+        if got == net:
+            check(OK, "v2", "%s on IC1 %s (GPIO%s)" % (net, pin, S.ESP_GPIO[pin]))
+        else:
+            check(FAIL, "v2", "IC1 %s (GPIO%s) is on %s, pin map v2 says %s"
+                  % (pin, S.ESP_GPIO[pin], got, net))
+    for net, ref, r, other in S.PULLUPS:
+        nets_of = sorted(n for n, p in nets.items() if any(x[0] == ref for x in p))
+        val = ohms(parts.get(ref))
+        if sorted([net, other]) != nets_of:
+            check(FAIL, "v2", "%s should pull %s to %s, it sits on %s" % (ref, net, other, nets_of))
+        elif val is None or abs(val - r) > 0.01 * r:
+            check(FAIL, "v2", "%s on %s is '%s', want %g ohm fitted" % (ref, net, parts.get(ref), r))
+        else:
+            check(OK, "v2", "%s %s pull-up %g ohm to %s" % (ref, net, r, other))
+    for con, pin, net, ref, other, fitted in S.MEZZ_V2:
+        got = net_of(nets, con, str(pin))
+        pins = nets.get(net, [])
+        on = sorted(n for n, p in nets.items() if any(x[0] == ref for x in p))
+        ok = got == net and any(x[0] == ref for x in pins)
+        if other:
+            ok = ok and sorted([net, other]) == on
+        fit_ok = (ohms(parts.get(ref)) is not None) == fitted or ref.startswith("TP")
+        if ok and fit_ok:
+            check(OK, "v2", "%s pin %d -> %s via %s%s" % (con, pin, net, ref, "" if fitted else " (not fitted)"))
+        else:
+            check(FAIL, "v2", "%s pin %d: net %s, %s on %s, value '%s' - pin map v2 wants %s/%s %s"
+                  % (con, pin, got, ref, on, parts.get(ref), net, other, "fitted" if fitted else "not fitted"))
+    for ref, rail in S.TFT_DECOUPLING:
+        on = sorted(n for n, p in nets.items() if any(x[0] == ref for x in p))
+        if on == sorted([rail, "GND"]):
+            check(OK, "v2", "%s decouples %s at the TFT header" % (ref, rail))
+        else:
+            check(FAIL, "v2", "%s is on %s, want %s/GND" % (ref, on, rail))
+    for node, keys in sorted(S.LADDER_PARTS.items()):
+        raw = node + "_RAW"
+        for sw, r, want in keys:
+            rn = sorted(n for n, p in nets.items() if any(x[0] == r for x in p))
+            sn = sorted(n for n, p in nets.items() if any(x[0] == sw for x in p))
+            shared = set(rn) & set(sn)
+            val = ohms(parts.get(r))
+            ok = raw in rn and "GND" in sn and len(shared) == 1 and val is not None and abs(val - want) <= max(1.0, 0.01 * want)
+            if ok:
+                check(OK, "v2", "%s: %s via %s %g ohm%s" % (node, sw, r, want,
+                      " (key optional)" if sw in S.OPTIONAL_PARTS else ""))
+            else:
+                check(FAIL, "v2", "%s: %s/%s wrong - R on %s value '%s', switch on %s; want %g ohm from %s"
+                      % (node, sw, r, rn, parts.get(r), sn, want, raw))
+
+
 def main():
     # options are ignored here, but an unknown flag must not be mistaken for
     # a path - a checker that silently prints nothing is worse than useless
@@ -317,15 +382,16 @@ def main():
     check_display(nets)
     check_drivers(nets)
     check_ladders(nets)
+    check_pinmap_v2(nets, parts)
 
     groups = {}
     for lvl, grp, msg in results:
         groups.setdefault(grp, []).append((lvl, msg))
-    for grp in ("signal", "power", "cut", "esp32", "tft", "net", "ladder"):
+    for grp in ("signal", "power", "cut", "esp32", "tft", "net", "ladder", "v2"):
         if grp not in groups:
             continue
         print("\n--- %s ---" % grp)
-        show_all = grp in ("signal", "ladder") or "-v" in sys.argv
+        show_all = grp in ("signal", "ladder", "v2") or "-v" in sys.argv
         for lvl, msg in groups[grp]:
             if lvl != OK:
                 print("  %-4s %s" % (lvl, msg))

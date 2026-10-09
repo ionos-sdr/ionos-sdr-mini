@@ -115,6 +115,7 @@ TFT = {
     31: ("RTP_PEN / CTP_SDA", "TCH_B"),
     32: ("SDO aux", "TFT_MISO"), 33: ("SCL aux", "TFT_SCK"),
     34: ("SDI aux", "TFT_MOSI"),
+    35: ("SD_CS", "SD_CS"), 36: ("FONT_CS", "FONT_CS"), 37: ("FLASH_CS", "FLASH_CS"),
     39: ("FLASH_HOLD / CTP_INT", "TCH_INT"),
 }
 
@@ -124,7 +125,37 @@ LADDERS = [
     ("BTN_B", "J3_5", 10000.0, 1000.0, 100e-9,
      [("SW1", 0.0), ("SW2", 2200.0), ("SW3", 6800.0), ("SW4", 22000.0)]),
     ("BTN_A", "J3_4", 10000.0, 1000.0, 100e-9,
-     [("SW5", 0.0), ("SW6", 2200.0)]),
+     [("SW5", 0.0), ("SW6", 2200.0), ("SW7", 6800.0)]),
 ]
+
+# ---------------------------------------------------------- pin map v2 (2026-10-09)
+# Source: claude/ionos-mini-pinmap-v2-2026-10-09.md (Google Sheet pin map v2,
+# decisions D1-D5 and section 8).  Each line is checked against the netlist by
+# twin_check.check_pinmap_v2(), so a later edit cannot quietly undo it.
+TOUCH_GPIO = {            # D1: TCH_B = GPIO21, TCH_INT = GPIO9
+    "TCH_A": "J1_12",     # GPIO8
+    "TCH_B": "J3_18",     # GPIO21
+    "TCH_INT": "J1_15",   # GPIO9
+}
+# (net, part, ohms, other side): pull-ups that must exist and be fitted
+PULLUPS = [
+    ("TCH_A", "R31", 4700.0, "3V3"),      # section 6: fit in every build
+    ("TCH_B", "R32", 4700.0, "3V3"),
+    ("SD_CS", "R28", 10000.0, "3V3"),     # D2: module chips share SPI3
+    ("FONT_CS", "R29", 10000.0, "3V3"),
+    ("FLASH_CS", "R30", 10000.0, "3V3"),
+]
+# (connector, pin, net, part on the net, that part's other net, fitted?)
+MEZZ_V2 = [
+    ("CON1", 37, "5V_RADIO", "R33", "5V0", False),   # unfitted 0R to DevKit 5 V
+    ("CON2", 40, "VRF_IN", "TP8", None, True),       # track to a test point only
+]
+TFT_DECOUPLING = [("C11", "5V0"), ("C12", "5V0")]    # 10 uF + 100 nF at the header
+# section 8: both ladders the same set (one firmware table); part per key in the netlist
+LADDER_PARTS = {
+    "BTN_A": [("SW5", "R22", 0.0), ("SW6", "R23", 2200.0), ("SW7", "R34", 6800.0)],
+    "BTN_B": [("SW1", "R16", 0.0), ("SW2", "R17", 2200.0), ("SW3", "R18", 6800.0), ("SW4", "R19", 22000.0)],
+}
+OPTIONAL_PARTS = {"SW7"}   # footprint fitted, key optional (DNP)
 VDD_LADDER = 3.3
 ADC_FS = 3.1          # ESP32-S3 ADC full scale with 12 dB attenuation
