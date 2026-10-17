@@ -75,6 +75,14 @@ def kicad_path_vars():
                 out.update({k: str(v) for k, v in env.items()})
             except (OSError, ValueError):
                 pass
+    # KiCad's own library variables are not in kicad_common.json unless the user overrode them:
+    # derive them from the install this python belongs to (bin/../share/kicad)
+    share = os.path.normpath(os.path.join(os.path.dirname(sys.executable), "..", "share", "kicad"))
+    if os.path.isdir(share):
+        for ver in ("10", "9", "8"):
+            for var, sub in (("3DMODEL_DIR", "3dmodels"), ("FOOTPRINT_DIR", "footprints"),
+                             ("SYMBOL_DIR", "symbols")):
+                out.setdefault("KICAD%s_%s" % (ver, var), os.path.join(share, sub))
     return out
 
 

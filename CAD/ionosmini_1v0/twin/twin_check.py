@@ -342,6 +342,14 @@ def check_pinmap_v2(nets, parts):
             check(OK, "v2", "%s decouples %s at the TFT header" % (ref, rail))
         else:
             check(FAIL, "v2", "%s is on %s, want %s/GND" % (ref, on, rail))
+    for n, net, (con, cpin) in getattr(S, "SWD_HEADER", []):
+        got = net_of(nets, "CON3", str(n))
+        rb = net_of(nets, con, str(cpin))
+        if got == net and rb == net:
+            check(OK, "v2", "SWD header CON3.%d %s reaches %s.%d" % (n, net, con, cpin))
+        else:
+            check(FAIL, "v2", "SWD header CON3.%d is on %s, %s.%d on %s - want both on %s"
+                  % (n, got, con, cpin, rb, net))
     for node, keys in sorted(S.LADDER_PARTS.items()):
         raw = node + "_RAW"
         for sw, r, want in keys:
