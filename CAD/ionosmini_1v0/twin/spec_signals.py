@@ -156,6 +156,17 @@ LADDER_PARTS = {
     "BTN_A": [("SW5", "R22", 0.0), ("SW6", "R23", 2200.0), ("SW7", "R34", 6800.0)],
     "BTN_B": [("SW1", "R16", 0.0), ("SW2", "R17", 2200.0), ("SW3", "R18", 6800.0), ("SW4", "R19", 22000.0)],
 }
+# SWD debug header (2026-10-17): 1x6 2.54 mm footprint, not fitted, on the RADIO side of
+# the cut points so an external debugger reaches the FG23 even with JP2/JP6-JP8 cut.
+# Pin order = Tag-Connect TC2030-CTX. (pin, net, radio-board pin that net must reach)
+SWD_HEADER = [
+    (1, "VMCU_IN",   ("CON2", 2)),     # VTref: senses VMCU, never powers it
+    (2, "SWDIO_RB",  ("CON2", 21)),
+    (3, "RESETn_RB", ("CON1", 17)),
+    (4, "SWCLK_RB",  ("CON2", 23)),
+    (5, "GND",       ("CON2", 1)),
+    (6, "SWO_RB",    ("CON2", 19)),
+]
 OPTIONAL_PARTS = {"SW7"}   # footprint fitted, key optional (DNP)
 VDD_LADDER = 3.3
 ADC_FS = 3.1          # ESP32-S3 ADC full scale with 12 dB attenuation
