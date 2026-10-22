@@ -23,9 +23,14 @@ REPO = os.path.dirname(HERE)
 PRJ = os.path.join(REPO, 'CAD', 'ionosmini_1v0')
 PCB = os.path.join(PRJ, 'ionosSDR_mini.kicad_pcb')
 SCH = os.path.join(PRJ, 'ionosSDR_mini.kicad_sch')
-EXCLUDE = re.compile(r'^(DISP\d+|IC\d+|CON\d+|JP\d+|TP\d+|H\d+)$')
+EXCLUDE = re.compile(r'^(DISP\d+|IC\d+|JP\d+|TP\d+|H\d+)$')     # CON1/CON2 (Samtec) are JLC-assembled
+# BOM Comment override per LCSC part, when the part ordered differs from the schematic Value
+COMMENT = {'C17227108': 'TFM-120-02-L-D-K-TR'}      # TFC-120-02 out of stock -> Samtec TFM (male, unshrouded)
+# CPL rotation offset per LCSC part, measured in the JLC placement preview (magenta pin 1 vs KiCad pin 1).
+# Per JLC library model, not per package: AP2112K (SOT-23-5) needed +270 on the CW trainer.
+ROT = {'C80670': 180}                                # LP5907MFX-3.3, 2026-10-22 preview
 WHY = {'DISP': 'display module, fitted by hand', 'IC': 'ESP32-S3 DevKit on headers, fitted by hand',
-       'CON': 'Samtec socket / debug header, fitted by hand', 'JP': 'solder jumper, copper only',
+       'JP': 'solder jumper, copper only',
        'TP': 'test pad, copper only', 'H': 'mounting hole'}
 
 
@@ -108,12 +113,13 @@ def main():
         sys.exit('no LCSC number in fab/jlc_lcsc.csv for: ' + ', '.join(missing))
     key = lambda s: (re.match(r'[A-Z]+', s).group(0), int(re.search(r'\d+', s).group(0)))
     bom = os.path.join(out, name + '_BOM_JLC.csv')
-    jlc_refs = set()
+    jlc_refs = set(); part_of = {}
     with open(bom, 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh); w.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part #'])
         for (part, pkg), g in sorted(groups.items(), key=lambda kv: key(sorted(kv[1]['refs'], key=key)[0])):
             refs = sorted(g['refs'], key=key); jlc_refs |= set(refs)
-            val = max(g['vals'], key=len)        # '10k/1%' rather than '10k'
+            part_of.update((r, part) for r in refs)
+            val = COMMENT.get(part) or max(g['vals'], key=len)        # '10k/1%' rather than '10k'
             w.writerow([val, ','.join(refs), pkg, part])
             rep.append('   %-24s %-11s %-9s %3d  %s' % (val, pkg, part, len(refs), ','.join(refs)))
     rep.insert(len(rep) - len(groups), 'BOM: %d lines, %d parts' % (len(groups), len(jlc_refs)))
@@ -129,7 +135,7 @@ def main():
             if r['Ref'] not in jlc_refs:
                 continue
             side = 'Top' if r['Side'].lower().startswith('top') else 'Bottom'
-            w.writerow([r['Ref'], '%.4fmm' % float(r['PosX']), '%.4fmm' % float(r['PosY']), side, '%g' % float(r['Rot'])])
+            w.writerow([r['Ref'], '%.4fmm' % float(r['PosX']), '%.4fmm' % float(r['PosY']), side, '%g' % ((float(r['Rot']) + ROT.get(part_of[r['Ref']], 0)) % 360)])
             seen.add(r['Ref'])
     if seen != jlc_refs:
         sys.exit('CPL and BOM disagree: %s' % sorted(seen ^ jlc_refs))
@@ -138,7 +144,14 @@ def main():
     for why, refs in left.items():
         rep.append('   %-45s %s' % (why, ','.join(sorted(refs, key=key))))
     rep.append('DNP (not fitted): see schematic NA(...) values')
-    rep.append('CHECK in the JLC placement preview: U1 (LP5907, SOT-23-5) pin 1 - the only polarised part.')
+    glob_ = [k for k, g in groups.items() if not k[0]]
+    if glob_:
+        rep.append('GLOBAL SOURCING (no LCSC stock): ' + '; '.join('%s %s' % (', '.join(groups[k]['refs']), max(groups[k]['vals'], key=len)) for k in glob_)
+                   + ' - in the JLC BOM step pick the part from Global Sourcing (DigiKey/Mouser).')
+    if ROT:
+        rep.append('Rotation offsets applied: ' + ', '.join('%s %+d' % (k, v) for k, v in ROT.items()))
+    rep.append('CHECK in the JLC placement preview: U1 (LP5907) magenta pin 1 on the top-left pad (silk dot). '
+               'CON1/CON2 (TFM, unshrouded, no pegs) are symmetric: only the centring matters.')
     open(os.path.join(out, 'pack_report.txt'), 'w', encoding='utf-8').write('\n'.join(rep) + '\n')
     for f in ('drc.json', 'bom_raw.csv', 'pos_raw.csv'):
         os.remove(os.path.join(out, f))
