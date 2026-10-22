@@ -24,3 +24,4 @@ __pycache__/
 CAD/*/twin/ref3d/*.bak
 CAD/*/_calib_tmp.*
 CAD/*/_twin3d_selftest.*
+fab/jlc_*/
