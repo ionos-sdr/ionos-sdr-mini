@@ -4,9 +4,11 @@
 
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
-![Ionos SDR mini rev-B3 3D render: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the mezzanine sockets for the radio board](docs/img/ionos-sdr-mini_revB3_3d.png)
+![Ionos SDR mini rev-B3 2L, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_revB3_2L_3d_iso.jpg)
 
-*rev-B3 (KiCad 3D render): DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board sockets on the right. Shown: the 4-layer variant, where the top layer is GND copper only and signals run on In1 and B.Cu.*
+*rev-B3, the 2-layer variant (signals on F.Cu and B.Cu, GND poured on both sides and stitched). KiCad 10 ray-traced render: DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board connectors on the right. The render shows the shrouded Samtec TFC model; the JLC build uses the unshrouded TFM-120-02-L-D-K-TR on the same footprint.*
+
+![Ionos SDR mini rev-B3 2L, top view](docs/img/ionos-sdr-mini_revB3_2L_3d_top.jpg)
 
 **Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
 
@@ -87,6 +89,16 @@ CON3 is a 1x6 2.54 mm row of plated holes on the right edge, outside the radio b
 | Signal | VTref (VMCU) | SWDIO | nRESET | SWCLK | GND | SWO |
 
 The pins connect on the radio side of the solder-jumper cut points. With a debugger attached, either keep the ESP32's SWD pins as inputs in firmware or cut JP2 and JP6-JP8 to detach the ESP32 completely. VTref only senses the radio board's VMCU; the debugger must not power the board through it.
+
+## Manufacturing files
+
+Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-2l-jlc-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-2l-jlc-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
+
+```
+"C:\Program Files\KiCad\10.0\bin\python.exe" fab/jlc_pack.py
+```
+
+JLC assembles the top-side SMD parts and the two radio board connectors; the DevKit, the displays and the debug header are fitted by hand. LCSC part numbers are in `fab/jlc_lcsc.csv`.
 
 ## Repository
 
