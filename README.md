@@ -4,18 +4,20 @@
 
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
-![Ionos SDR mini v0.4 render: ESP32-S3 DevKitC, 2.4 inch TFT, 0.96 inch OLED, six buttons and an EFR32FG23 radio board on the mezzanine socket](docs/img/fg23_big_screen.png)
+![Ionos SDR mini rev-B3 2L, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_revB3_2L_3d_iso.jpg)
 
-*Design study of the v0.4 layout: DevKitC on headers, optional ER-TFTM024-3 TFT, optional SSD1306 OLED, cursor keys with BACK/OK, and the EFR32FG23 radio board (BRD4265B) on the right.*
+*rev-B3, the 2-layer variant (signals on F.Cu and B.Cu, GND poured on both sides and stitched). KiCad 10 ray-traced render: DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board connectors on the right. The render shows the shrouded Samtec TFC model; the JLC build uses the unshrouded TFM-120-02-L-D-K-TR on the same footprint.*
 
-**Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
+![Ionos SDR mini rev-B3 2L, top view](docs/img/ionos-sdr-mini_revB3_2L_3d_top.jpg)
+
+**Status: rev-B3 2L built and under test — ≈ 86 hours of measurements so far** ([report](docs/ionos-mini-measurements-2026-11.md)). The firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board, its documentation and its measurements.
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 2-layer, four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, four M3 nylon standoffs. Two variants: 4-layer (`layout/rev-b3`, JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal) and this 2-layer one (`layout/rev-b3-2l`, 1.6 mm FR-4, GND pour and tracks on both layers; fit R1–R5 = 82 Ω here (twin_analog on the v2 routing; 22 Ω on the 4-layer board)). No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
-- **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link.
+- **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link. For a J-Link or Simplicity Link there is also a 1x6 2.54 mm SWD footprint (CON3) on the right edge.
 - **One cable.** Power and data over the DevKit's USB-C. The radio gets its own low-noise LDO from the 5 V rail, not the DevKit's shared 3.3 V.
 
 ## Architecture
@@ -34,10 +36,11 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 | Radio | Silicon Labs radio board | 2x 2x20, 1.27 mm mezzanine, 24 mm apart; BRD4265B validated first |
 | Display (optional) | EastRising ER-TFTM024-3, 2.4", ILI9341 | 240x320, TE pin wired for tear-free hardware scroll; resistive or capacitive touch |
 | Display (optional) | SSD1306 0.96" OLED, I2C | Status line when the large display is not fitted |
-| Buttons | 6x tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, on two resistor ladders |
+| Buttons | 6+1 tactile, C&K PTS647 | UP/DOWN/LEFT/RIGHT plus BACK/OK, a seventh SPARE footprint (key optional); two resistor ladders |
+| Debug (optional) | 1x6 2.54 mm SWD footprint, CON3 | Not fitted; pogo clip or solder-in pins, see below |
 | Radio supply | LP5907-3.3 or TPS7A2033 | ~6.5 uVrms, fed from the DevKit 5 V rail, ferrite + 10 uF at the connector |
 
-Six buttons cost two pins, not six: each ladder is a 10 k pull-up with the buttons pulling down through 0 R / 2.2 k / 6.8 k / 22 k, read on ADC1 with a 1 k + 100 nF filter at the pin. The freed GPIOs carry the SWD lines.
+Seven keys cost two pins, not seven: both ladders use the same 10 k pull-up and the same 0 R / 2.2 k / 6.8 k / 22 k set to GND (UP/DOWN/LEFT/RIGHT on GPIO2, BACK/OK/SPARE on GPIO1, the 22 k level of that ladder left free), read on ADC1 with a 1 k + 100 nF filter at the pin. One threshold table serves both: 0.30 / 0.97 / 1.80 / 2.79 V. Only the 0 R keys (UP, BACK) can wake the chip from deep sleep. The freed GPIOs carry the SWD lines.
 
 ## Pin mapping (BRD4265B)
 
@@ -59,13 +62,67 @@ The EXP header numbers come from the Silicon Labs radio board documentation; the
 | 3V3 | - | - | 3V3 | P200-1 |
 | GND | - | - | GND | P200-2, 38; P201-1, 39 |
 
-The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel.
+The FG23 link runs on SPI2 through the IO_MUX pins so the slave interface keeps its headroom for higher clocks; the optional TFT is on SPI3. `VRF` is unused on BRD4265B and the on-board DC-DC feeds PAVDD, so a single supply pin powers the whole panel; P201-40 (VRF_IN) only runs to test point TP8, and P200-37 (5 V) has a not-fitted 0 R (R33) from the DevKit 5 V for panels that need it.
+
+## Display and touch
+
+The ER-TFTM024-3 sits on SPI3 (SCK 4, MOSI 5, MISO 6, CS 7, D/C 15, RST 16, BL 17, TE 18). Its resistive touch controller (XPT2046) and the module's optional SD/font/flash chips share a second header bus (pins 32/33/34), which is tied to the TFT bus on the carrier; the touch transactions run at their own ~2 MHz clock. 10 k pull-ups hold the module's SD/FONT/FLASH chip selects (header 35/36/37) inactive so nothing else drives MISO.
+
+| Pin | Resistive (XPT2046) | Capacitive (I2C CTP) |
+| --- | --- | --- |
+| TCH_A, GPIO8, header 30 | SPI CS | I2C SCL |
+| TCH_B, GPIO21, header 31 | PENIRQ | I2C SDA |
+| TCH_INT, GPIO9, header 39 | unused | CTP INT |
+
+Both 4.7 k pull-ups (TCH_A, TCH_B) are fitted in every build, so one BOM serves both panel types; firmware picks the mode. **Before the first power-up**, measure the panel's MISO/TE high level with VDD = 5 V: if it follows 5 V, run the panel from 3V3 or add level shifting.
+
+## DevKit: clone or official
+
+The carrier is laid out for the AliExpress ESP32-S3 DevKit clone, whose RGB LED is on GPIO47. On official Espressif ESP32-S3-DevKitC-1 boards the WS2812 sits on GPIO38 (v1.1) or GPIO48 (v1.0), which are SWDIO and SWO here: with an official board the LED flickers during SWD and loads the line, so remove the LED or its series resistor, or use the clone.
+
+## SWD debug header
+
+CON3 is a 1x6 2.54 mm row of plated holes on the right edge, outside the radio board's outline, so it stays reachable with the radio board plugged in. Pin order follows the Tag-Connect TC2030-CTX:
+
+| Pin | 1 | 2 | 3 | 4 | 5 | 6 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Signal | VTref (VMCU) | SWDIO | nRESET | SWCLK | GND | SWO |
+
+The pins connect on the radio side of the solder-jumper cut points. With a debugger attached, either keep the ESP32's SWD pins as inputs in firmware or cut JP2 and JP6-JP8 to detach the ESP32 completely. VTref only senses the radio board's VMCU; the debugger must not power the board through it.
+
+## Measurements
+
+**Time on test so far: ≈ 86 hours** (rev-B3 2L + BRD4265B, 2–9 Nov 2026): ≈ 54 h RF with a calibrated signal generator, ≈ 32 h USB-only soaks.
+Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) · raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
+
+| BRD4265B (434 MHz match), measured at 145 MHz | |
+|---|---|
+| I/Q over USB (TinyUSB CDC on USB‑OTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
+| Gain / clipping | dBFS = P_in + 53.68 dB (σ 0.10 dB over 40 h), clip ≈ −52 dBm |
+| NF / MDS | ≈ 8.6 dB / ≈ −128 dBm (10 dB SNR, 500 Hz) |
+| 200 ksps bandwidth / image rejection | 88 kHz at −3 dB (PHY channel filter) / ≥ 42 dB |
+| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to −11 ppm), 1.9 ppm p‑p diurnal |
+| Tuning range with the 145 MHz PHY | 128.34 – 198.07 MHz; CW NF 7.9 – 11.9 dB across it |
+| 2‑FSK 5 kbps, BER 10⁻² | median −110 dBm (simple discriminator reference) |
+| SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
+| Known artefact | ±6.25 kHz sidebands (−74 dBc at 5 kHz, −43 dBc at 37 kHz tone offset) from the I/Q path — open |
+
+## Manufacturing files
+
+Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-2l-jlc-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-2l-jlc-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
+
+```
+"C:\Program Files\KiCad\10.0\bin\python.exe" fab/jlc_pack.py
+```
+
+JLC assembles the top-side SMD parts and the two radio board connectors; the DevKit, the displays and the debug header are fitted by hand. LCSC part numbers are in `fab/jlc_lcsc.csv`.
 
 ## Repository
 
 ```
 hardware/          KiCad project, fab outputs, BOM           CERN-OHL-P-2.0
 docs/              pin mapping, assembly notes, renders      CC-BY-4.0
+measurements/      raw data, scripts, results                CC-BY-4.0
 ```
 
 Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr): `firmware-fg23/` for the radio SoC, `firmware-esp32/` for the companion.
