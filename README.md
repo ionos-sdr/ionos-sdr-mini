@@ -10,7 +10,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ![Ionos SDR mini rev-B3 2L, top view](docs/img/ionos-sdr-mini_revB3_2L_3d_top.jpg)
 
-**Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
+**Status: rev-B3 2L built and under test — ≈ 86 hours of measurements so far** ([report](docs/ionos-mini-measurements-2026-11.md)). The firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board, its documentation and its measurements.
 
 ## What it is
 
@@ -90,6 +90,23 @@ CON3 is a 1x6 2.54 mm row of plated holes on the right edge, outside the radio b
 
 The pins connect on the radio side of the solder-jumper cut points. With a debugger attached, either keep the ESP32's SWD pins as inputs in firmware or cut JP2 and JP6-JP8 to detach the ESP32 completely. VTref only senses the radio board's VMCU; the debugger must not power the board through it.
 
+## Measurements
+
+**Time on test so far: ≈ 86 hours** (rev-B3 2L + BRD4265B, 2–9 Nov 2026): ≈ 54 h RF with a calibrated signal generator, ≈ 32 h USB-only soaks.
+Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) · raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
+
+| BRD4265B (434 MHz match), measured at 145 MHz | |
+|---|---|
+| I/Q over USB (TinyUSB CDC on USB‑OTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
+| Gain / clipping | dBFS = P_in + 53.68 dB (σ 0.10 dB over 40 h), clip ≈ −52 dBm |
+| NF / MDS | ≈ 8.6 dB / ≈ −128 dBm (10 dB SNR, 500 Hz) |
+| 200 ksps bandwidth / image rejection | 88 kHz at −3 dB (PHY channel filter) / ≥ 42 dB |
+| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to −11 ppm), 1.9 ppm p‑p diurnal |
+| Tuning range with the 145 MHz PHY | 128.34 – 198.07 MHz; CW NF 7.9 – 11.9 dB across it |
+| 2‑FSK 5 kbps, BER 10⁻² | median −110 dBm (simple discriminator reference) |
+| SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
+| Known artefact | ±6.25 kHz sidebands (−74 dBc at 5 kHz, −43 dBc at 37 kHz tone offset) from the I/Q path — open |
+
 ## Manufacturing files
 
 Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-2l-jlc-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-2l-jlc-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
@@ -105,6 +122,7 @@ JLC assembles the top-side SMD parts and the two radio board connectors; the Dev
 ```
 hardware/          KiCad project, fab outputs, BOM           CERN-OHL-P-2.0
 docs/              pin mapping, assembly notes, renders      CC-BY-4.0
+measurements/      raw data, scripts, results                CC-BY-4.0
 ```
 
 Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr): `firmware-fg23/` for the radio SoC, `firmware-esp32/` for the companion.
