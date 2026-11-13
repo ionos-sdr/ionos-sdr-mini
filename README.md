@@ -10,7 +10,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ![Ionos SDR mini rev-B3 2L, top view](docs/img/ionos-sdr-mini_revB3_2L_3d_top.jpg)
 
-**Status: rev-B3 2L built and under test — ≈ 86 hours of measurements so far** ([report](docs/ionos-mini-measurements-2026-11.md)). The firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board, its documentation and its measurements.
+**Status: rev-B3 2L built and under test — ≈ 119 hours of measurements so far** ([report](docs/ionos-mini-measurements-2026-11.md)). The firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board, its documentation and its measurements.
 
 ## What it is
 
@@ -92,20 +92,29 @@ The pins connect on the radio side of the solder-jumper cut points. With a debug
 
 ## Measurements
 
-**Time on test so far: ≈ 86 hours** (rev-B3 2L + BRD4265B, 2–9 Nov 2026): ≈ 54 h RF with a calibrated signal generator, ≈ 32 h USB-only soaks.
-Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) · raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
+**Time on test so far: ≈ 119 hours** (rev-B3 2L + BRD4265B, 2–13 Nov 2026; a weekend run continues until 16 Nov):
+≈ 68 h RF with a signal generator (Signal Hound VSG60), ≈ 19 h RF without a source (self-noise, residual spurs, coverage), ≈ 32 h USB-only soaks.
+Raw data, scripts, logs and charts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/) ([RESULT.md](measurements/ionos-mini-2026-11/RESULT.md)) · report for 2–9 Nov: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)).
 
-| BRD4265B (434 MHz match), measured at 145 MHz | |
+**Measurement types:** USB throughput and long soaks · gain, linearity and ADC clip point · noise figure and MDS · passband and image rejection · frequency accuracy and drift · tuning range (LO divider / VCO window) · lock proof with the on-board clock comb · noise floor and residual spurs (open and terminated input) · 2-FSK sensitivity and BER curves · spurious responses 30 MHz – 6 GHz · long-term stability · SoapySDR driver soak. Pending: two-tone IIP3, phase noise, TX output vs frequency.
+
+![Gain, NF and MDS, 97 – 3100 MHz](measurements/ionos-mini-2026-11/charts/24_gain_nf_mds_1MHz.png)
+
+| BRD4265B (434 MHz match) | |
 |---|---|
+| Receive coverage | **97 – 1562 MHz and 2025 – 3100 MHz** (no LO divider for ~1625 – 2000 MHz) |
+| 434 MHz (matched) | gain 63 dB, NF 3–4 dB, MDS −133 dBm (10 dB SNR, 500 Hz), 2-FSK 5 kbps BER 10⁻² at −115 dBm, clip −62 dBm |
+| 145 MHz | gain 53 dB, NF 8–9 dB, MDS −128 dBm, FSK −110 dBm, clip −53 dBm |
+| 868 / 1296 MHz | NF ≈ 23 / 40 dB, FSK −93 / −73 dBm |
+| 2400 / 3000 MHz | NF ≈ 55 / 46 dB, FSK −55 / −59 dBm — the 434 MHz RX match limits above ~600 MHz, the chip itself tunes and locks to 3.1 GHz |
+| Spurious responses | @ 434 MHz worst −70 dBc (11 × LO), others ≤ −104 dBc, no image response; @ 868 MHz worst −81 dBc |
 | I/Q over USB (TinyUSB CDC on USB‑OTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
-| Gain / clipping | dBFS = P_in + 53.68 dB (σ 0.10 dB over 40 h), clip ≈ −52 dBm |
-| NF / MDS | ≈ 8.6 dB / ≈ −128 dBm (10 dB SNR, 500 Hz) |
 | 200 ksps bandwidth / image rejection | 88 kHz at −3 dB (PHY channel filter) / ≥ 42 dB |
-| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to −11 ppm), 1.9 ppm p‑p diurnal |
-| Tuning range with the 145 MHz PHY | 128.34 – 198.07 MHz; CW NF 7.9 – 11.9 dB across it |
-| 2‑FSK 5 kbps, BER 10⁻² | median −110 dBm (simple discriminator reference) |
-| SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
+| Frequency | crystal ≈ +4.2…+5.3 ppm uncorrected (temperature), corrected in firmware (`FREQ_CORR_RX_PPB`); gain stable to σ 0.02–0.03 dB below 1 GHz |
+| SoapySDR | SoapyIonos works on Windows (GQRX, SoapySDRUtil, Python); every VSG run goes through it |
 | Known artefact | ±6.25 kHz sidebands (−74 dBc at 5 kHz, −43 dBc at 37 kHz tone offset) from the I/Q path — open |
+
+P_in = VSG level − 30 dB pad; the coax loss is not subtracted (matters above ~1 GHz).
 
 ## Manufacturing files
 

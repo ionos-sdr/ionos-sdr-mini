@@ -50,6 +50,15 @@ class VSG:
     def idn(self):
         return self.query("*IDN?")
 
+    def open_verified(self, probak=3, wait=8.0):
+        """*IDN? with retries; the VSG software answers only after it has found the device."""
+        for _ in range(probak):
+            idn = self.query("*IDN?", timeout=wait)
+            if "SignalHound" in idn:
+                return idn
+            time.sleep(2.0)
+        return ""
+
     def _num(self, q):
         try:
             return float(self.query(q).split(";")[0])
