@@ -390,7 +390,7 @@ def overlay_devkit_svg(board, path):
              % (cx + rx0, cy + ry0, rx1 - rx0, ry1 - ry0))
     o.append('<rect x="%.3f" y="%.3f" width="28" height="70" fill="#c60" '
              'fill-opacity="0.14" stroke="#c60" stroke-width="0.25" '
-             'stroke-dasharray="1.5 1"/>' % (cx - 14, cy - 35))
+             'stroke-dasharray="1.5 1"/>' % (cx + (rx0 + rx1) / 2 - 14, cy - 35))
     for q in fp.Pads():
         if not q.GetNumber():
             continue
@@ -401,8 +401,8 @@ def overlay_devkit_svg(board, path):
                     MM(sz.x), MM(sz.y)))
     o.append('</g>')
     o.append('<text x="8" y="5" font-size="2.4" fill="#222">ESP32-S3-DevKitC-1'
-             ' - blue: header pads, green: footprint outline 26.42 x 62.74, '
-             'orange dashed: 28 x 70 from third-party sources</text>')
+             ' - blue: header pads, green: footprint outline %.2f x %.2f, '
+             'orange dashed: 28 x 70 from third-party sources</text>' % M.DEVKIT["outline_mm"])
     o.append('<text x="8" y="9" font-size="2.0" fill="#a00">if the module is '
              'really 70 mm long it overhangs our top edge - confirm against '
              'Espressif DXF_ESP32-S3-DevKitC-1_V1.1</text>')
