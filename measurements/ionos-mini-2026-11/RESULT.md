@@ -2,13 +2,13 @@
 
 Board: ionos-sdr-mini rev-B3 2L + Silicon Labs BRD4265B (EFR32FG23, **434 MHz match**), ESP32-S3, 16-bit I/Q over USB (TinyUSB CDC).
 Firmware: [`ionos-sdr/ionos-sdr`](https://github.com/ionos-sdr/ionos-sdr), branch `board/ionos-mini-idf`. Host: [SoapyIonos](https://github.com/ionos-sdr/SoapyIonos).
-Full report for 2–9 Nov: [`docs/ionos-mini-measurements-2026-11.md`](../../docs/ionos-mini-measurements-2026-11.md) · charts: [`charts/`](charts/).
+**Datasheet (measured): [`docs/ionos-mini-datasheet.md`](../../docs/ionos-mini-datasheet.md)** · report for 2–9 Nov: [`docs/ionos-mini-measurements-2026-11.md`](../../docs/ionos-mini-measurements-2026-11.md) · charts: [`charts/`](charts/).
 
-**Time on test so far: ≈ 119 h** (2–13 Nov 2026, snapshot 13 Nov 09:00; the weekend run continues until 16 Nov 07:00)
+**Time on test: ≈ 167 h** (2–16 Nov 2026)
 
 | Category | Hours |
 |---|---|
-| RF with a signal generator (VSG60) | ≈ 68 |
+| RF with a signal generator (VSG60) | ≈ 116 |
 | RF without a signal source (self-noise, residual spurs, coverage) | ≈ 19 |
 | USB-only soaks | ≈ 32 |
 
@@ -24,7 +24,8 @@ Full report for 2–9 Nov: [`docs/ionos-mini-measurements-2026-11.md`](../../doc
 | 11-09 23:58 → 11-10 06:55 | **full coverage, SMA open** (20 dB pad + open coax): 50 MHz–3.3 GHz map, on-board comb, VCO window per LO divider, 200 kHz fine map | 6.9 | `data/fullcoverage-open-2026-11-10/` |
 | 11-10 09:27 → 20:55 | **full coverage, terminated** (30 dB pad + 50 Ω): noise floor, residual spurs, comb, 200 kHz fine map 85–1625 / 2000–3125 MHz | 11.5 | `data/fullcoverage-terminated-2026-11-10/` |
 | 11-12 14:16 → 18:19 | **VSG, full coverage**: gain/NF/MDS 5 MHz grid 97–3100 MHz, 1 MHz grid 97–1562 MHz, linearity, FSK | 4.1 | `data/vsg-fullcoverage-2026-11-12/` |
-| 11-12 22:43 → (16 Nov 07:00) | **weekend run**: gain/NF 1 MHz 2025–3100 MHz, linearity at 21 frequencies, FSK every 25 MHz + BER curves, spurious responses 30 MHz–6 GHz, stability loop | 10.1 so far | `data/weekend-2026-11-12/` |
+| 11-12 22:43 → 11-14 21:49 | **weekend run, part 1**: gain/NF 1 MHz 2025–3100 MHz, linearity at 21 frequencies, FSK every 25 MHz + BER curves, spurious responses 30 MHz–6 GHz, stability loop (1780 cycles); stopped when the VSG software died after a reconnect | 46.9 | `data/weekend-2026-11-12/` |
+| 11-15 20:14 → 11-16 07:01 | **weekend run, part 2**: two-tone test, close-in noise, stability loop (458 cycles) | 10.8 | `data/weekend-2026-11-12/*_20261115_2016.csv` |
 
 ## Measurement types
 
@@ -40,10 +41,14 @@ Full report for 2–9 Nov: [`docs/ionos-mini-measurements-2026-11.md`](../../doc
 | 8 | Noise floor and residual (self-generated) spurs, open vs terminated input | self-noise, fullcoverage-* | 11, 12, 13, 15, 16 |
 | 9 | 2-FSK 5 kbps sensitivity (BER 10⁻²) vs frequency, full BER curves | wideband, vsg, weekend (C) | 06, 25, 26 |
 | 10 | Spurious responses (RX fixed at 145/434/868 MHz, VSG 30 MHz–6 GHz) | weekend (E) | 28 |
-| 11 | Long-term gain / NF / frequency stability at 12 frequencies | weekend (F) | 29 |
+| 11 | Long-term gain / NF / frequency stability at 12 frequencies (52 h, 2239 cycles) | weekend (F) | 29 |
+| 12a | Two-tone intermodulation (±10 kHz) | weekend part 2 (D) | 30 |
+| 12b | Close-in noise around a strong tone (measurement-limited) | weekend part 2 (G) | – |
 | 12 | SoapyIonos driver soak (all VSG runs go through the driver) | every `*_stdout.log.gz` | – |
 
-Still to do: two-tone IIP3 and phase noise / reciprocal mixing (weekend blocks D and G failed and are re-run on 15 Nov), TX output vs frequency (needs the BB60C).
+Still to do: coax-loss calibration with the BB60C, a cleaner two-tone test (tones inside the flat band, away from fixed spurs), phase noise with a cleaner source, TX output vs frequency.
+
+**Script bug found and fixed (15 Nov):** `np.arange` is int32 on Windows; with a 64 k FFT at 200 ksps the frequency axis overflowed beyond ±32.8 kHz (±65.5 kHz with 32 k). Affected: the 37 kHz row of the ±6.25 kHz sideband re-check (11-09, now marked invalid) and the first weekend two-tone block. All other results use offsets inside the limit.
 
 ## Key results
 
@@ -60,7 +65,8 @@ Still to do: two-tone IIP3 and phase noise / reciprocal mixing (weekend blocks D
 | Spurious responses @ 434 MHz | worst −70 dBc (11 × LO, 4775 MHz), all others ≤ −104 dBc; no image response found |
 | Spurious responses @ 868 MHz | worst −81 dBc (1085 MHz), others ≤ −89 dBc |
 | Residual spurs (terminated) | mainly k × 19.5 / 39 MHz (FG23 clocks) and k × 40 MHz (ESP crystal, below ~1.5 GHz) |
-| Stability (4.5 h snapshot) | gain σ 0.02–0.03 dB below 1 GHz; crystal +4.9…+5.35 ppm (uncorrected) |
+| Stability (52 h, 2239 cycles) | gain σ 0.04–0.07 dB below 1 GHz; crystal +2.3…+5.35 ppm uncorrected (room temperature), residual after the +4.2 ppm correction −1.9…+1.15 ppm |
+| Two-tone (±10 kHz) | no third-order product above the fixed spur floor before the ADC clips — the ADC clip limits the dynamic range |
 | Passband / image @ 200 ksps | 88 kHz at −3 dB (PHY channel filter), image ≥ 42 dB |
 
 Caveats: P_in = VSG level − 30 dB pad; the long coax is **not** subtracted (matters above ~1 GHz). The 145 MHz spurious-response panel is dominated by the VSG60's own output spurs. "Open" runs had 20 dB pad + open coax on the input.
@@ -84,7 +90,7 @@ VSG60 (SCPI port 5124) → long coax → 30 dB pad → BRD4265B SMA. Host: Windo
 | `fullwb3.py` | full coverage, terminated input |
 | `ftest.py`, `ftest2.py` | `F` tuning (crystal correction) check through SoapyIonos |
 | `vsgfull.py`, `vsgfsk.py` | VSG full-coverage gain/NF/MDS, linearity, FSK |
-| `weekend.py` | weekend run (blocks A–G, self-healing VSG link) |
+| `weekend.py`, `weekend2.py`, `dgdebug.py` | weekend run (blocks A–G, self-healing VSG link), part 2 (D, G, F), the int32-axis debug |
 | `fsk_lib.py` | 2-FSK PRBS9 Arb generator, discriminator demod, BER |
 | `soak_full.py`, `soak200.py`, `flood_exp*.py`, `passband.py`, `con4.py` | USB soaks, flood tests, passband, console |
 

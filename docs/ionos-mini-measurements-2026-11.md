@@ -301,11 +301,11 @@ CW and FSK sensitivity versus frequency with the 434 MHz match, including out of
 |---|---|---|---|
 | +5 kHz | −73 … −74 | −74 … −75 | ≤ −77 (noise) |
 | +20 kHz | **−50.7 … −50.8** | **−52.8** | ≤ −78 (noise) |
-| +37 kHz | – | **−43.2** | – |
+| +37 kHz | – | ~~−43.2~~ invalid (see correction below) | – |
 
 - **Level-independent** (same dBc from −70.5 to −90.5 dBm) → linear, not compression.
-- **Strongly dependent on the tone's offset from centre** (5 kHz: −74, 20 kHz: −51, 37 kHz: −43 dBc) → not VSG AM/PM (that would be offset-independent) but a **periodic timing/phase error at 6.25 kHz = 400 kHz / 64 in the receiver I/Q path** — tied to 64-sample blocks of the FG23 input (FIFO read or CIC phase). To be fixed in the FG23 decimation/FIFO path.
-- Anomaly: at the +37 kHz setting the strongest peak appeared at −27.9 kHz at full level — unexplained (alias or peak mis-identification).
+- **Strongly dependent on the tone's offset from centre** (5 kHz: −74, 20 kHz: −51 dBc) → not VSG AM/PM (that would be offset-independent) but a **periodic timing/phase error at 6.25 kHz = 400 kHz / 64 in the receiver I/Q path** — tied to 64-sample blocks of the FG23 input (FIFO read or CIC phase). To be fixed in the FG23 decimation/FIFO path.
+- **Correction (2026-11-15):** the +37 kHz row and the "−27.9 kHz anomaly" are a script bug, not a measurement: `np.arange` is int32 on Windows, and with a 64 k FFT at 200 ksps the frequency axis overflowed beyond ±32.8 kHz (beyond ±65.5 kHz with a 32 k FFT). The 5 and 20 kHz rows are below that limit and stand. The scripts now build the axis in float64.
 
 ### 10.3 FSK outliers re-measured (3× each)
 

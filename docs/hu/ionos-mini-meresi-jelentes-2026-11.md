@@ -296,11 +296,11 @@ Zoltán kérése: a CW- és FSK-érzékenység frekvenciafüggése a 434 MHz-es 
 |---|---|---|---|
 | +5 kHz | −73 … −74 (−70,5 dBm-en) | −74 … −75 | ≤ −77 (zaj) |
 | +20 kHz | **−50,7 … −50,8** | **−52,8** | ≤ −78 (zaj) |
-| +37 kHz | – | **−43,2** | – |
+| +37 kHz | – | ~~−43,2~~ érvénytelen (lásd a javítást) | – |
 
 - A dBc-érték **szintfüggetlen** (−70,5 … −90,5 dBm között azonos) → lineáris jelenség, nem kivezérlés.
-- **Erősen függ a tónus középtől mért távolságától** (5 kHz: −74, 20 kHz: −51, 37 kHz: −43 dBc) → nem a VSG AM/PM-je (az eltolástól független lenne), hanem a **vevő I/Q-útjának 6,25 kHz-es periodikus időzítési/fázishibája** (6,25 kHz = 400 kHz / 64 → az FG23 bemeneti mintáinak 64-es blokkjaihoz köthető; pl. FIFO-olvasási vagy CIC-fázisugrás). A javítás az FG23 decimáló/FIFO-útjában keresendő.
-- Anomália: a +37 kHz-es beállításnál a legnagyobb csúcs −27,9 kHz-en volt teljes szinten – tisztázandó (alias vagy rossz csúcs-azonosítás).
+- **Erősen függ a tónus középtől mért távolságától** (5 kHz: −74, 20 kHz: −51 dBc) → nem a VSG AM/PM-je (az eltolástól független lenne), hanem a **vevő I/Q-útjának 6,25 kHz-es periodikus időzítési/fázishibája** (6,25 kHz = 400 kHz / 64 → az FG23 bemeneti mintáinak 64-es blokkjaihoz köthető; pl. FIFO-olvasási vagy CIC-fázisugrás). A javítás az FG23 decimáló/FIFO-útjában keresendő.
+- **Javítás (2026-11-15):** a +37 kHz-es sor és a „−27,9 kHz-es anomália” szkripthiba, nem mérés: Windowson az `np.arange` int32, és 64 k-s FFT-vel, 200 ksps-en a frekvenciatengely ±32,8 kHz fölött túlcsordult (32 k-s FFT-vel ±65,5 kHz fölött). Az 5 és 20 kHz-es sor a határ alatt van, érvényes. A szkriptek már float64 tengelyt használnak.
 
 **(A) FSK-kiugrások újramérése (3× pontonként):**
 
@@ -376,7 +376,7 @@ Zoltán kérése: a CW- és FSK-érzékenység frekvenciafüggése a 434 MHz-es 
 2. **Kristálykorrekció javítása**: a −11 ppm túlkorrigálás; a valós hiba +4,4 ppm.
 3. **Zökkenőmentes hangolás**: a sorszám folytatódjon, a hangolás pillanata fejlécbitben, a beállás idejére nullázott minták.
 4. **Hangolási hiba jelzése**: elérhetetlen frekvenciánál hiba; az ESP csak FG23-nyugta után mondjon OK-t.
-5. **±6,25 kHz-es oldalvonalak**: a vevő I/Q-útjának 6,25 kHz-es (400 kHz/64) periodikus időzítési hibája – az FG23 FIFO-olvasásában / CIC-fázisában keresendő (az eltolással nőnek: 5 kHz −74, 20 kHz −51, 37 kHz −43 dBc).
+5. **±6,25 kHz-es oldalvonalak**: a vevő I/Q-útjának 6,25 kHz-es (400 kHz/64) periodikus időzítési hibája – az FG23 FIFO-olvasásában / CIC-fázisában keresendő (az eltolással nőnek: 5 kHz −74, 20 kHz −51 dBc).
 6. `B`-mód: frekvencia-validálás a lefagyás elkerülésére (vagy RAIL-szintű időtúllépés).
 
 **ESP / protokoll**

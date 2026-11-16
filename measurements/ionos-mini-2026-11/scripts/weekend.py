@@ -73,7 +73,7 @@ def B(khz): r = cmd("B%d" % khz, 1.0); time.sleep(0.4); return r
 def spec(secs=1.0, fs=FS, n=N):
     z, _ = capture(secs)
     if len(z) < n: fg23_reset(); set_rate(fs); return None
-    S = spectrum(z, n); f = (np.arange(n) - n // 2) * fs / n
+    S = spectrum(z, n); f = (np.arange(n, dtype=np.float64) - n // 2) * fs / n   # float: int32 arange overflows on Windows
     return S, f, z
 def tone_at(S, f, fexp, span=8e3):
     idx = np.where(np.abs(f - fexp) <= span)[0]; k = idx[np.argmax(S[idx])]
@@ -170,7 +170,7 @@ def G(v):
         fh = fm * 1e6; B(int(fh // 1000)); v.freq(fh, verify=False); v.power(-35 if fm != 868 else -20); time.sleep(1.6)
         r = spec(4.0, FS, 1 << 16)
         if r is None: continue
-        S, f, _ = r; Sd = 10 * np.log10(S + 1e-20); c = PPM * fh; k = np.argmin(np.abs(f - c)); car = Sd[k-6:k+7].max()
+        S, f, _ = r; Sd = 10 * np.log10(S + 1e-20); m = np.abs(f - PPM * fh) < 3000; k = np.where(m)[0][np.argmax(Sd[m])]; c = f[k]; car = 10 * np.log10(S[k-4:k+5].sum() + 1e-20)
         rbw = FS / (1 << 16) * 1.73
         for off in (100, 300, 1e3, 3e3, 1e4, 3e4, 9e4):
             j = np.argmin(np.abs(f - (c + off))); lvl = np.median(Sd[max(j-3,0):j+4])
