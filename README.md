@@ -14,7 +14,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu parts + GND / In1 solid GND / In2 power + signals / B.Cu signals + GND), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu parts + GND / In1 solid GND / In2 power + signals, horizontal / B.Cu signals, vertical + GND), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link. For a J-Link or Simplicity Link there is also a 1x6 2.54 mm SWD footprint (CON3) on the right edge.
@@ -101,7 +101,7 @@ The RGB LED is on GPIO48 on the clone and on DevKitC-1 v1.0, and on GPIO38 on De
 - SWO moved from GPIO48 to GPIO47 (GPIO48 drives the clone's RGB LED).
 - OLED: four 2.5 mm plated holes for the module's mounting lugs, and the outline per the module drawing (27.3 x 27.3 mm).
 - TFT socket is SMD (HCTL PM254-2-20-S-8.5, 8.5 mm), assembled by JLC.
-- Layer roles: In1 is solid GND, as the reference for the top layer. In2 carries the power and most signals, and B.Cu takes the rest. The top layer holds only the parts' escapes. The board was fully re-routed and GND-stitched.
+- Layer roles: In1 is solid GND, as the reference for the top layer. In2 carries the power and most signals, routed horizontally (89 % of its length); B.Cu takes the vertical runs (79 %). The top layer holds only the parts' escapes (153 mm). The board was fully re-routed and GND-stitched.
 
 ## SWD debug header
 

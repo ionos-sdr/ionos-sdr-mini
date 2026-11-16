@@ -826,13 +826,83 @@
 	)
 	(fp_line
 		(start 12.7 -28.269259)
-		(end 12.7 4.063471)
+		(end 12.7 -26.418817)
 		(stroke
 			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
 		(uuid "e4c85fa9-2542-4992-8213-bf73a760f17b")
+	)
+	(fp_line
+		(start 12.7 -25.71865)
+		(end 12.7 -21.317598)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "9879090a-674e-4a32-a06c-3f93b36511de")
+	)
+	(fp_line
+		(start 12.7 -20.642436)
+		(end 12.7 -16.241384)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "45b55d84-cc63-4265-af03-6f57dc87651d")
+	)
+	(fp_line
+		(start 12.7 -15.566223)
+		(end 12.7 -11.165171)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "2e9b56f7-15f7-411e-bdce-751e1b1b0d1f")
+	)
+	(fp_line
+		(start 12.7 -10.49001)
+		(end 12.7 -5.638849)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "77ac1a27-24a8-4998-836c-b5c231d89b27")
+	)
+	(fp_line
+		(start 12.7 -4.863664)
+		(end 12.7 -1.012744)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "dcb5ddfd-f7b6-426c-a34b-d2f3469668ec")
+	)
+	(fp_line
+		(start 12.7 -0.312576)
+		(end 12.7 1.537867)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "fa8aaa9f-cf0d-4e25-8c06-735c738ac286")
+	)
+	(fp_line
+		(start 12.7 2.213028)
+		(end 12.7 4.063471)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f0455bf3-8075-4cd0-8d1c-293a7ed75600")
 	)
 	(fp_line
 		(start 12.7 4.763638)
@@ -866,13 +936,23 @@
 	)
 	(fp_line
 		(start 12.7 12.390462)
-		(end 12.7 19.317118)
+		(end 12.7 16.766508)
 		(stroke
 			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
 		(uuid "b945b7b1-8183-4d3e-9236-5c4e01f358ac")
+	)
+	(fp_line
+		(start 12.7 17.466675)
+		(end 12.7 19.317118)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "747f9ca1-cca7-4060-9ae8-e77cdd1700ab")
 	)
 	(fp_line
 		(start 12.7 19.992279)
@@ -1166,7 +1246,7 @@
 	)
 	(fp_line
 		(start 15.42 7.03)
-		(end 15.42 8.03)
+		(end 15.42 7.83)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -1195,7 +1275,7 @@
 		(uuid "43f611a5-4891-4836-ac2e-03a42d1f5d16")
 	)
 	(fp_line
-		(start 15.42 13.68)
+		(start 15.42 14.005)
 		(end 15.42 14.43)
 		(stroke
 			(width 0.15)
@@ -1256,7 +1336,7 @@
 	)
 	(fp_line
 		(start 15.42 23.03)
-		(end 15.42 24.03)
+		(end 15.42 23.505)
 		(stroke
 			(width 0.15)
 			(type default)

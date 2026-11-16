@@ -6,7 +6,7 @@
 	(descr "ER-TFTM024-3 on an HCTL PM254-2-20-S-8.5 SMD 2x20 socket (LCSC C3975165), 8.5 mm")
 	(tags "display tft ili9341 ER-TFTM024-3 socket 2x20 2.54mm")
 	(property "Reference" "REF**"
-		(at 3.25 13.14 0)
+		(at 4 13.89 0)
 		(layer "F.SilkS")
 		(uuid "901a8e8b-85ea-40e7-ace1-f3c734b15c0a")
 		(effects
@@ -54,7 +54,7 @@
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -3.87 -3.46)
-		(end -1.6 -3.46)
+		(end -2.079223 -3.46)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -63,8 +63,18 @@
 		(uuid "92dd7f60-41dc-468d-9fce-219d970082a2")
 	)
 	(fp_line
-		(start -3.87 8.994282)
+		(start -3.87 3.567416)
 		(end -3.87 -3.46)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "6eeb7545-5dda-4ef7-ae54-f9ecfdd04c01")
+	)
+	(fp_line
+		(start -3.87 8.994282)
+		(end -3.87 4.317674)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -73,8 +83,18 @@
 		(uuid "c15c7e6b-aacd-4f2c-a837-e469a15da6d5")
 	)
 	(fp_line
-		(start -3.87 17.622249)
+		(start -3.87 11.545159)
 		(end -3.87 9.794557)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "cd958c28-e839-4ae3-9787-47cc0964f5a3")
+	)
+	(fp_line
+		(start -3.87 17.622249)
+		(end -3.87 12.320425)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -83,8 +103,18 @@
 		(uuid "fceb422e-7e51-4508-b22b-3aa8763c1a30")
 	)
 	(fp_line
-		(start -3.87 39.75486)
+		(start -3.87 26.950457)
 		(end -3.87 18.347499)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "1dc4d038-bd83-44d9-b793-44e2a2daf13a")
+	)
+	(fp_line
+		(start -3.87 39.75486)
+		(end -3.87 27.42562)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -103,34 +133,24 @@
 		(uuid "b2a4a6d3-511b-4264-8190-79a94a22fd0b")
 	)
 	(fp_line
-		(start -3.87 69.24)
+		(start -3.87 44.506494)
 		(end -3.87 42.505806)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f192cb75-f3ee-4a00-b296-1d1a3fcfee76")
+	)
+	(fp_line
+		(start -3.87 69.24)
+		(end -3.87 45.28176)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 		(uuid "0649de0f-63bb-4a77-bb42-779fbec17184")
-	)
-	(fp_line
-		(start -1.6 -3.329999)
-		(end -0.8 -3.329999)
-		(stroke
-			(width 0.15)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "034269e1-dd4a-44c1-9ed8-8c2a3a77924d")
-	)
-	(fp_line
-		(start -1.6 -1.23)
-		(end -1.6 -0.550213)
-		(stroke
-			(width 0.15)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "f001e910-16a4-4665-be27-4a1b13ebb307")
 	)
 	(fp_line
 		(start -1.6 -1.23)
@@ -151,6 +171,16 @@
 		)
 		(layer "F.SilkS")
 		(uuid "3670561d-c7d6-458e-8604-82da2d14c3f8")
+	)
+	(fp_line
+		(start -1.341936 -3.329999)
+		(end -0.8 -3.329999)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "034269e1-dd4a-44c1-9ed8-8c2a3a77924d")
 	)
 	(fp_line
 		(start 0.48 69.24)
@@ -314,13 +344,23 @@
 	)
 	(fp_line
 		(start 52.13 -3.46)
-		(end 52.13 7.768861)
+		(end 52.13 0.741444)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 		(uuid "f19ad968-6327-4f68-8cb8-606df8491823")
+	)
+	(fp_line
+		(start 52.13 1.216608)
+		(end 52.13 7.768861)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "ce5ac74d-a55a-4c0c-98e7-d7c2da39cb01")
 	)
 	(fp_line
 		(start 52.13 8.794213)
@@ -333,7 +373,7 @@
 		(uuid "cb3edd59-ce22-4b40-9e95-7e0b6a7de352")
 	)
 	(fp_line
-		(start 52.13 22.523934)
+		(start 52.13 23.47426)
 		(end 52.13 24.724691)
 		(stroke
 			(width 0.15)
@@ -363,14 +403,24 @@
 		(uuid "ff39feee-cb3d-435f-a265-43595726728f")
 	)
 	(fp_line
-		(start 52.13 32.77746)
-		(end 52.13 69.24)
+		(start 52.13 33.427683)
+		(end 52.13 38.504429)
 		(stroke
 			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
 		(uuid "c30646df-c0d6-45ad-927f-ae685b918950")
+	)
+	(fp_line
+		(start 52.13 39.279696)
+		(end 52.13 69.24)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a1f65a25-9e3b-42e3-a729-05f70589585e")
 	)
 	(fp_line
 		(start -3.87 -3.46)
@@ -471,6 +521,16 @@
 		)
 		(layer "F.Fab")
 		(uuid "31c7e740-d49d-4d12-818e-702178165fda")
+	)
+	(fp_line
+		(start -1.6 -1.23)
+		(end -1.6 -0.550213)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "f001e910-16a4-4665-be27-4a1b13ebb307")
 	)
 	(fp_line
 		(start -1.6 3.045)
