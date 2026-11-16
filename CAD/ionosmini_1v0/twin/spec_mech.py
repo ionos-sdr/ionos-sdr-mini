@@ -94,11 +94,16 @@ UNDER_RADIO_MM = SAMTEC["mated_height_mm"] - RB_BOTTOM_MAX_H      # 5.25 mm
 # =====================================================================
 DEVKIT = {
     "header": {"rows": 2, "pins_per_row": 22, "pitch_mm": 2.54,
-               "row_spacing_mm": 22.86},
-    # from the rpw_lib footprint's F.Fab outline, relative to the origin
-    "outline_rel": (-13.72, -31.37, 12.70, 31.37),
-    "outline_mm": (26.42, 62.74),
+               "row_spacing_mm": 22.86,
+               # v1.1: second J3 row for the AliExpress clone (28.3 mm wide board,
+               # rows 25.4 mm apart); J1 is shared, both J3 rows carry the same nets
+               "row_spacing_alt_mm": 25.40},
+    # v1.1: the clone's outline (the wider of the two), relative to the origin
+    "outline_rel": (-12.88, -31.37, 15.42, 31.37),
+    "outline_mm": (28.30, 62.74),
 }
+# v1.1: 1x22 header placement parts (JLC THT); no pads, the holes are IC1's
+DEVKIT_HEADERS = {"J10", "J11", "J12"}
 # Third-party sources quote 70 x 28 mm for this board, the footprint says
 # 26.42 x 62.74.  Espressif's own drawing (DXF_ESP32-S3-DevKitC-1_V1.1)
 # has NOT been checked, so the module envelope is an UNVERIFIED input and
@@ -142,4 +147,4 @@ def height_of(lib_id, value=""):
 
 # Footprints that are allowed to have no courtyard (none, really - this is
 # here so the rule is explicit rather than implied).
-COURTYARD_EXEMPT = set()
+COURTYARD_EXEMPT = set(DEVKIT_HEADERS)    # inside IC1 by design

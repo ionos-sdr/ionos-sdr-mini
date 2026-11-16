@@ -5,9 +5,9 @@
 	(uuid "b8860a4f-62d2-599c-af6e-c70d993a2328")
 	(paper "A3")
 	(title_block
-		(title "ionos-sdr-mini rev-B3 - Radio board (BRD4265B)")
-		(date "2026-10-09")
-		(rev "B3")
+		(title "ionos-sdr-mini v1.1 - Radio board (BRD4265B)")
+		(date "2026-11-16")
+		(rev "v1.1")
 		(company "RF Sparkling Kft. - HA7DCD")
 		(comment 1 "P200/P201 mezzanine, FG23 link, SWD, cut points")
 	)
@@ -5367,7 +5367,7 @@
 		)
 		(uuid "6072450c-5b81-5da9-b117-53410425ad78")
 	)
-	(text "GPIO47). Official DevKitC-1 puts the WS2812 on"
+	(text "GPIO48, like DevKitC-1 v1.0). DevKitC-1 v1.1 has it on"
 		(exclude_from_sim no)
 		(at 20.32 129.54 0)
 		(effects
@@ -5380,7 +5380,7 @@
 		)
 		(uuid "fb3ba2da-817c-5dd8-bbd3-087bbfd8eac6")
 	)
-	(text "GPIO38 (v1.1) / GPIO48 (v1.0) = SWDIO / SWO here:"
+	(text "GPIO38 = SWDIO here: with a v1.1 board"
 		(exclude_from_sim no)
 		(at 20.32 132.08 0)
 		(effects
@@ -5842,8 +5842,8 @@
 			)
 		)
 	)
-	(global_label "SWO"
-		(shape input)
+	(global_label "WS2812"
+		(shape output)
 		(at 63.5 83.82 0)
 		(fields_autoplaced yes)
 		(effects

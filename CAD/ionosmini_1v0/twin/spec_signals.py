@@ -49,7 +49,7 @@ SIGNALS = [
     ("FG23_SPARE", None,    ("CON2", p201_pin(4)),  "spare", "3V3"),
     ("SWDIO",      "J3_10", ("CON2", p201_pin(18)), "bidir", "3V3"),
     ("SWCLK",      "J3_9",  ("CON2", p201_pin(20)), "out",   "3V3"),
-    ("SWO",        "J3_16", ("CON2", p201_pin(16)), "in",    "3V3"),
+    ("SWO",        "J3_17", ("CON2", p201_pin(16)), "in",    "3V3"),   # v1.1: GPIO47 (48 = clone RGB LED)
     ("RESETn",     "J3_8",  ("CON1", p200_pin(4)),  "out",   "3V3"),
     ("I2C_SDA",    "J3_7",  ("CON1", 40), "bidir", "3V3"),
     ("I2C_SCL",    "J3_6",  ("CON1", 39), "out",   "3V3"),

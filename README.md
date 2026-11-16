@@ -4,17 +4,17 @@
 
 Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
-![Ionos SDR mini rev-B3 4L, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_revB3_4L_3d_iso.jpg)
+![Ionos SDR mini v1.1, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_v1.1_3d_iso.jpg)
 
-*rev-B3, the 4-layer variant (top layer GND copper only, signals on In1 and B.Cu). KiCad 10 ray-traced render: DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board connectors on the right. The render shows the shrouded Samtec TFC model; the JLC build uses the unshrouded TFM-120-02-L-D-K-TR on the same footprint.*
+*v1.1, 4 layers. KiCad 10 ray-traced render: DevKitC on headers, SSD1306 OLED with BACK/OK below it, the optional ER-TFTM024-3 TFT on a 2x20 socket in the middle (manufacturer's 3D model), cursor keys and the radio board connectors on the right. The render shows the shrouded Samtec TFC model; the JLC build uses the unshrouded TFM-120-02-L-D-K-TR on the same footprint.*
 
-![Ionos SDR mini rev-B3 4L, top view](docs/img/ionos-sdr-mini_revB3_4L_3d_top.jpg)
+![Ionos SDR mini v1.1, top view](docs/img/ionos-sdr-mini_v1.1_3d_top.jpg)
 
 **Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu GND / In1 signal / In2 GND + power / B.Cu signal), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu parts + GND / In1 solid GND / In2 power + signals / B.Cu signals + GND), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link. For a J-Link or Simplicity Link there is also a 1x6 2.54 mm SWD footprint (CON3) on the right edge.
@@ -32,7 +32,7 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 | Block | Part | Notes |
 | --- | --- | --- |
-| MCU | ESP32-S3-DevKitC-1, N16R8 | On 2x22 female headers, antenna end overhanging the board edge |
+| MCU | ESP32-S3-DevKitC-1 or the AliExpress clone | On 1x22 female headers (JLC-fitted), antenna end overhanging the board edge; see [DevKit: clone or official](#devkit-clone-or-official) |
 | Radio | Silicon Labs radio board | 2x 2x20, 1.27 mm mezzanine, 24 mm apart; BRD4265B validated first |
 | Display (optional) | EastRising ER-TFTM024-3, 2.4", ILI9341 | 240x320, TE pin wired for tear-free hardware scroll; resistive or capacitive touch |
 | Display (optional) | SSD1306 0.96" OLED, I2C | Status line when the large display is not fitted |
@@ -55,7 +55,7 @@ The EXP header numbers come from the Silicon Labs radio board documentation; the
 | CMD | 13 (UART TX) | PA06 | WSTK_P8 | P201-11 |
 | SWDIO | 38 | PA02 | WSTK_P18 | P201-21 |
 | SWCLK | 39 | PA01 | WSTK_P20 | P201-23 |
-| SWO | 48 | PA03 | WSTK_P16 | P201-19 |
+| SWO | 47 | PA03 | WSTK_P16 | P201-19 |
 | RESETn | 40 | RESETn | WSTK_F4 | P200-17 |
 | BOARD_ID_SDA / SCL | 41 / 42 (I2C0) | - | BOARD_ID | P200-40 / P200-39 |
 | VMCU_IN | - | - | VMCU_IN | P201-2 |
@@ -78,7 +78,30 @@ Both 4.7 k pull-ups (TCH_A, TCH_B) are fitted in every build, so one BOM serves 
 
 ## DevKit: clone or official
 
-The carrier is laid out for the AliExpress ESP32-S3 DevKit clone, whose RGB LED is on GPIO47. On official Espressif ESP32-S3-DevKitC-1 boards the WS2812 sits on GPIO38 (v1.1) or GPIO48 (v1.0), which are SWDIO and SWO here: with an official board the LED flickers during SWD and loads the line, so remove the LED or its series resistor, or use the clone.
+The two boards do not share the same header spacing. On the Espressif ESP32-S3-DevKitC-1 the two pin rows are 22.86 mm apart. The AliExpress clone is wider: its PCB is 28.3 mm, and its rows are 25.4 mm apart.
+
+Since v1.1 the footprint has both right-hand rows:
+- J1 (left) is shared.
+- J3 has two rows of holes, 2.54 mm apart, joined by copper.
+- The silkscreen shows both outlines (the clone's dashed) and marks the two spacings, "DevKitC-1 22.86" and "clone 25.40", under the module.
+
+JLC fits the female headers:
+
+| Header | Row | Fitted |
+| --- | --- | --- |
+| J10 | J1 (shared) | always |
+| J11 | clone J3 | default |
+| J12 | DevKitC-1 J3 | not fitted (DNP); fit it instead of J11 for an Espressif board |
+
+The RGB LED is on GPIO48 on the clone and on DevKitC-1 v1.0, and on GPIO38 on DevKitC-1 v1.1. The SWD lines avoid GPIO48: since v1.1 SWO is on **GPIO47**, SWDIO stays on GPIO38. With a DevKitC-1 v1.1 the LED sits on SWDIO, flickers during SWD and loads the line, so remove the LED or its series resistor, or use the clone or a v1.0 board.
+
+## Changes in v1.1
+
+- DevKit footprint with two J3 rows (clone 25.4 mm and DevKitC-1 22.86 mm), J10-J12 female headers in the JLC BOM (Hong Cheng HC-PM254-8.5H-1x22PZ, THT).
+- SWO moved from GPIO48 to GPIO47 (GPIO48 drives the clone's RGB LED).
+- OLED: four 2.5 mm plated holes for the module's mounting lugs, and the outline per the module drawing (27.3 x 27.3 mm).
+- TFT socket is SMD (HCTL PM254-2-20-S-8.5, 8.5 mm), assembled by JLC.
+- Layer roles: In1 is solid GND, as the reference for the top layer. In2 carries the power and most signals, and B.Cu takes the rest. The top layer holds only the parts' escapes. The board was fully re-routed and GND-stitched.
 
 ## SWD debug header
 
@@ -98,7 +121,7 @@ Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-4
 "C:\Program Files\KiCad\10.0\bin\python.exe" fab/jlc_pack.py
 ```
 
-JLC assembles the top-side SMD parts and the two radio board connectors; the DevKit, the displays and the debug header are fitted by hand. LCSC part numbers are in `fab/jlc_lcsc.csv`.
+JLC assembles the top-side SMD parts, the two radio board connectors, the TFT socket and the DevKit headers (J10 + J11 for the clone by default); the DevKit, the displays and the debug header are fitted by hand. The manufacturing files for v1.1 have not been released yet; the release above is rev-B3. LCSC part numbers are in `fab/jlc_lcsc.csv`.
 
 ## Repository
 

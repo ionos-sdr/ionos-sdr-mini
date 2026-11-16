@@ -1,0 +1,85 @@
+(footprint "DevKit_Socket_1x22_THT"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "1x22 2.54 mm female header (HC-PM254-8.5H-1x22PZ, LCSC C41376161), placement only: no pads, the holes belong to the DevKit footprint (IC1). Origin = header centre, pin 1 at -x at 0 deg (JLC/EasyEDA orientation).")
+	(tags "socket header 1x22 placement")
+	(property "Reference" "REF**"
+		(at 0 -1.8 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "06d6c891-ca2a-4e15-90c2-0ccad38fa88e")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "DevKit_Socket_1x22_THT"
+		(at 0 1.8 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7db81a3b-209d-4781-8296-e2d5d64e2554")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -27.94 -1.27)
+		(end 27.94 -1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a446529d-4265-4880-b3c9-3728e348f2d4")
+	)
+	(fp_line
+		(start 27.94 -1.27)
+		(end 27.94 1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "61d7d15d-a6a3-4b0c-be0e-9f82181c13c6")
+	)
+	(fp_line
+		(start 27.94 1.27)
+		(end -27.94 1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2f169fb5-4fc9-4891-8df2-835049da358c")
+	)
+	(fp_line
+		(start -27.94 1.27)
+		(end -27.94 -1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5ceca526-54ef-4a52-9974-280142922e0d")
+	)
+	(fp_line
+		(start -27.94 -0.6)
+		(end -27.34 -1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5485454f-a52f-4774-ba02-6c208c0b42f3")
+	)
+	(embedded_fonts no)
+)

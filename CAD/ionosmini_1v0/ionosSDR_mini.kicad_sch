@@ -5,13 +5,95 @@
 	(uuid "15d29fd5-3ab7-4308-b695-054541352165")
 	(paper "A3")
 	(title_block
-		(title "ionos-sdr-mini rev-B3 - Overview")
-		(date "2026-10-09")
-		(rev "B3")
+		(title "ionos-sdr-mini v1.1 - Overview")
+		(date "2026-11-16")
+		(rev "v1.1")
 		(company "RF Sparkling Kft. - HA7DCD")
-		(comment 1 "ESP32-S3 DevKitC-1 carrier for the Silabs BRD4265B (EFR32FG23) radio board")
+		(comment 1 "ESP32-S3 DevKitC-1 (or clone) carrier for the Silabs BRD4265B (EFR32FG23) radio board")
 	)
 	(lib_symbols
+		(symbol "ionosSDR_mini:DevKit_Socket_1x22"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "DevKit_Socket_1x22"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "ionosSDR_mini:DevKit_Socket_1x22_THT"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "1x22 2.54 mm female header for the ESP32-S3 DevKit. No pins: the contacts are the DevKit footprint's own holes (IC1); this part only puts the header into the BOM/CPL."
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "DevKit_Socket_1x22_0_1"
+				(rectangle
+					(start -5.08 2.54)
+					(end 5.08 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(text "1x22 F"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "rpw_lib:PB_HOLE"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -501,7 +583,7 @@
 		)
 		(uuid "1ac113bc-161d-5565-a118-781f8c9d5279")
 	)
-	(text "Forbidden: strapping 0/3/45/46, octal PSRAM 35-37 (N16R8). Reserved: UART0 43/44, USB 19/20, WS2812 47."
+	(text "Forbidden: strapping 0/3/45/46, octal PSRAM 35-37 (N16R8). Reserved: UART0 43/44, USB 19/20, WS2812 48."
 		(exclude_from_sim no)
 		(at 142.24 203.2 0)
 		(effects
@@ -969,6 +1051,233 @@
 				)
 			)
 		)
+	)
+	(symbol
+		(lib_id "ionosSDR_mini:DevKit_Socket_1x22")
+		(at 60.96 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7c399507-da47-49d3-932c-8f7e1ab5aecf")
+		(property "Reference" "J10"
+			(at 60.96 214.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "HC-PM254-8.5H-1x22PZ"
+			(at 60.96 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ionosSDR_mini:DevKit_Socket_1x22_THT"
+			(at 60.96 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C41376161.html"
+			(at 60.96 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DevKit header, shared row (J1, both boards)"
+			(at 60.96 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ionosSDR_mini:DevKit_Socket_1x22")
+		(at 78.74 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0ccc7191-4ad3-4234-8ada-524228be78fc")
+		(property "Reference" "J11"
+			(at 78.74 214.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "HC-PM254-8.5H-1x22PZ"
+			(at 78.74 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ionosSDR_mini:DevKit_Socket_1x22_THT"
+			(at 78.74 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C41376161.html"
+			(at 78.74 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DevKit header, clone row (J3 at 25.4 mm)"
+			(at 78.74 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "J11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ionosSDR_mini:DevKit_Socket_1x22")
+		(at 96.52 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp yes)
+		(uuid "d2f7fc9e-c8d6-462a-90e0-121bc06ed058")
+		(property "Reference" "J12"
+			(at 96.52 214.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "HC-PM254-8.5H-1x22PZ"
+			(at 96.52 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ionosSDR_mini:DevKit_Socket_1x22_THT"
+			(at 96.52 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C41376161.html"
+			(at 96.52 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DevKit header, DevKitC-1 row (J3 at 22.86 mm) - fit instead of J11 for an Espressif board"
+			(at 96.52 218.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "ionosSDR_mini"
+				(path "/15d29fd5-3ab7-4308-b695-054541352165"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "DevKit headers (JLC THT): J10 + J11 for the clone (rows 25.4 mm apart),\nJ10 + J12 for an Espressif DevKitC-1 (22.86 mm). The holes are IC1's."
+		(exclude_from_sim no)
+		(at 55.88 210.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "50bf1973-6568-4f9b-a7b5-e0f31a741392")
 	)
 	(sheet_instances
 		(path "/"

@@ -221,15 +221,15 @@ def check_devkit(board):
         if p.GetNumber():
             pos = p.GetPosition()
             xs.append(MM(pos.x)); ys.append(MM(pos.y))
-    rows = max(xs) - min(xs)
+    cols = sorted({round(x - min(xs), 2) for x in xs})
+    want_cols = sorted({0.0, d["row_spacing_mm"], d.get("row_spacing_alt_mm", d["row_spacing_mm"])})
     span = max(ys) - min(ys)
     want_span = (d["pins_per_row"] - 1) * d["pitch_mm"]
-    ok = (abs(rows - d["row_spacing_mm"]) < 0.05
+    ok = (len(cols) == len(want_cols) and all(abs(a - b) < 0.05 for a, b in zip(cols, want_cols))
           and abs(span - want_span) < 0.05)
     say(PASS if ok else FAIL, "devkit",
-        "header 2 x %d, pitch %.2f mm: rows %.2f mm (want %.2f), span %.2f mm "
-        "(want %.2f)" % (d["pins_per_row"], d["pitch_mm"], rows,
-                         d["row_spacing_mm"], span, want_span))
+        "header rows at %s mm from J1 (want %s), pitch %.2f mm, span %.2f mm (want %.2f)"
+        % (cols, want_cols, d["pitch_mm"], span, want_span))
     rx0, ry0, rx1, ry1 = M.DEVKIT["outline_rel"]
     p = fp.GetPosition()
     cx, cy = MM(p.x), MM(p.y)
@@ -247,7 +247,7 @@ def check_devkit(board):
             % (mx0, mx1, my0, my1, my0 - by0))
     under = []
     for other in board.GetFootprints():
-        if other.GetReference() == "IC1":
+        if other.GetReference() == "IC1" or other.GetReference() in getattr(M, "DEVKIT_HEADERS", ()):
             continue
         q = other.GetPosition()
         qx, qy = MM(q.x), MM(q.y)

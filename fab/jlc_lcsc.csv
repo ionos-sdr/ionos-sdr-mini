@@ -14,3 +14,5 @@ Value,Footprint,LCSC,Package,Type,Note
 PTS647SK38SMTR2 LFS,rpw_lib:PTS647SK38SMTR2LFS,C2798978,SMD 4.5x4.5,Extended,C&K PTS647SK38SMTR2 LFS
 LP5907MFX-3.3(SOT23-5),rpw_lib:SOT-23-5,C80670,SOT-23-5,Extended,TI LP5907MFX-3.3/NOPB
 TFC-120-02-F-D-A-K-TR,ionosSDR_mini:TFC-120-02-XX-D-A-K-TR,C17227108,TFC 2x20 1.27mm SMT,Extended,Samtec TFM-120-02-L-D-K-TR (TFC out of stock; male terminal into WCON socket; no alignment pins)
+ER-TFTM024-3,ionosSDR_mini:ER-TFTM024-3_Socket_2x20_P2.54mm,C3975165,SMD 2x20 2.54mm H8.5,Extended,HCTL PM254-2-20-S-8.5 (TFT socket; the display itself is fitted by hand)
+HC-PM254-8.5H-1x22PZ,ionosSDR_mini:DevKit_Socket_1x22_THT,C41376161,THT 1x22 2.54mm H8.5,Extended,Hong Cheng HC-PM254-8.5H-1x22PZ (DevKit header; J10+J11 clone / J10+J12 DevKitC-1)
