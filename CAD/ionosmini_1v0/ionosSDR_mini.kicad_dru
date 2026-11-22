@@ -1,0 +1,113 @@
+(version 1)
+# JLCPCB rigid FR-4, 1-2 layers, 1 oz
+# Source: https://jlcpcb.com/capabilities/pcb-capabilities  (read 2026-10-07)
+# Two tiers:
+#   error   = JLC absolute capability (board is rejected / not buildable below this)
+#   warning = JLC "costs more" or "recommended" limit (buildable, but surcharge or yield risk)
+# Put this into <project>.kicad_dru (or append to it). Netclass values still apply on top.
+
+# ---------------------------------------------------------------- copper
+(rule "JLC min track width (2L 1oz: 0.10)"
+    (constraint track_width (min 0.10mm)))
+
+(rule "JLC min clearance (2L 1oz: 0.10)"
+    (constraint clearance (min 0.10mm)))
+
+(rule "JLC pad to track (1oz: 0.10)"
+    (condition "A.Type == 'Pad' && B.Type == 'Track'")
+    (constraint clearance (min 0.10mm)))
+
+(rule "JLC SMD pad to pad, different nets (0.15)"
+    (severity warning)
+    (layer outer)
+    (condition "A.Type == 'Pad' && B.Type == 'Pad' && A.Net != B.Net")
+    (constraint clearance (min 0.15mm)))
+
+(rule "JLC routed edge clearance (0.2; V-cut needs 0.4)"
+    (constraint edge_clearance (min 0.2mm)))
+
+# ---------------------------------------------------------------- drilling
+(rule "JLC min hole (0.15)"
+    (constraint hole_size (min 0.15mm)))
+
+(rule "JLC via hole < 0.2 costs more"
+    (severity warning)
+    (condition "A.Type == 'Via'")
+    (constraint hole_size (min 0.2mm)))
+
+(rule "JLC via diameter < 0.45 costs more"
+    (severity warning)
+    (condition "A.Type == 'Via'")
+    (constraint via_diameter (min 0.45mm)))
+
+(rule "JLC min via diameter (0.25)"
+    (condition "A.Type == 'Via'")
+    (constraint via_diameter (min 0.25mm)))
+
+(rule "JLC via annular ring (dia >= hole + 0.1)"
+    (condition "A.Type == 'Via'")
+    (constraint annular_width (min 0.05mm)))
+
+(rule "JLC PTH annular ring (2L 1oz: abs 0.18, rec 0.25)"
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole'")
+    (constraint annular_width (min 0.18mm)))
+
+(rule "JLC PTH annular ring recommended 0.25"
+    (severity warning)
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole'")
+    (constraint annular_width (min 0.25mm)))
+
+(rule "JLC min NPTH (0.5)"
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'NPTH, mechanical'")
+    (constraint hole_size (min 0.5mm)))
+
+(rule "JLC via hole-to-hole (0.2)"
+    (condition "A.Type == 'Via' && B.Type == 'Via'")
+    (constraint hole_to_hole (min 0.2mm)))
+
+(rule "JLC pad hole-to-hole (0.45)"
+    (condition "A.Type == 'Pad' && B.Type == 'Pad'")
+    (constraint hole_to_hole (min 0.45mm)))
+
+(rule "JLC via hole to track (0.2)"
+    (condition "A.Type == 'Via' && B.Type == 'Track'")
+    (constraint hole_clearance (min 0.2mm)))
+
+(rule "JLC PTH to track (min 0.28)"
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && B.Type == 'Track'")
+    (constraint hole_clearance (min 0.28mm)))
+
+(rule "JLC PTH to track recommended 0.35"
+    (severity warning)
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && B.Type == 'Track'")
+    (constraint hole_clearance (min 0.35mm)))
+
+(rule "JLC NPTH to track (0.2)"
+    (condition "A.Type == 'Pad' && A.Pad_Type == 'NPTH, mechanical' && B.Type == 'Track'")
+    (constraint hole_clearance (min 0.2mm)))
+
+# ---------------------------------------------------------------- silkscreen
+(rule "JLC silk text height (1.0)"
+    (severity warning)
+    (layer "?.Silkscreen")
+    (constraint text_height (min 1.0mm)))
+
+(rule "JLC silk line/stroke width (0.15)"
+    (severity warning)
+    (layer "?.Silkscreen")
+    (constraint text_thickness (min 0.15mm)))
+
+(rule "JLC pad to silkscreen (0.15)"
+    (severity warning)
+    (layer outer)
+    (condition "A.Type == 'Pad' && B.Layer == '?.Silkscreen'")
+    (constraint silk_clearance (min 0.15mm)))
+
+# ---------------------------------------------------------------- copper pour
+# The generic "min clearance 0.10" rule above also drives the zone filler, which then
+# pours GND 0.10 mm from every pad. PTH pads with a 0.10 mm mask expansion end up with the
+# mask aperture touching the pour (solder_mask_bridge). Keep pours at the 0.3 mm the zones
+# were drawn with.
+(rule "Copper pour to other nets 0.3"
+    (condition "A.Type == 'Zone' && A.Net != B.Net")
+    (constraint clearance (min 0.3mm)))

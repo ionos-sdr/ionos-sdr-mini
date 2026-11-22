@@ -2,7 +2,7 @@
 
 ![Ionos SDR mini](docs/img/banner.png)
 
-Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
+Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts ÔÇö the radio board you already have in a drawer does the RF.
 
 ![Ionos SDR mini v1.1, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_v1.1_3d_iso.jpg)
 
@@ -10,11 +10,11 @@ Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-s
 
 ![Ionos SDR mini v1.1, top view](docs/img/ionos-sdr-mini_v1.1_3d_top.jpg)
 
-**Status: hardware design in progress.** The firmware and the measured facts live in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board and its documentation.
+**Status: v1.1 (4-layer) designed, not built yet.** The built and measured board is rev-B3 2L (tag [`rev-b3-2l`](https://github.com/ionos-sdr/ionos-sdr-mini/tree/rev-b3-2l)) — ≈ 86 hours of measurements plus over-the-air receive tests ([Measurements](#measurements)). The firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr); this repo holds the carrier board, its documentation and its measurements.
 
 ## What it is
 
-- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu parts + GND / In1 solid GND / In2 power + signals, horizontal / B.Cu signals, vertical + GND), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board.
+- **Carrier only.** 168 x 80 mm, 4-layer (JLC04161H-7628: F.Cu parts + GND / In1 solid GND / In2 power + signals, horizontal / B.Cu signals, vertical + GND), four M3 nylon standoffs. No RF layout risk: matching network, SMA and shielding stay on the Silicon Labs radio board. Earlier revisions: rev-B3 2L (built and measured, tag `rev-b3-2l`) and rev-B3 4L (branch `layout/rev-b3`).
 - **Any radio board fits.** The mezzanine pair is the standard WSTK radio board interface, so BRD4265B (FG23, 434 MHz, 10 dBm) is only the first panel. The pin-to-signal mapping differs per panel and is selected in firmware.
 - **Panel auto-detect.** The radio board's M24C02 board-ID EEPROM sits on the same I2C bus as the OLED, so the firmware can read which panel is plugged in and load the matching pin map at boot.
 - **Bootstrap flashing.** SWDIO, SWCLK, SWO and RESET are routed to the ESP32, which bit-bangs SWD. A blank radio board can be programmed with nothing but this board and a USB cable; routine updates then go over the UART command link. For a J-Link or Simplicity Link there is also a 1x6 2.54 mm SWD footprint (CON3) on the right edge.
@@ -113,6 +113,41 @@ CON3 is a 1x6 2.54 mm row of plated holes on the right edge, outside the radio b
 
 The pins connect on the radio side of the solder-jumper cut points. With a debugger attached, either keep the ESP32's SWD pins as inputs in firmware or cut JP2 and JP6-JP8 to detach the ESP32 completely. VTref only senses the radio board's VMCU; the debugger must not power the board through it.
 
+## Measurements
+
+All measurements so far are on **rev-B3 2L** + BRD4265B, the board that was built (tag [`rev-b3-2l`](https://github.com/ionos-sdr/ionos-sdr-mini/tree/rev-b3-2l)); v1.1 has not been built yet.
+
+**Time on test so far: Ôëł 86 hours** (rev-B3 2L + BRD4265B, 2ÔÇô9 Nov 2026): Ôëł 54 h RF with a calibrated signal generator, Ôëł 32 h USB-only soaks.
+Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) ┬Ě raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
+
+| BRD4265B (434 MHz match), measured at 145 MHz | |
+|---|---|
+| I/Q over USB (TinyUSB CDC on USBÔÇĹOTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
+| Gain / clipping | dBFS = P_in + 53.68 dB (¤â 0.10 dB over 40 h), clip Ôëł Ôłĺ52 dBm |
+| NF / MDS | Ôëł 8.6 dB / Ôëł Ôłĺ128 dBm (10 dB SNR, 500 Hz) |
+| 200 ksps bandwidth / image rejection | 88 kHz at Ôłĺ3 dB (PHY channel filter) / Ôëą 42 dB |
+| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to Ôłĺ11 ppm), 1.9 ppm pÔÇĹp diurnal |
+| Tuning range with the 145 MHz PHY | 128.34 ÔÇô 198.07 MHz; CW NF 7.9 ÔÇô 11.9 dB across it |
+| 2ÔÇĹFSK 5 kbps, BER 10Ôü╗┬▓ | median Ôłĺ110 dBm (simple discriminator reference) |
+| SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
+| Known artefact | ┬▒6.25 kHz sidebands (Ôłĺ74 dBc at 5 kHz, Ôłĺ43 dBc at 37 kHz tone offset) from the I/Q path ÔÇö open |
+
+### Receive tests, 22 Nov 2026 ÔÇö APRS, AIS, ground loop
+
+Over the air at home (Budapest, ~1 km from the Danube), magÔÇĹmount 2 m whip on a radiator. Details: [`measurements/ionos-mini-2026-11-22-rx/`](measurements/ionos-mini-2026-11-22-rx/RESULT.md).
+
+| | |
+|---|---|
+| APRS 144.800, onÔÇĹdevice AFSK demod | channel FIR before the discriminator: 20 of 20 bursts on a 20ÔÇĹmin capture (old firmware 0); ~25 packets/h gated live |
+| AIS 161.975 (channel A), onÔÇĹdevice GMSK demod | battery supply: 56 of 63 bursts (89 %); live 70 min: 788 messages, 82 stations (64 river AtoN, 14 vessels); NMEA on TCP 10110 |
+| AIS perÔÇĹpacket level / SNR / offset | Ôłĺ46 ÔÇŽ Ôłĺ36 dBFS, SNR 9ÔÇô25 dB (median 15), ┬▒600 Hz |
+| **Ground loop** (mainsÔÇĹcharged laptop USB + antenna on a radiator, no PE in the house) | 12ÔÇô17 dB gain dips, 2ÔÇô4 ms, every 20 ms: AIS 13 of 398 bursts, APRS dead after dark. **Use a battery or isolate the USB.** |
+
+<p align="center"><img src="docs/img/ais_groundloop_bars.png" width="62%" alt="AIS bursts: 97 % with a gain dip and 3 % decoded on mains-charged USB, 2 % and 89 % on a powerbank"></p>
+<p align="center"><img src="docs/img/ais_burst_envelope.png" width="88%" alt="AIS burst envelope: a ~4 ms, -15 dB dip on mains-charged USB; flat on a powerbank"></p>
+<p align="center"><img src="docs/img/tft_waterfall_before_after.png" width="88%" alt="TFT waterfall emulator: old vs new display settings on AIS and APRS captures"></p>
+<p align="center"><i>OnÔÇĹdevice TFT waterfall (PC emulator of the firmware): old vs new ÔÇö perÔÇĹbin peak of the 3 FFTs per row, 24 dB range, DC patch ┬▒1 bin.</i></p>
+
 ## Manufacturing files
 
 Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-4l-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-4l-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
@@ -121,13 +156,14 @@ Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-4
 "C:\Program Files\KiCad\10.0\bin\python.exe" fab/jlc_pack.py
 ```
 
-JLC assembles the top-side SMD parts, the two radio board connectors, the TFT socket and the DevKit headers (J10 + J11 for the clone by default); the DevKit, the displays and the debug header are fitted by hand. The manufacturing files for v1.1 have not been released yet; the release above is rev-B3. LCSC part numbers are in `fab/jlc_lcsc.csv`.
+JLC assembles the top-side SMD parts, the two radio board connectors, the TFT socket and the DevKit headers (J10 + J11 for the clone by default); the DevKit, the displays and the debug header are fitted by hand. The manufacturing files for v1.1 have not been released yet; the release above is rev-B3 4L, and the built 2L board's files are in [`rev-b3-2l-jlc-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-2l-jlc-20261022). LCSC part numbers are in `fab/jlc_lcsc.csv`.
 
 ## Repository
 
 ```
 hardware/          KiCad project, fab outputs, BOM           CERN-OHL-P-2.0
 docs/              pin mapping, assembly notes, renders      CC-BY-4.0
+measurements/      raw data, scripts, results                CC-BY-4.0
 ```
 
 Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr): `firmware-fg23/` for the radio SoC, `firmware-esp32/` for the companion.
@@ -136,4 +172,4 @@ Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr):
 
 Hardware under CERN-OHL-P-2.0, documentation under CC-BY-4.0. Not affiliated with IONOS SE or Silicon Laboratories; EFR32, Simplicity Studio and the WSTK radio board interface are Silicon Labs property, used here for interoperability only.
 
-Designed by Zoltán Dóczi and Zoltán Papp at [Z2 Labs](https://www.z2labs.io/), Budapest. Design and manufacturing support by [Protowoerk](https://www.protowoerk.com).
+Designed by Zolt├ín D├│czi and Zolt├ín Papp at [Z2 Labs](https://www.z2labs.io/), Budapest. Design and manufacturing support by [Protowoerk](https://www.protowoerk.com).
