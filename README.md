@@ -107,6 +107,22 @@ Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measure
 | SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
 | Known artefact | ±6.25 kHz sidebands (−74 dBc at 5 kHz, −43 dBc at 37 kHz tone offset) from the I/Q path — open |
 
+### Receive tests, 22 Nov 2026 — APRS, AIS, ground loop
+
+Over the air at home (Budapest, ~1 km from the Danube), mag‑mount 2 m whip on a radiator. Details: [`measurements/ionos-mini-2026-11-22-rx/`](measurements/ionos-mini-2026-11-22-rx/RESULT.md).
+
+| | |
+|---|---|
+| APRS 144.800, on‑device AFSK demod | channel FIR before the discriminator: 20 of 20 bursts on a 20‑min capture (old firmware 0); ~25 packets/h gated live |
+| AIS 161.975 (channel A), on‑device GMSK demod | battery supply: 56 of 63 bursts (89 %); live 70 min: 788 messages, 82 stations (64 river AtoN, 14 vessels); NMEA on TCP 10110 |
+| AIS per‑packet level / SNR / offset | −46 … −36 dBFS, SNR 9–25 dB (median 15), ±600 Hz |
+| **Ground loop** (mains‑charged laptop USB + antenna on a radiator, no PE in the house) | 12–17 dB gain dips, 2–4 ms, every 20 ms: AIS 13 of 398 bursts, APRS dead after dark. **Use a battery or isolate the USB.** |
+
+<p align="center"><img src="docs/img/ais_groundloop_bars.png" width="62%" alt="AIS bursts: 97 % with a gain dip and 3 % decoded on mains-charged USB, 2 % and 89 % on a powerbank"></p>
+<p align="center"><img src="docs/img/ais_burst_envelope.png" width="88%" alt="AIS burst envelope: a ~4 ms, -15 dB dip on mains-charged USB; flat on a powerbank"></p>
+<p align="center"><img src="docs/img/tft_waterfall_before_after.png" width="88%" alt="TFT waterfall emulator: old vs new display settings on AIS and APRS captures"></p>
+<p align="center"><i>On‑device TFT waterfall (PC emulator of the firmware): old vs new — per‑bin peak of the 3 FFTs per row, 24 dB range, DC patch ±1 bin.</i></p>
+
 ## Manufacturing files
 
 Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-2l-jlc-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-2l-jlc-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
