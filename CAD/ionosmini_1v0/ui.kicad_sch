@@ -5,9 +5,9 @@
 	(uuid "417f39bf-a67c-5540-9055-d00bd50bda48")
 	(paper "A3")
 	(title_block
-		(title "ionos-sdr-mini rev-B3 - User interface")
-		(date "2026-10-09")
-		(rev "B3")
+		(title "ionos-sdr-mini v1.1 - User interface")
+		(date "2026-11-16")
+		(rev "v1.1")
 		(company "RF Sparkling Kft. - HA7DCD")
 		(comment 1 "TFT + resistive touch, OLED, two ADC button ladders")
 	)

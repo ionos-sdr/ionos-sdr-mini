@@ -221,15 +221,15 @@ def check_devkit(board):
         if p.GetNumber():
             pos = p.GetPosition()
             xs.append(MM(pos.x)); ys.append(MM(pos.y))
-    rows = max(xs) - min(xs)
+    cols = sorted({round(x - min(xs), 2) for x in xs})
+    want_cols = sorted({0.0, d["row_spacing_mm"], d.get("row_spacing_alt_mm", d["row_spacing_mm"])})
     span = max(ys) - min(ys)
     want_span = (d["pins_per_row"] - 1) * d["pitch_mm"]
-    ok = (abs(rows - d["row_spacing_mm"]) < 0.05
+    ok = (len(cols) == len(want_cols) and all(abs(a - b) < 0.05 for a, b in zip(cols, want_cols))
           and abs(span - want_span) < 0.05)
     say(PASS if ok else FAIL, "devkit",
-        "header 2 x %d, pitch %.2f mm: rows %.2f mm (want %.2f), span %.2f mm "
-        "(want %.2f)" % (d["pins_per_row"], d["pitch_mm"], rows,
-                         d["row_spacing_mm"], span, want_span))
+        "header rows at %s mm from J1 (want %s), pitch %.2f mm, span %.2f mm (want %.2f)"
+        % (cols, want_cols, d["pitch_mm"], span, want_span))
     rx0, ry0, rx1, ry1 = M.DEVKIT["outline_rel"]
     p = fp.GetPosition()
     cx, cy = MM(p.x), MM(p.y)
@@ -247,7 +247,7 @@ def check_devkit(board):
             % (mx0, mx1, my0, my1, my0 - by0))
     under = []
     for other in board.GetFootprints():
-        if other.GetReference() == "IC1":
+        if other.GetReference() == "IC1" or other.GetReference() in getattr(M, "DEVKIT_HEADERS", ()):
             continue
         q = other.GetPosition()
         qx, qy = MM(q.x), MM(q.y)
@@ -390,7 +390,7 @@ def overlay_devkit_svg(board, path):
              % (cx + rx0, cy + ry0, rx1 - rx0, ry1 - ry0))
     o.append('<rect x="%.3f" y="%.3f" width="28" height="70" fill="#c60" '
              'fill-opacity="0.14" stroke="#c60" stroke-width="0.25" '
-             'stroke-dasharray="1.5 1"/>' % (cx - 14, cy - 35))
+             'stroke-dasharray="1.5 1"/>' % (cx + (rx0 + rx1) / 2 - 14, cy - 35))
     for q in fp.Pads():
         if not q.GetNumber():
             continue
@@ -401,8 +401,8 @@ def overlay_devkit_svg(board, path):
                     MM(sz.x), MM(sz.y)))
     o.append('</g>')
     o.append('<text x="8" y="5" font-size="2.4" fill="#222">ESP32-S3-DevKitC-1'
-             ' - blue: header pads, green: footprint outline 26.42 x 62.74, '
-             'orange dashed: 28 x 70 from third-party sources</text>')
+             ' - blue: header pads, green: footprint outline %.2f x %.2f, '
+             'orange dashed: 28 x 70 from third-party sources</text>' % M.DEVKIT["outline_mm"])
     o.append('<text x="8" y="9" font-size="2.0" fill="#a00">if the module is '
              'really 70 mm long it overhangs our top edge - confirm against '
              'Espressif DXF_ESP32-S3-DevKitC-1_V1.1</text>')

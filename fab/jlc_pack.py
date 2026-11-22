@@ -6,8 +6,9 @@ Writes fab/jlc_<variant>_<date>/:
   <name>_BOM_JLC.csv           Comment, Designator, Footprint, LCSC Part #   (JLC column names)
   <name>_CPL_JLC.csv           Designator, Mid X, Mid Y, Layer, Rotation     (JLC column names)
   pack_report.txt              what went in, what was left out and why
-The JLC-assembled parts are the SMD passives, the LDO and the keys. Left out on purpose
-(hand-fitted or not parts at all): displays, the DevKit, the Samtec sockets, the debug header,
+The JLC-assembled parts are the SMD passives, the LDO, the keys, the Samtec connectors, the TFT's
+SMD socket and the DevKit headers (THT). Left out on purpose (hand-fitted or not parts at all):
+the OLED, the DevKit itself, the debug header,
 solder jumpers, test points, mounting holes, and every DNP part.
 Gate: KiCad DRC (errors only, with schematic parity) must be clean, or nothing is written.
 LCSC numbers: fab/jlc_lcsc.csv, keyed by Value + Footprint, checked against the BOM: a fitted
@@ -15,7 +16,7 @@ part without an LCSC number stops the run.
 
 usage: "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe" fab/jlc_pack.py [variant-name]
 """
-import os, sys, csv, json, zipfile, datetime, subprocess, collections, re
+import os, sys, csv, json, zipfile, datetime, subprocess, collections, re, math
 
 CLI = os.environ.get('KICAD_CLI', r'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe')
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -23,13 +24,21 @@ REPO = os.path.dirname(HERE)
 PRJ = os.path.join(REPO, 'CAD', 'ionosmini_1v0')
 PCB = os.path.join(PRJ, 'ionosSDR_mini.kicad_pcb')
 SCH = os.path.join(PRJ, 'ionosSDR_mini.kicad_sch')
-EXCLUDE = re.compile(r'^(DISP\d+|IC\d+|JP\d+|TP\d+|H\d+)$')     # CON1/CON2 (Samtec) are JLC-assembled
+EXCLUDE = re.compile(r'^(DISP1|IC\d+|JP\d+|TP\d+|H\d+)$')     # CON1/CON2 (Samtec), DISP2's SMD socket and the
+# DevKit headers J10-J12 (THT) are JLC-assembled
 # BOM Comment override per LCSC part, when the part ordered differs from the schematic Value
-COMMENT = {'C17227108': 'TFM-120-02-L-D-K-TR'}      # TFC-120-02 out of stock -> Samtec TFM (male, unshrouded)
+COMMENT = {'C17227108': 'TFM-120-02-L-D-K-TR',     # TFC-120-02 out of stock -> Samtec TFM (male, unshrouded)
+           'C3975165': 'PM254-2-20-S-8.5',          # DISP2 = the TFT's 2x20 SMD socket, not the display
+           'C41376161': 'HC-PM254-8.5H-1x22PZ'}      # TFC-120-02 out of stock -> Samtec TFM (male, unshrouded)
 # CPL rotation offset per LCSC part, measured in the JLC placement preview (magenta pin 1 vs KiCad pin 1).
 # Per JLC library model, not per package: AP2112K (SOT-23-5) needed +270 on the CW trainer.
 ROT = {'C80670': 180}                                # LP5907MFX-3.3, 2026-10-22 preview
-WHY = {'DISP': 'display module, fitted by hand', 'IC': 'ESP32-S3 DevKit on headers, fitted by hand',
+# CPL centre offset per LCSC part, in footprint coordinates (x right, y down at 0 deg), where the KiCad
+# origin is not the body centre. C3975165: the TFT socket footprint has its origin on pin 1; the JLC
+# (EasyEDA) model is centred on the 2x20 field. Its numbering is mirrored against ours (odd row on the
+# other side), but the socket is symmetric, so 0 deg fits the copper.
+OFFSET = {'C3975165': (24.13, 1.27)}
+WHY = {'DISP': 'OLED module, fitted by hand', 'IC': 'ESP32-S3 DevKit on headers, fitted by hand',
        'JP': 'solder jumper, copper only',
        'TP': 'test pad, copper only', 'H': 'mounting hole'}
 
@@ -54,7 +63,7 @@ def copper_layers():
 def main():
     variant = sys.argv[1] if len(sys.argv) > 1 else ('4L' if len(copper_layers()) > 2 else '2L')
     date = datetime.date.today().strftime('%Y%m%d')
-    name = 'ionos-sdr-mini_revB3_%s_%s' % (variant, date)
+    name = 'ionos-sdr-mini_v1.1_%s_%s' % (variant, date)
     out = os.path.join(HERE, 'jlc_%s_%s' % (variant, date))
     gdir = os.path.join(out, 'gerber')
     os.makedirs(gdir, exist_ok=True)
@@ -135,7 +144,13 @@ def main():
             if r['Ref'] not in jlc_refs:
                 continue
             side = 'Top' if r['Side'].lower().startswith('top') else 'Bottom'
-            w.writerow([r['Ref'], '%.4fmm' % float(r['PosX']), '%.4fmm' % float(r['PosY']), side, '%g' % ((float(r['Rot']) + ROT.get(part_of[r['Ref']], 0)) % 360)])
+            px, py = float(r['PosX']), float(r['PosY'])
+            dx, dy = OFFSET.get(part_of[r['Ref']], (0.0, 0.0))
+            if dx or dy:          # .pos is y-up: rotate the local (y-down) offset by the footprint angle
+                a = math.radians(float(r['Rot']))
+                px += dx * math.cos(a) + dy * math.sin(a)
+                py += dx * math.sin(a) - dy * math.cos(a)
+            w.writerow([r['Ref'], '%.4fmm' % px, '%.4fmm' % py, side, '%g' % ((float(r['Rot']) + ROT.get(part_of[r['Ref']], 0)) % 360)])
             seen.add(r['Ref'])
     if seen != jlc_refs:
         sys.exit('CPL and BOM disagree: %s' % sorted(seen ^ jlc_refs))
