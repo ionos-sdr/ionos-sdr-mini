@@ -148,6 +148,19 @@ Over the air at home (Budapest, ~1 km from the Danube), magÔÇĹmount 2 m whip 
 <p align="center"><img src="docs/img/tft_waterfall_before_after.png" width="88%" alt="TFT waterfall emulator: old vs new display settings on AIS and APRS captures"></p>
 <p align="center"><i>OnÔÇĹdevice TFT waterfall (PC emulator of the firmware): old vs new ÔÇö perÔÇĹbin peak of the 3 FFTs per row, 24 dB range, DC patch ┬▒1 bin.</i></p>
 
+### AIS: I/Q path vs FG23 on-chip, 23 Nov 2026 — VSG60 and live
+
+Same firmware, two receive modes: the ESP32 demodulates the FG23's I/Q stream, or the FG23 decodes AIS itself (own PHY, LEGACY demod, HDLC/CRC on-chip). Details: [`measurements/ionos-mini-2026-11-23-ais-onchip/`](measurements/ionos-mini-2026-11-23-ais-onchip/RESULT.md).
+
+| | I/Q path | FG23 on-chip |
+|---|---|---|
+| 50 % PER (VSG, 10 bursts/s) | ≈ −106.3 dBm | ≈ −105.3 dBm |
+| frequency offset at −103 dBm, PER ≤ 7 % | about ±1 kHz | about ±3 kHz |
+| CW on channel B (+50 kHz), +30 dBc | channel A blocked (alias) | no loss up to +50 dBc |
+| every slot busy (37.5 bursts/s, −96 dBm) | 0 % | 0 % |
+| live, 3 h alternating (Danube) | 2.42 msgs/min | 2.76 msgs/min |
+| channels | A | A or B |
+
 ## Manufacturing files
 
 Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-4l-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-4l-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
@@ -164,9 +177,10 @@ JLC assembles the top-side SMD parts, the two radio board connectors, the TFT so
 hardware/          KiCad project, fab outputs, BOM           CERN-OHL-P-2.0
 docs/              pin mapping, assembly notes, renders      CC-BY-4.0
 measurements/      raw data, scripts, results                CC-BY-4.0
+firmware/          ESP32-S3 + FG23 source snapshot           MIT
 ```
 
-Firmware lives in the [main repository](https://github.com/ionos-sdr/ionos-sdr): `firmware-fg23/` for the radio SoC, `firmware-esp32/` for the companion.
+Firmware is developed in the [main repository](https://github.com/ionos-sdr/ionos-sdr) (`firmware-fg23/`, `firmware-esp32/`); [`firmware/`](firmware/) here is the snapshot that runs on the measured units, with both AIS receive modes (I/Q and FG23 on-chip). See [`firmware/README.md`](firmware/README.md).
 
 ## Credits, licensing, trademarks
 
