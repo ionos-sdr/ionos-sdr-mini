@@ -154,11 +154,11 @@ Same firmware, two receive modes: the ESP32 demodulates the FG23's I/Q stream, o
 
 | | I/Q path | FG23 on-chip |
 |---|---|---|
-| 50 % PER (VSG, 10 bursts/s) | ≈ −106.3 dBm | ≈ −105.3 dBm |
+| 50 % PER (VSG, 10 bursts/s, 26 cycles overnight) | −106.19 dBm (sd 0.17) | −105.45 dBm (sd 0.10) |
 | frequency offset at −103 dBm, PER ≤ 7 % | about ±1 kHz | about ±3 kHz |
 | CW on channel B (+50 kHz), +30 dBc | channel A blocked (alias) | no loss up to +50 dBc |
 | every slot busy (37.5 bursts/s, −96 dBm) | 0 % | 0 % |
-| live, 3 h alternating (Danube) | 2.42 msgs/min | 2.76 msgs/min |
+| live, 15 h alternating (Danube) | 1.67 msgs/min (721) | 2.08 msgs/min (902) |
 | channels | A | A or B |
 
 ## Manufacturing files
