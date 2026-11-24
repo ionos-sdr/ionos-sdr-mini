@@ -111,7 +111,69 @@ bench's I/Q retune fix: first hour IQ 4.54/min, native 4.71/min (HW/IQ 1.04);
 after ~3 h IQ 2.42/min (226 msgs, 19 slots), native 2.76/min (244 msgs, 18
 slots), **HW/IQ 1.14**; stations both 67, IQ only 8, native only 14.
 
-## Overnight run
+## Overnight run (26 cycles, 2026-11-23 18:53 → 11-24 07:57)
 
-All of the above repeated (~31 min per cycle, 13 h from 2026-11-23 18:53) —
-drift and repeatability to be added.
+Everything above repeated 26 times in 13 h (`scripts/overnight.py`, ~31 min
+per cycle, 2118 points): [`data/overnight.csv`](data/overnight.csv),
+summary [`data/overnight_summary.txt`](data/overnight_summary.txt), charts by
+`scripts/analyze_overnight.py`.
+
+![PER vs level](data/overnight_sensitivity.png)
+
+| board dBm | native PER (mean ± sd) | IQ PER (mean ± sd) |
+|---|---|---|
+| −96 / −100 | 0 % | 0 % |
+| −102 | 0.4 ± 0.5 % | 0.3 ± 0.5 % |
+| −103 | 4.2 ± 1.5 % | 1.5 ± 1.2 % |
+| −104 | 14.1 ± 2.9 % | 6.4 ± 2.2 % |
+| −105 | 35.8 ± 4.3 % | 19.6 ± 3.4 % |
+| −106 | 66.8 ± 2.8 % | 44.5 ± 5.4 % |
+| −107 | 91.0 ± 2.4 % | 72.1 ± 4.3 % |
+| −108 | 99.2 ± 0.5 % | 91.6 ± 1.7 % |
+
+**50 % point, per cycle: native −105.45 dBm (sd 0.10, range −105.62…−105.22),
+IQ −106.19 dBm (sd 0.17, range −106.40…−105.75)** — a steady 0.74 dB in favour
+of the I/Q path on a clean, on-frequency signal; neither path drifted over the
+night ([`data/overnight_p50_drift.png`](data/overnight_p50_drift.png)).
+
+![frequency offset](data/overnight_foff.png)
+
+Frequency offset at −103 dBm (26 cycles): the native path stays ≤ 7.7 % from
+−3 to +3 kHz; the I/Q path is 42 % at −1 kHz and 52 % at +2 kHz, ≥ 97 % beyond
+±2–3 kHz. This, not the 0.74 dB, is what decides live reception
+(native/IQ 1.21–1.32 on the Danube over the same night, see below).
+
+CW interferer (mean of 26 cycles, 30 / 40 / 50 / 60 dBc):
+
+| CW offset | native | IQ |
+|---|---|---|
+| +25 kHz | 0 / 0 / 0 / 67 % | 0 / 0.1 / **100** / 100 % |
+| −25 kHz | 0 / 0 / 0 / 65 % | 0 / 0 / **100** / 100 % |
+| +50 kHz (channel B) | 0 / 0.4 / 0.7 / 100 % | **100 / 100 / 100 / 100 %** |
+| +100 kHz | 0 / 0 / 0 / 96 % | 0 / 0 / 0 / 16 % |
+| −300 kHz | 0 / 0 / 0 / 16.5 % | 0 / 0 / 0 / 3.1 % |
+
+Every slot busy (37.5 bursts/s): −96 dBm 0 % on both in all 26 cycles;
+−104 dBm native 9.4 ± 1.2 %, IQ 6.4 ± 1.1 %. Channel B (native): −100 dBm 0 %,
+−104 dBm 13.4 ± 2.8 %, −106 dBm 64.6 ± 3.3 % — same as A.
+
+Reported frequency offset through the night
+([`data/overnight_df_drift.png`](data/overnight_df_drift.png)): the I/Q
+demod's Δf moved from ~+295 to ~+224 Hz (ID2's crystal warming / cooling in
+the office). The native Δf (RAIL's frequency offset estimate, converted with
+the I/Q synth step — **not calibrated**, quantised in ~255 Hz steps) moved
+from −1356 to −2110 Hz with a step around 06:30; its scale is wrong by a
+factor still to be measured, so it is only a relative indicator for now.
+
+### Live, same night (ID1, home, `AISBENCH 5`)
+
+| time | IQ msgs/min | native msgs/min | native / IQ | stations both / IQ only / native only |
+|---|---|---|---|---|
+| 18:22 | 4.54 | 4.71 | 1.04 | 56 / 7 / 10 |
+| 21:29 | 2.16 | 2.85 | 1.32 | 71 / 11 / 13 |
+| 02:36 | 1.76 | 2.16 | 1.23 | 76 / 17 / 9 |
+| 08:02 | 1.67 (721 msgs, 88 slots) | 2.08 (902 msgs, 88 slots) | **1.25** | 77 / 20 / 8 |
+
+Cumulative since 17:21. Over ~15 h the native path decoded 25 % more
+messages; the I/Q path still hears a few more distinct stations (20 vs 8
+exclusive) — candidates for the weakest, on-frequency ones.
