@@ -177,3 +177,16 @@ factor still to be measured, so it is only a relative indicator for now.
 Cumulative since 17:21. Over ~15 h the native path decoded 25 % more
 messages; the I/Q path still hears a few more distinct stations (20 vs 8
 exclusive) — candidates for the weakest, on-frequency ones.
+
+### Live, full run until the switch to ADS-B (proxy log, 2026-11-25)
+
+[`data/live_bench_2026-11-24.json`](data/live_bench_2026-11-24.json) is the guest-map proxy's
+AISBENCH log (23 Nov 21:43 to 24 Nov 12:28, 14.7 h counted, 7.36 h per path): I/Q 597 messages
+(81/h), on-chip 742 (101/h), **ratio 1.24**; the on-chip path is ahead in 10 of 13 full hours.
+95 stations: 74 heard by both, 20 by I/Q only, 1 by on-chip only. Every I/Q-only station has
+exactly one message at -103...-106 dBm reported level, and one of them has a 10-digit (invalid)
+MMSI: part of the I/Q-only set are CRC-by-chance decodes, not weak real stations. An MMSI /
+plausibility filter is needed on the I/Q path.
+
+Report with charts (EN/HU): [`docs/reports/`](../../docs/reports/); charts and PDF are made by
+`scripts/report_charts.py` and `scripts/report_build.py`.

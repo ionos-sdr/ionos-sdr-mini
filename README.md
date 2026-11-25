@@ -161,6 +161,8 @@ Same firmware, two receive modes: the ESP32 demodulates the FG23's I/Q stream, o
 | live, 15 h alternating (Danube) | 1.67 msgs/min (721) | 2.08 msgs/min (902) |
 | channels | A | A or B |
 
+**Full AIS report (PDF, 25 Nov 2026)** — instrument (VSG60A) and field tests, test hours, charts, and whether channel B can run on the I/Q path at the same time: [English](docs/reports/ionos-mini_AIS_report_EN_2026-11-25.pdf) · [Magyar](docs/reports/ionos-mini_AIS_jelentes_HU_2026-11-25.pdf). Live AISBENCH log and the chart/report scripts are in [`measurements/ionos-mini-2026-11-23-ais-onchip/`](measurements/ionos-mini-2026-11-23-ais-onchip/).
+
 ## Manufacturing files
 
 Gerbers, drill, JLCPCB BOM and CPL are attached to the GitHub release [`rev-b3-4l-20261022`](https://github.com/ionos-sdr/ionos-sdr-mini/releases/tag/rev-b3-4l-20261022), not committed. To rebuild them from the KiCad project (DRC and schematic parity must be clean, or nothing is written):
