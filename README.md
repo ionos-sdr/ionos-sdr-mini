@@ -2,7 +2,7 @@
 
 ![Ionos SDR mini](docs/img/banner.png)
 
-Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts ÔÇö the radio board you already have in a drawer does the RF.
+Simplified, low-cost sibling of [Ionos SDR](https://github.com/ionos-sdr/ionos-sdr): a carrier PCB that turns a stock Silicon Labs radio board into a usable SDR. An ESP32-S3 DevKitC sits on female headers on the left, a Silicon Labs radio board plugs into the mezzanine socket on the right, and both displays are optional. No custom RF design, no exotic parts — the radio board you already have in a drawer does the RF.
 
 ![Ionos SDR mini v1.1, KiCad 3D render in perspective: ESP32-S3 DevKitC, 0.96 inch OLED, BACK/OK keys, 2.4 inch ER-TFTM024-3 TFT, cursor keys and the radio board connectors](docs/img/ionos-sdr-mini_v1.1_3d_iso.jpg)
 
@@ -117,36 +117,36 @@ The pins connect on the radio side of the solder-jumper cut points. With a debug
 
 All measurements so far are on **rev-B3 2L** + BRD4265B, the board that was built (tag [`rev-b3-2l`](https://github.com/ionos-sdr/ionos-sdr-mini/tree/rev-b3-2l)); v1.1 has not been built yet.
 
-**Time on test so far: Ôëł 86 hours** (rev-B3 2L + BRD4265B, 2ÔÇô9 Nov 2026): Ôëł 54 h RF with a calibrated signal generator, Ôëł 32 h USB-only soaks.
-Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) ┬Ě raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
+**Time on test so far: ≈ 86 hours** (rev-B3 2L + BRD4265B, 2–9 Nov 2026): ≈ 54 h RF with a calibrated signal generator, ≈ 32 h USB-only soaks.
+Full report: [`docs/ionos-mini-measurements-2026-11.md`](docs/ionos-mini-measurements-2026-11.md) ([magyarul](docs/hu/ionos-mini-meresi-jelentes-2026-11.md)) · raw data and scripts: [`measurements/ionos-mini-2026-11/`](measurements/ionos-mini-2026-11/).
 
 | BRD4265B (434 MHz match), measured at 145 MHz | |
 |---|---|
-| I/Q over USB (TinyUSB CDC on USBÔÇĹOTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
-| Gain / clipping | dBFS = P_in + 53.68 dB (¤â 0.10 dB over 40 h), clip Ôëł Ôłĺ52 dBm |
-| NF / MDS | Ôëł 8.6 dB / Ôëł Ôłĺ128 dBm (10 dB SNR, 500 Hz) |
-| 200 ksps bandwidth / image rejection | 88 kHz at Ôłĺ3 dB (PHY channel filter) / Ôëą 42 dB |
-| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to Ôłĺ11 ppm), 1.9 ppm pÔÇĹp diurnal |
-| Tuning range with the 145 MHz PHY | 128.34 ÔÇô 198.07 MHz; CW NF 7.9 ÔÇô 11.9 dB across it |
-| 2ÔÇĹFSK 5 kbps, BER 10Ôü╗┬▓ | median Ôłĺ110 dBm (simple discriminator reference) |
+| I/Q over USB (TinyUSB CDC on USB‑OTG) | 200 ksps int16 (813 kB/s); 40 h: 86 M blocks, 0 device drops, 0.65 ppm host loss |
+| Gain / clipping | dBFS = P_in + 53.68 dB (σ 0.10 dB over 40 h), clip ≈ −52 dBm |
+| NF / MDS | ≈ 8.6 dB / ≈ −128 dBm (10 dB SNR, 500 Hz) |
+| 200 ksps bandwidth / image rejection | 88 kHz at −3 dB (PHY channel filter) / ≥ 42 dB |
+| Frequency | crystal +4.2 ppm raw (firmware correction currently over-corrects to −11 ppm), 1.9 ppm p‑p diurnal |
+| Tuning range with the 145 MHz PHY | 128.34 – 198.07 MHz; CW NF 7.9 – 11.9 dB across it |
+| 2‑FSK 5 kbps, BER 10⁻² | median −110 dBm (simple discriminator reference) |
 | SoapySDR | SoapyIonos driver works on Windows (GQRX, SoapySDRUtil, Python); 3.25 M blocks in the sweeps, 4 lost |
-| Known artefact | ┬▒6.25 kHz sidebands (Ôłĺ74 dBc at 5 kHz, Ôłĺ43 dBc at 37 kHz tone offset) from the I/Q path ÔÇö open |
+| Known artefact | ±6.25 kHz sidebands (−74 dBc at 5 kHz, −43 dBc at 37 kHz tone offset) from the I/Q path — open |
 
-### Receive tests, 22 Nov 2026 ÔÇö APRS, AIS, ground loop
+### Receive tests, 22 Nov 2026 — APRS, AIS, ground loop
 
-Over the air at home (Budapest, ~1 km from the Danube), magÔÇĹmount 2 m whip on a radiator. Details: [`measurements/ionos-mini-2026-11-22-rx/`](measurements/ionos-mini-2026-11-22-rx/RESULT.md).
+Over the air at home (Budapest, ~1 km from the Danube), mag‑mount 2 m whip on a radiator. Details: [`measurements/ionos-mini-2026-11-22-rx/`](measurements/ionos-mini-2026-11-22-rx/RESULT.md).
 
 | | |
 |---|---|
-| APRS 144.800, onÔÇĹdevice AFSK demod | channel FIR before the discriminator: 20 of 20 bursts on a 20ÔÇĹmin capture (old firmware 0); ~25 packets/h gated live |
-| AIS 161.975 (channel A), onÔÇĹdevice GMSK demod | battery supply: 56 of 63 bursts (89 %); live 70 min: 788 messages, 82 stations (64 river AtoN, 14 vessels); NMEA on TCP 10110 |
-| AIS perÔÇĹpacket level / SNR / offset | Ôłĺ46 ÔÇŽ Ôłĺ36 dBFS, SNR 9ÔÇô25 dB (median 15), ┬▒600 Hz |
-| **Ground loop** (mainsÔÇĹcharged laptop USB + antenna on a radiator, no PE in the house) | 12ÔÇô17 dB gain dips, 2ÔÇô4 ms, every 20 ms: AIS 13 of 398 bursts, APRS dead after dark. **Use a battery or isolate the USB.** |
+| APRS 144.800, on‑device AFSK demod | channel FIR before the discriminator: 20 of 20 bursts on a 20‑min capture (old firmware 0); ~25 packets/h gated live |
+| AIS 161.975 (channel A), on‑device GMSK demod | battery supply: 56 of 63 bursts (89 %); live 70 min: 788 messages, 82 stations (64 river AtoN, 14 vessels); NMEA on TCP 10110 |
+| AIS per‑packet level / SNR / offset | −46 … −36 dBFS, SNR 9–25 dB (median 15), ±600 Hz |
+| **Ground loop** (mains‑charged laptop USB + antenna on a radiator, no PE in the house) | 12–17 dB gain dips, 2–4 ms, every 20 ms: AIS 13 of 398 bursts, APRS dead after dark. **Use a battery or isolate the USB.** |
 
 <p align="center"><img src="docs/img/ais_groundloop_bars.png" width="62%" alt="AIS bursts: 97 % with a gain dip and 3 % decoded on mains-charged USB, 2 % and 89 % on a powerbank"></p>
 <p align="center"><img src="docs/img/ais_burst_envelope.png" width="88%" alt="AIS burst envelope: a ~4 ms, -15 dB dip on mains-charged USB; flat on a powerbank"></p>
 <p align="center"><img src="docs/img/tft_waterfall_before_after.png" width="88%" alt="TFT waterfall emulator: old vs new display settings on AIS and APRS captures"></p>
-<p align="center"><i>OnÔÇĹdevice TFT waterfall (PC emulator of the firmware): old vs new ÔÇö perÔÇĹbin peak of the 3 FFTs per row, 24 dB range, DC patch ┬▒1 bin.</i></p>
+<p align="center"><i>On‑device TFT waterfall (PC emulator of the firmware): old vs new — per‑bin peak of the 3 FFTs per row, 24 dB range, DC patch ±1 bin.</i></p>
 
 ### AIS: I/Q path vs FG23 on-chip, 23 Nov 2026 — VSG60 and live
 
@@ -188,4 +188,4 @@ Firmware is developed in the [main repository](https://github.com/ionos-sdr/iono
 
 Hardware under CERN-OHL-P-2.0, documentation under CC-BY-4.0. Not affiliated with IONOS SE or Silicon Laboratories; EFR32, Simplicity Studio and the WSTK radio board interface are Silicon Labs property, used here for interoperability only.
 
-Designed by Zolt├ín D├│czi and Zolt├ín Papp at [Z2 Labs](https://www.z2labs.io/), Budapest. Design and manufacturing support by [Protowoerk](https://www.protowoerk.com).
+Designed by Zoltán Dóczi and Zoltán Papp at [Z2 Labs](https://www.z2labs.io/), Budapest. Design and manufacturing support by [Protowoerk](https://www.protowoerk.com).
